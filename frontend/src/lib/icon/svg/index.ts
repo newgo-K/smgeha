@@ -1,0 +1,15 @@
+export { ReactComponent as pencil } from './pencil.svg';
+export { ReactComponent as user } from './user.svg';
+export { ReactComponent as building } from './building.svg';
+export { ReactComponent as leftArrow } from './leftArrow.svg';
+export { ReactComponent as rightArrow } from './rightArrow.svg';
+export { ReactComponent as locationSearching } from './locationSearching.svg';
+export { ReactComponent as myLocation } from './myLocation.svg';
+export { ReactComponent as checkCircleLine } from './checkCircleLine.svg';
+export { ReactComponent as checkCircleFill } from './checkCircleFill.svg';
+export { ReactComponent as closeLine } from './closeLine.svg';
+export { ReactComponent as menu } from './menu.svg';
+export { ReactComponent as search } from './search.svg';
+export { ReactComponent as upArrow } from './upArrow.svg';
+export { ReactComponent as circle } from './circle.svg';
+export { ReactComponent as close } from './close.svg';
