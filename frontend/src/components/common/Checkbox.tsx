@@ -2,14 +2,12 @@ import React from 'react';
 import { css } from '@emotion/react';
 import {
   Checkbox as MaterialCheckbox,
-  createMuiTheme,
   FormControlLabel,
 } from '@material-ui/core';
 import palette from 'lib/styles/palette';
 import Icon from 'lib/icon/Icon';
 import Button from './Button';
 import styled from '@emotion/styled';
-import initTheme from 'initTheme';
 
 export type CheckboxProps = {
   /** 클래스 이름 */
@@ -81,8 +79,6 @@ const Wrap = styled.div`
   display: flex;
   align-items: center;
 `;
-
-const theme = initTheme;
 
 const sizes = {
   small: css`

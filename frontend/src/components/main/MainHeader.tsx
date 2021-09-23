@@ -1,8 +1,6 @@
 import styled from '@emotion/styled';
 import React from 'react';
 import palette from 'lib/styles/palette';
-import Button, { ButtonProps } from 'components/common/Button';
-import { css } from '@emotion/react';
 import Icon from 'lib/icon/Icon';
 import { Desktop, formWidth, mediaQuery, Mobile } from 'lib/styles/common';
 import CustomizedMenus from 'components/common/Menu';

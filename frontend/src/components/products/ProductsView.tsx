@@ -38,76 +38,9 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const sampleData = [
-  {
-    title: 'LG 4도어 냉장고',
-    sub: [
-      '제조넘버 : A-0001',
-      '제조사 : LG',
-      '용량 : 821L',
-      '도어수 : 4도어',
-      '디자인 : 메탈 화이트',
-    ],
-    price: '520,000원',
-  },
-  {
-    title: 'LG 4도어 냉장고',
-    sub: [
-      '제조넘버 : A-0001',
-      '제조사 : LG',
-      '용량 : 821L',
-      '도어수 : 4도어',
-      '디자인 : 메탈 화이트',
-    ],
-    price: '520,000원',
-  },
-  {
-    title: 'LG 4도어 냉장고',
-    sub: [
-      '제조넘버 : A-0001',
-      '제조사 : LG',
-      '용량 : 821L',
-      '도어수 : 4도어',
-      '디자인 : 메탈 화이트',
-    ],
-    price: '520,000원',
-  },
-  {
-    title: 'LG 4도어 냉장고',
-    sub: [
-      '제조넘버 : A-0001',
-      '제조사 : LG',
-      '용량 : 821L',
-      '도어수 : 4도어',
-      '디자인 : 메탈 화이트',
-    ],
-    price: '520,000원',
-  },
-  {
-    title: 'LG 4도어 냉장고',
-    sub: [
-      '제조넘버 : A-0001',
-      '제조사 : LG',
-      '용량 : 821L',
-      '도어수 : 4도어',
-      '디자인 : 메탈 화이트',
-    ],
-    price: '520,000원',
-  },
-  {
-    title: 'LG 4도어 냉장고',
-    sub: [
-      '제조넘버 : A-0001',
-      '제조사 : LG',
-      '용량 : 821L',
-      '도어수 : 4도어',
-      '디자인 : 메탈 화이트',
-    ],
-    price: '520,000원',
-  },
-];
+const ProductCard = ({ ...props }: resProductPacket) => {
+  const { title, num, make, liter, door, design, price } = { ...props };
 
-const ProductCard = ({ title, sub, price }: any) => {
   const classes = useStyles();
 
   return (
@@ -117,16 +50,16 @@ const ProductCard = ({ title, sub, price }: any) => {
       <CardContent className={classes.content}>
         <Typography variant="h4">{title}</Typography>
         <Divider />
-        {/* {sub.map((t: any) => ( */}
-        <ContentSub>{sub}</ContentSub>
-        {/* ))} */}
+        <ContentSub>제품 넘버: {num}</ContentSub>
+        <ContentSub>제조사: {make}</ContentSub>
+        <ContentSub>크기: {liter}</ContentSub>
         <ContentPrice>{price}</ContentPrice>
       </CardContent>
     </Card>
   );
 };
 
-export default function MainBody({ data }: any) {
+function ProductsView({ data }: any) {
   return (
     <Wrap>
       {data &&
@@ -175,3 +108,5 @@ const ContentPrice = (props: any) => (
     <Typography variant="subtitle1" {...props} />
   </div>
 );
+
+export default ProductsView;

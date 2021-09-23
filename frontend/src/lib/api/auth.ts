@@ -1,4 +1,4 @@
-import client, { resCommonPacket } from './client';
+import client from './client';
 
 /////////////////////////////////////
 // 로그인
@@ -8,7 +8,7 @@ export type reqLoginPacket = {
   password: string;
 };
 
-export type resLoginPacket = resCommonPacket & {
+export type resLoginPacket = {
   data: any;
 };
 
@@ -28,7 +28,7 @@ export type reqRegPacket = {
   mobile: string;
 };
 
-export type resRegPacket = resCommonPacket & {
+export type resRegPacket = {
   data: any;
 };
 
@@ -76,7 +76,7 @@ export type reqPinCodePacket = {
   email: string;
 };
 
-export type resPinCodePacket = resCommonPacket & {
+export type resPinCodePacket = {
   data: any;
 };
 
@@ -95,7 +95,7 @@ export type reqCheckCodePacket = {
   pinCode: string;
 };
 
-export type resCheckCodePacket = resCommonPacket & {
+export type resCheckCodePacket = {
   data: any;
 };
 
@@ -116,7 +116,7 @@ export type reqChangePasswordPacket = {
   password: string;
 };
 
-export type resChangePasswordPacket = resCommonPacket & {
+export type resChangePasswordPacket = {
   data: any;
 };
 

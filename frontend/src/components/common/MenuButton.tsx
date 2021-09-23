@@ -1,12 +1,8 @@
-import React, { useCallback } from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Button, { ButtonProps } from 'components/common/Button';
-import Menu, { MenuProps } from '@material-ui/core/Menu';
-import { MenuItem as MaterialMenuItem } from '@material-ui/core';
-import ListItemText from '@material-ui/core/ListItemText';
-import { css } from '@mui/styled-engine';
 import palette from 'lib/styles/palette';
+import React from 'react';
 import styled from '@emotion/styled';
+import { ButtonProps, Menu, MenuProps, withStyles } from '@material-ui/core';
+import { MenuItem as MaterialMenuItem } from '@material-ui/core';
 
 const StyledMenu = withStyles({
   paper: {
@@ -49,50 +45,17 @@ const StyledMenuItem = withStyles((theme) => ({
   },
 }))(MaterialMenuItem);
 
-export const MenuItem = ({ text, onClick }: any) => {
-  return (
-    <StyledMenuItem disableRipple disableTouchRipple>
-      <ListItemText primary={text} onClick={onClick} />
-    </StyledMenuItem>
-  );
-};
-
-const test: Array<any> = [
-  {
-    title: '업체소개',
-    subTitle: undefined,
-  },
-  {
-    title: '냉장고',
-    subTitle: ['냉장고', '김치 냉장고'],
-  },
-  {
-    title: '에어컨',
-    subTitle: ['벽걸이 에어컨', '스탠드 에어컨'],
-  },
-  {
-    title: '세탁기',
-    subTitle: null,
-  },
-  {
-    title: 'TV',
-    subTitle: null,
-  },
-  {
-    title: '기타제품',
-    subTitle: null,
-  },
-  {
-    title: '자주묻는 질문',
-    subTitle: null,
-  },
-];
-
-const Ttt = ({ title, subTitle }: any) => {
+function MenuButton({
+  anchorEl,
+  handleClick,
+  handleClose,
+  title,
+  subTitle,
+}: any) {
   return (
     <>
       {subTitle ? (
-        <div>
+        <li>
           <ButtonStyles
             aria-controls="customized-menu"
             aria-haspopup="true"
@@ -113,25 +76,13 @@ const Ttt = ({ title, subTitle }: any) => {
               <MenuItem onClick={handleClose} text={t} />
             ))}
           </StyledMenu>
-        </div>
+        </li>
       ) : (
-        <div>
+        <li>
           <ButtonStyles variant="text">{title}</ButtonStyles>
-        </div>
+        </li>
       )}
     </>
-  );
-};
-
-export default function CustomizedMenus() {
-  return (
-    <ElList>
-      {test.map((t: any, key: any) => (
-        <li>
-          <Ttt title={t.title} subTitle={t.subTitle} />
-        </li>
-      ))}
-    </ElList>
   );
 }
 
@@ -161,3 +112,5 @@ const ElList = styled.ul`
     align-items: center;
   }
 `;
+
+export default MenuButton;

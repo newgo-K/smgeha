@@ -106,10 +106,6 @@ const Container = styled.div`
   width: 210px;
 `;
 
-const CardBox = styled.div`
-  cursor: pointer;
-`;
-
 const CardImg = styled.img`
   width: 150px !important;
   height: 250px !important;

@@ -1,5 +1,4 @@
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
 import Icon from 'lib/icon/Icon';
 import palette from 'lib/styles/palette';
 import { css } from '@emotion/react';
