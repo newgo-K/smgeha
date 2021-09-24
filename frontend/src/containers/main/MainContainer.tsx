@@ -2,10 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'lib/modules';
 import { productsAsync } from 'lib/modules/product';
-import MainBody from 'components/main/MainBody';
-import MainHeader from 'components/main/MainHeader';
-import MainSideMenu from 'components/main/MainSideMenu';
-import MainTest from 'components/main/Main';
+import HeaderContainer from 'containers/common/HeaderContainer';
 
 function MainContainer() {
   const dispacth = useDispatch();
@@ -23,7 +20,7 @@ function MainContainer() {
 
   return (
     <div>
-      <MainTest data={data} />
+      <HeaderContainer />
     </div>
   );
 }

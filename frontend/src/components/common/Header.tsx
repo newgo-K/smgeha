@@ -1,96 +1,24 @@
 import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import React from 'react';
 import palette from 'lib/styles/palette';
 import Icon from 'lib/icon/Icon';
 import { Desktop, formWidth, mediaQuery, Mobile } from 'lib/styles/common';
-import CustomizedMenus from 'components/common/Menu';
-import { ButtonProps, Menu, MenuProps, withStyles } from '@material-ui/core';
-import { MenuItem as MaterialMenuItem } from '@material-ui/core';
+import Button, { ButtonProps } from './Button';
 
-const StyledMenu = withStyles({
-  paper: {
-    border: `1px solid ${palette.grey[2]}`,
-    borderRadius: 1,
-  },
-  list: {
-    color: palette.grey[4],
-    padding: '6px 2px',
-  },
-})((props: MenuProps) => (
-  <Menu
-    elevation={0}
-    getContentAnchorEl={null}
-    anchorOrigin={{
-      vertical: 'bottom',
-      horizontal: 'center',
-    }}
-    transformOrigin={{
-      vertical: 'top',
-      horizontal: 'center',
-    }}
-    variant="menu"
-    {...props}
-  />
-));
-
-const StyledMenuItem = withStyles((theme) => ({
-  root: {
-    padding: '3px 10px',
-    '&:focus': {
-      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
-        color: palette.main[4],
-      },
-    },
-    '&:hover': {
-      backgroundColor: 'transparent',
-      color: palette.main[4],
-    },
-  },
-}))(MaterialMenuItem);
-
-interface HeaderMenu {
-  title: string;
-  subTitle: null | Array<string>;
-}
-
-const headerMenu: Array<HeaderMenu> = [
-  {
-    title: '업체소개',
-    subTitle: null,
-  },
-  {
-    title: '냉장고',
-    subTitle: ['냉장고', '김치 냉장고'],
-  },
-  {
-    title: '에어컨',
-    subTitle: ['벽걸이 에어컨', '스탠드 에어컨'],
-  },
-  {
-    title: '세탁기',
-    subTitle: null,
-  },
-  {
-    title: 'TV',
-    subTitle: null,
-  },
-  {
-    title: '기타제품',
-    subTitle: null,
-  },
-  {
-    title: '자주묻는 질문',
-    subTitle: null,
-  },
-];
-
-function Header({ menuButtons }: any) {
+function Header({ titles, onClick }: any) {
   return (
     <Wrap>
       <Desktop>
         <img src="/img/logo.png" alt="logo" />
         <ElList>
-          <menuButtons />
+          {titles.map((title: string, index: number) => (
+            <li key={title}>
+              <ButtonStyles variant="text" onClick={() => onClick(index)}>
+                {title}
+              </ButtonStyles>
+            </li>
+          ))}
         </ElList>
 
         <Icon icon="search" color={palette.black[0]} size="1.1rem" />
@@ -145,6 +73,33 @@ const Wrap = styled.div`
     padding: 0 10px;
     min-width: ${formWidth()};
     max-width: ${formWidth('desktop')};
+  }
+`;
+
+const ButtonStyles = (props: ButtonProps) => (
+  <Button
+    css={css`
+      font-size: 15px !important;
+      color: ${palette.black[0]} !important;
+      cursor: pointer;
+      .MuiButton-label {
+        &:hover {
+          color: ${palette.main[4]};
+        }
+      }
+    `}
+    {...props}
+  />
+);
+
+const ElList = styled.ul`
+  min-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+
+  li {
+    display: flex;
+    align-items: center;
   }
 `;
 

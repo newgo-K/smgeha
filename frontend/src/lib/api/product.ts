@@ -16,8 +16,7 @@ export type resProductPacket = {
 };
 
 export async function reqProducts() {
-  debugger;
   const res = await client.get('/main');
 
-  return res.data; // as resProductPacket;
+  return res.data;
 }

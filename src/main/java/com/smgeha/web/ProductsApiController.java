@@ -2,8 +2,11 @@ package com.smgeha.web;
 
 import com.smgeha.domain.products.Products;
 import com.smgeha.service.products.ProductsService;
+import com.smgeha.web.dto.PostsResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -17,4 +20,10 @@ public class ProductsApiController {
     public List<Products> findAllDesc() {
         return productsService.findAllDesc();
     }
+
+    @PatchMapping("/main/{id}")
+    public List<Products> findById (@PathVariable short id) {
+        return productsService.findByProductId(id);
+    }
+
 }

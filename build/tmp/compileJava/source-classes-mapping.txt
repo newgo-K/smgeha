@@ -28,9 +28,11 @@ com/smgeha/web/dto/HelloResponseDto.java
 com/smgeha/domain/products/Products.java
  com.smgeha.domain.products.Products
  com.smgeha.domain.products.Products$ProductsBuilder
+com/smgeha/web/CommonApiController.java
+ com.smgeha.web.CommonApiController
 com/smgeha/service/products/ProductsService.java
  com.smgeha.service.products.ProductsService
-com/smgeha/domain/products/ProductsRepository.java
- com.smgeha.domain.products.ProductsRepository
 com/smgeha/web/ProductsApiController.java
  com.smgeha.web.ProductsApiController
+com/smgeha/domain/products/ProductsRepository.java
+ com.smgeha.domain.products.ProductsRepository

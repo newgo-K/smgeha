@@ -1,5 +1,4 @@
 import { css } from '@mui/styled-engine';
-import MainHedaer from 'components/main/MainHeader';
 import MainBody from 'components/main/MainBody';
 import MainSideMenu from 'components/main/MainSideMenu';
 import React from 'react';
@@ -14,9 +13,7 @@ function MainTest({ data }: any) {
         background-color: white;
       `}
     >
-      <div>
-        <MainHedaer />
-      </div>
+      <div></div>
       <div
         css={css`
           display: flex;

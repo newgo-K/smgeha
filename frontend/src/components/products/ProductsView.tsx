@@ -65,7 +65,7 @@ function ProductsView({ data }: any) {
       {data &&
         data.map((t: resProductPacket) => (
           <Grid item lg={3} xs={12}>
-            <ProductCard title={t.title} sub={t.design} price={t.liter} />
+            {/* <ProductCard title={t.title} price={t.liter} /> */}
           </Grid>
         ))}
     </Wrap>
