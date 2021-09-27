@@ -17,8 +17,9 @@ public class ProductsApiController {
     private final ProductsService productsService;
 
     @GetMapping("/main")
-    public List<Products> findAllDesc() {
-        return productsService.findAllDesc();
+    public List<Products> findById () {
+        short id = 2;
+        return productsService.findByProductId(id);
     }
 
     @PatchMapping("/main/{id}")
