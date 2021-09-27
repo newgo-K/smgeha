@@ -1,11 +1,11 @@
 import { css } from '@emotion/react';
-import MainSideMenu from 'components/main/MainSideMenu';
 import HeaderContainer from 'containers/common/HeaderContainer';
-import MainContainer from 'containers/main/MainContainer';
+import ProductsSideMenuContainer from 'containers/products/ProductsSideMenuContainer';
+import ProductsViewContainer from 'containers/products/ProductsViewContainer';
 import React from 'react';
 
-/** `Main` 페이지는 제품 목록을 보여주는 페이지입니다. */
-function MainPage() {
+/** `Products` 페이지는 제품 목록을 보여주는 페이지입니다. */
+function ProductsPage() {
   return (
     <div
       css={css`
@@ -29,7 +29,7 @@ function MainPage() {
             margin: 0 auto;
           `}
         >
-          <MainSideMenu />
+          <ProductsSideMenuContainer />
         </div>
 
         <div
@@ -38,11 +38,11 @@ function MainPage() {
             margin: 0 auto;
           `}
         >
-          <MainContainer />
+          <ProductsViewContainer />
         </div>
       </div>
     </div>
   );
 }
 
-export default MainPage;
+export default ProductsPage;

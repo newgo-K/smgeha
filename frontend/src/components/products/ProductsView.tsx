@@ -38,9 +38,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const ProductCard = ({ ...props }: resProductPacket) => {
-  const { title, num, make, liter, door, design, price } = { ...props };
-
+const ProductCard = ({ title, sub, price }: any) => {
   const classes = useStyles();
 
   return (
@@ -50,22 +48,22 @@ const ProductCard = ({ ...props }: resProductPacket) => {
       <CardContent className={classes.content}>
         <Typography variant="h4">{title}</Typography>
         <Divider />
-        <ContentSub>제품 넘버: {num}</ContentSub>
-        <ContentSub>제조사: {make}</ContentSub>
-        <ContentSub>크기: {liter}</ContentSub>
+        {/* {sub.map((t: any) => ( */}
+        <ContentSub>{sub}</ContentSub>
+        {/* ))} */}
         <ContentPrice>{price}</ContentPrice>
       </CardContent>
     </Card>
   );
 };
 
-function ProductsView({ data }: any) {
+export default function ProductsView({ data }: any) {
   return (
     <Wrap>
       {data &&
         data.map((t: resProductPacket) => (
           <Grid item lg={3} xs={12}>
-            {/* <ProductCard title={t.title} price={t.liter} /> */}
+            <ProductCard title={t.title} sub={t.design} price={t.liter} />
           </Grid>
         ))}
     </Wrap>
@@ -108,5 +106,3 @@ const ContentPrice = (props: any) => (
     <Typography variant="subtitle1" {...props} />
   </div>
 );
-
-export default ProductsView;

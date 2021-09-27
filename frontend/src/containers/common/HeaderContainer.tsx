@@ -1,6 +1,8 @@
 import Header from 'components/common/Header';
-import { reqHeaderMenuSelectPacket } from 'lib/api/common';
-import { headerMenuSelectAsync } from 'lib/modules/common';
+import {
+  productsMainMenuSelect,
+  productsMainMenuSelectAsync,
+} from 'lib/modules/products';
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -19,7 +21,8 @@ function HeaderContainer() {
 
   const onClick = useCallback(
     (id: number) => {
-      dispatch(headerMenuSelectAsync.request({ id }));
+      dispatch(productsMainMenuSelectAsync.request({ id }));
+      dispatch(productsMainMenuSelect(id - 1));
     },
     [dispatch],
   );

@@ -4,31 +4,36 @@ import {
   getType,
 } from 'typesafe-actions';
 
-export type AsyncState<T, E = any> = {
+export type AsyncState<R, S, E = any> = {
   loading: boolean;
-  data: T | null;
+  request: R | null;
+  success: S | null;
   error: E | null;
 };
 
 export const asyncState = {
-  init: <T, E = any>(initData?: T): AsyncState<T, E> => ({
+  init: <R, S, E = any>(initData?: R): AsyncState<R, S, E> => ({
     loading: false,
-    data: initData || null,
+    request: initData || null,
+    success: null,
     error: null,
   }),
-  request: <T, E = any>(data?: T): AsyncState<T, E> => ({
+  request: <R, S, E = any>(data?: R): AsyncState<R, S, E> => ({
     loading: true,
-    data: data || null,
+    request: data || null,
+    success: null,
     error: null,
   }),
-  success: <T, E = any>(data: T): AsyncState<T, E> => ({
+  success: <R, S, E = any>(data?: S): AsyncState<R, S, E> => ({
     loading: false,
-    data,
+    request: null,
+    success: data || null,
     error: null,
   }),
   failure: <T, E>(error: E): AsyncState<T, E> => ({
     loading: false,
-    data: null,
+    request: null,
+    success: null,
     error: error,
   }),
 };

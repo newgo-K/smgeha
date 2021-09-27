@@ -107,7 +107,8 @@ const resetStyle = css`
     line-height: 1;
   }
   ol,
-  ul {
+  ul,
+  li {
     list-style: none;
   }
   blockquote,

@@ -6,14 +6,14 @@ import { Route } from 'react-router';
 import { ThemeProvider } from '@material-ui/core/styles';
 
 import initTheme from 'initTheme';
-import MainContainer from 'containers/main/MainContainer';
+import ProductsPage from 'pages/ProductsPage';
 
 function App() {
   return (
     <>
       <Global styles={initStyles} />
       <ThemeProvider theme={initTheme}>
-        <Route component={MainContainer} path="/main" exact />
+        <Route component={ProductsPage} path="/main" exact />
       </ThemeProvider>
     </>
   );

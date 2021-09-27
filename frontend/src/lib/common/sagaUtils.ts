@@ -36,7 +36,7 @@ export function createAsyncSaga<
       if (successFunc) {
         yield call(successFunc, result);
       }
-    } catch (err) {
+    } catch (err: any) {
       yield put(asyncAction.failure(err));
       if (failureFunc) {
         yield call(failureFunc, err);

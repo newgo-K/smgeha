@@ -4,7 +4,7 @@ import { RootState } from 'lib/modules';
 import { productsInitAsync } from 'lib/modules/products';
 import ProductsView from 'components/products/ProductsView';
 
-function MainContainer() {
+function ProductsViewContainer() {
   const dispacth = useDispatch();
   const { data } = useSelector(({ products }: RootState) => ({
     data: products.viewData.success,
@@ -23,4 +23,4 @@ function MainContainer() {
   );
 }
 
-export default MainContainer;
+export default ProductsViewContainer;
