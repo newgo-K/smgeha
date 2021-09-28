@@ -9,6 +9,7 @@ import {
 } from 'components/common/Accordion';
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
+import { Typography } from '@material-ui/core';
 
 function ProductSideMenuSub({ menu, menuIndex, checked, handleChange }: any) {
   return (
@@ -35,19 +36,17 @@ function ProductSideMenuSub({ menu, menuIndex, checked, handleChange }: any) {
 function ProductsSideMenu({ menu, menuTitle, checked, handleChange }: any) {
   return (
     <div>
+      <MenuTitle>상세검색</MenuTitle>
       {menuTitle &&
         menuTitle.map((title: string, index: number) => (
           <Accordion square>
             <AccordionSummary
               key={index}
-              css={css`
-                border-top: none !important;
-              `}
               expandIcon={
                 <Icon icon="upArrow" color={palette.black[0]} size="0.8rem" />
               }
             >
-              <MenuTitle>{title}</MenuTitle>
+              <MenuSubTitle>{title}</MenuSubTitle>
             </AccordionSummary>
 
             <ProductSideMenuSub
@@ -88,6 +87,13 @@ function ProductsSideMenu({ menu, menuTitle, checked, handleChange }: any) {
 }
 
 const MenuTitle = styled.div`
+  font-size: 14px;
+  font-weight: 500;
+  padding-left: 4px;
+  padding-bottom: 9px;
+`;
+
+const MenuSubTitle = styled.div`
   font-size: 14px;
   font-weight: 500;
 `;

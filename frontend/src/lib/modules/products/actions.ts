@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import {
   reqProductsMainMenuSelectPacket,
+  reqProductsSideMenuSelectPacket,
   resProductPacket,
 } from 'lib/api/product';
 import {
@@ -13,11 +14,17 @@ import { createAction } from 'typesafe-actions';
 // createActionType
 /////////////////////////////////////
 export const PRODUCTS_MAIN_MENU_SELECT = 'products/PRODUCTS_MAIN_MENU_SELECT';
+
 export const REQ_PRODUCTS_INIT = createAsyncActionType(
   'products/REQ_PRODUCTS_INIT',
 );
+
 export const REQ_PRODUCTS_MAIN_MENU_SELECT = createAsyncActionType(
   'products/REQ_PRODUCTS_MAIN_MENU_SELECT',
+);
+
+export const REQ_PRODUCTS_SIDE_MENU_SELECT = createAsyncActionType(
+  'products/REQ_PRODUCTS_SIDE_MENU_SELECT',
 );
 
 /////////////////////////////////////
@@ -26,6 +33,7 @@ export const REQ_PRODUCTS_MAIN_MENU_SELECT = createAsyncActionType(
 export const productsMainMenuSelect = createAction(
   PRODUCTS_MAIN_MENU_SELECT,
 )<any>();
+
 export const productsInitAsync = createActionEntity<
   null,
   resProductPacket,
@@ -38,6 +46,12 @@ export const productsMainMenuSelectAsync = createActionEntity<
   AxiosError
 >(REQ_PRODUCTS_MAIN_MENU_SELECT);
 
+export const productsSideMenuSelectAsync = createActionEntity<
+  reqProductsSideMenuSelectPacket,
+  resProductPacket,
+  AxiosError
+>(REQ_PRODUCTS_SIDE_MENU_SELECT);
+
 /////////////////////////////////////
 // actionsSetting
 /////////////////////////////////////
@@ -45,4 +59,5 @@ export const actions = {
   productsMainMenuSelect,
   productsInitAsync,
   productsMainMenuSelectAsync,
+  productsSideMenuSelectAsync,
 };

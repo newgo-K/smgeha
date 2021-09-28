@@ -13,4 +13,9 @@ import java.util.List;
 public interface ProductsRepository {
 
     List<Products> findByProductId(@Param(value = "id") short id);
+    List<Products> productsSideMenuSelect(
+            @Param(value ="id") short id,
+            @Param(value="manufactures") short[] manufactures,
+            @Param(value="types") short[] types,
+            @Param(value="sizes") short[] sizes);
 }

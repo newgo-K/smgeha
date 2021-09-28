@@ -3,11 +3,9 @@ package com.smgeha.web;
 import com.smgeha.domain.products.Products;
 import com.smgeha.service.products.ProductsService;
 import com.smgeha.web.dto.PostsResponseDto;
+import com.smgeha.web.dto.products.ProductsSideMenuSelectRequestDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,7 +16,7 @@ public class ProductsApiController {
 
     @GetMapping("/main")
     public List<Products> findById () {
-        short id = 2;
+        short id = 0;
         return productsService.findByProductId(id);
     }
 
@@ -27,4 +25,8 @@ public class ProductsApiController {
         return productsService.findByProductId(id);
     }
 
+    @PostMapping("/main")
+    public List<Products> productsSideMenuSelect (@RequestBody ProductsSideMenuSelectRequestDto sideMenus) {
+        return productsService.productsSideMenuSelect(sideMenus);
+    }
 }

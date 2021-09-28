@@ -1,6 +1,7 @@
 import { AxiosError } from 'axios';
 import {
   reqProductsMainMenuSelectPacket,
+  reqProductsSideMenuSelectPacket,
   resProductPacket,
 } from 'lib/api/product';
 import { AsyncState } from 'lib/common/reducerUtils';

@@ -21,8 +21,10 @@ function HeaderContainer() {
 
   const onClick = useCallback(
     (id: number) => {
+      id = id - 1;
+
       dispatch(productsMainMenuSelectAsync.request({ id }));
-      dispatch(productsMainMenuSelect(id - 1));
+      dispatch(productsMainMenuSelect(id));
     },
     [dispatch],
   );

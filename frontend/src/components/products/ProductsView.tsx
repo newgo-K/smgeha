@@ -38,20 +38,24 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const ProductCard = ({ title, sub, price }: any) => {
+const ProductCard = ({ ...data }: resProductPacket) => {
+  const { title, serial, manufactureText, sizeText, type, img } = data;
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
-      <CardMedia className={classes.media} image="/img/sampleImg.png" />
+      <CardMedia className={classes.media} image={`/images/${img}`} />
 
       <CardContent className={classes.content}>
         <Typography variant="h4">{title}</Typography>
         <Divider />
-        {/* {sub.map((t: any) => ( */}
-        <ContentSub>{sub}</ContentSub>
-        {/* ))} */}
-        <ContentPrice>{price}</ContentPrice>
+
+        <ContentSub>시리얼 : {serial}</ContentSub>
+        <ContentSub>제조사 : {manufactureText}</ContentSub>
+        <ContentSub>용량 : {sizeText}</ContentSub>
+        <ContentSub>유형 : {type}</ContentSub>
+
+        <ContentPrice>520,000원</ContentPrice>
       </CardContent>
     </Card>
   );
@@ -63,7 +67,7 @@ export default function ProductsView({ data }: any) {
       {data &&
         data.map((t: resProductPacket) => (
           <Grid item lg={3} xs={12}>
-            <ProductCard title={t.title} sub={t.design} price={t.liter} />
+            <ProductCard {...t} />
           </Grid>
         ))}
     </Wrap>

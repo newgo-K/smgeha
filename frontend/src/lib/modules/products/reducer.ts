@@ -4,6 +4,7 @@ import {
   PRODUCTS_MAIN_MENU_SELECT,
   productsInitAsync,
   productsMainMenuSelectAsync,
+  productsSideMenuSelectAsync,
 } from './actions';
 import { ProductsState, ProductsAction } from './types';
 
@@ -22,6 +23,7 @@ const products = createReducer<ProductsState, ProductsAction>(initState, {
   }),
   ...createAsyncReducer(productsInitAsync, 'viewData'),
   ...createAsyncReducer(productsMainMenuSelectAsync, 'viewData'),
+  ...createAsyncReducer(productsSideMenuSelectAsync, 'viewData'),
 });
 
 export default products;

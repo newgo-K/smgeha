@@ -5,6 +5,129 @@
 
 <mapper namespace="com.smgeha.domain.products.ProductsRepository">
     <select id="findByProductId" resultType="map">
-        SELECT * FROM product WHERE productId = #{id}
+        SELECT
+        id,
+        productId,
+        title,
+        serial,
+        manufactureText,
+        sizeText,
+        CASE
+        WHEN
+        productId=0
+        THEN
+        CASE
+        WHEN type=0
+        THEN '일반형'
+        WHEN type=1
+        THEN '양문형'
+        WHEN type=2
+        THEN '4도어'
+        ELSE '김치 냉장고'
+        END
+        WHEN productId=1
+        THEN
+        CASE
+        WHEN type=0
+        THEN '벽걸이'
+        WHEN type=1
+        THEN '스탠드'
+        ELSE '2in1'
+        END
+        WHEN productId=2
+        THEN
+        CASE
+        WHEN type=0
+        THEN '통돌이'
+        ELSE '드럼'
+        END
+        WHEN productId=3
+        THEN
+        CASE
+        WHEN type=0
+        THEN '39인치 이하'
+        WHEN type=1
+        THEN '40~50인치'
+        ELSE '51인치 이상'
+        END
+        END AS type,
+        design,
+        img
+        FROM product
+        WHERE productId = #{id}
+    </select>
+
+    <select id="productsSideMenuSelect" resultType="map">
+        SELECT
+        id,
+        productId,
+        title,
+        serial,
+        manufactureText,
+        sizeText,
+        CASE
+        WHEN
+        productId=0
+        THEN
+        CASE
+        WHEN type=0
+        THEN '일반형'
+        WHEN type=1
+        THEN '양문형'
+        WHEN type=2
+        THEN '4도어'
+        ELSE '김치 냉장고'
+        END
+        WHEN productId=1
+        THEN
+        CASE
+        WHEN type=0
+        THEN '벽걸이'
+        WHEN type=1
+        THEN '스탠드'
+        ELSE '2in1'
+        END
+        WHEN productId=2
+        THEN
+        CASE
+        WHEN type=0
+        THEN '통돌이'
+        ELSE '드럼'
+        END
+        WHEN productId=3
+        THEN
+        CASE
+        WHEN type=0
+        THEN '39인치 이하'
+        WHEN type=1
+        THEN '40~50인치'
+        ELSE '51인치 이상'
+        END
+        END AS type,
+        design,
+        img
+        FROM product
+        WHERE productId = #{id}
+        <if test="manufactures.length != 0">
+            and manufacture in
+            <foreach collection="manufactures" item="manufacture" index="index" open="(" close=")" separator=",">
+                #{manufacture}
+            </foreach>
+        </if>
+
+        <if test="types.length != 0">
+            and type in
+            <foreach collection="types" item="type" index="index" open="(" close=")" separator=",">
+                #{type}
+            </foreach>
+        </if>
+
+        <if test="sizes.length != 0">
+            and size in
+            <foreach collection="sizes" item="size" index="index" open="(" close=")" separator=",">
+                #{size}
+            </foreach>
+        </if>
+
     </select>
 </mapper>
