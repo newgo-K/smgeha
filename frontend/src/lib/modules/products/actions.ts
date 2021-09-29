@@ -3,7 +3,7 @@ import {
   reqProductsMainMenuSelectPacket,
   reqProductsSideMenuSelectPacket,
   resProductPacket,
-} from 'lib/api/product';
+} from 'lib/api/products';
 import {
   createActionEntity,
   createAsyncActionType,

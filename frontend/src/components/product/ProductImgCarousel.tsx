@@ -9,7 +9,7 @@ import styled from '@emotion/styled';
 import { Desktop, mediaQuery } from 'lib/styles/common';
 import palette from 'lib/styles/palette';
 
-export default function Carousel() {
+function ProductImgCarousel({ imgList }: any) {
   const settings = {
     dots: true,
     infinite: true,
@@ -18,63 +18,41 @@ export default function Carousel() {
     slidesToScroll: 1,
     centerMode: true,
     centerPadding: '0px',
-    prevArrow: <CustomPrevArrow />,
-    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomArrow arrow="leftArrow" />,
+    nextArrow: <CustomArrow arrow="rightArrow" />,
   };
+
+  function CustomArrow({ arrow, onClick }: any) {
+    return (
+      <Desktop>
+        <div
+          css={css`
+            display: block;
+            position: absolute;
+            top: 39%;
+            ${arrow === 'leftArrow' ? `left: -7px;` : `right: -7px;`}
+            z-index: 2;
+          `}
+        >
+          <Button iconOnly variant="text" onClick={onClick}>
+            <Icon icon={arrow} color={palette.grey[5]} />
+          </Button>
+        </div>
+      </Desktop>
+    );
+  }
+
   return (
     <Container>
       <StyledSlider {...settings}>
-        <div>
-          <CardImg src="/images/refrigerator.png" />
-        </div>
-        <div>
-          <CardImg src="/images/airConditioner.png" />
-        </div>
-        <div>
-          <CardImg src="/images/washingMachine.png" />
-        </div>
+        {imgList &&
+          imgList.map((img: any) => (
+            <div>
+              <CardImg src={`/images/${img}`} />
+            </div>
+          ))}
       </StyledSlider>
     </Container>
-  );
-}
-
-function CustomPrevArrow({ onClick }: any) {
-  return (
-    <Desktop>
-      <div
-        css={css`
-          display: block;
-          position: absolute;
-          top: 39%;
-          left: -7px;
-          z-index: 2;
-        `}
-      >
-        <Button iconOnly variant="text" onClick={onClick}>
-          <Icon icon="leftArrow" color={palette.grey[5]} />
-        </Button>
-      </div>
-    </Desktop>
-  );
-}
-
-function CustomNextArrow({ onClick }: any) {
-  return (
-    <Desktop>
-      <div
-        css={css`
-          display: block;
-          position: absolute;
-          top: 39%;
-          right: -7px;
-          z-index: 2;
-        `}
-      >
-        <Button iconOnly variant="text" onClick={onClick}>
-          <Icon icon="rightArrow" color={palette.grey[5]} />
-        </Button>
-      </div>
-    </Desktop>
   );
 }
 
@@ -116,3 +94,5 @@ const CardImg = styled.img`
   margin: 0 auto !important;
   object-fit: contain !important;
 `;
+
+export default ProductImgCarousel;

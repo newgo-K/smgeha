@@ -1,5 +1,4 @@
 import { css } from '@emotion/react';
-import MainSideMenu from 'components/main/MainSideMenu';
 import HeaderContainer from 'containers/common/HeaderContainer';
 import MainContainer from 'containers/main/MainContainer';
 import React from 'react';
@@ -28,9 +27,7 @@ function MainPage() {
             width: 15%;
             margin: 0 auto;
           `}
-        >
-          <MainSideMenu />
-        </div>
+        ></div>
 
         <div
           css={css`

@@ -26,5 +26,4 @@ public class Products {
     private String design;
 
     private short productId;
-
 }

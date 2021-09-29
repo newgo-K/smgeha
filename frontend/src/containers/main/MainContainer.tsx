@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'lib/modules';
-import { productsInitAsync } from 'lib/modules/products';
+import { productsInitAsync } from 'lib/modules/products/actions';
 import ProductsView from 'components/products/ProductsView';
 
 function MainContainer() {

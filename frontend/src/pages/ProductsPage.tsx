@@ -4,7 +4,7 @@ import ProductsSideMenuContainer from 'containers/products/ProductsSideMenuConta
 import ProductsViewContainer from 'containers/products/ProductsViewContainer';
 import React from 'react';
 
-/** `Products` 페이지는 제품 목록을 보여주는 페이지입니다. */
+/** `Products` 페이지는 제품 전체 목록을 보여주는 페이지입니다. */
 function ProductsPage() {
   return (
     <div

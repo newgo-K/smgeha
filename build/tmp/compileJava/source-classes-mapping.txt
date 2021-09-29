@@ -1,7 +1,3 @@
-com/smgeha/web/CommonApiController.java
- com.smgeha.web.CommonApiController
-com/smgeha/Application.java
- com.smgeha.Application
 com/smgeha/web/dto/PostsSaveRequestDto.java
  com.smgeha.web.dto.PostsSaveRequestDto
  com.smgeha.web.dto.PostsSaveRequestDto$PostsSaveRequestDtoBuilder
@@ -10,34 +6,50 @@ com/smgeha/web/dto/PostsUpdateRequestDto.java
  com.smgeha.web.dto.PostsUpdateRequestDto$PostsUpdateRequestDtoBuilder
 com/smgeha/service/posts/PostsService.java
  com.smgeha.service.posts.PostsService
-com/smgeha/web/dto/PostsResponseDto.java
- com.smgeha.web.dto.PostsResponseDto
+com/smgeha/service/products/ProductsServiceImpl.java
+ com.smgeha.service.products.ProductsServiceImpl
 com/smgeha/domain/posts/PostsRepository.java
  com.smgeha.domain.posts.PostsRepository
 com/smgeha/domain/posts/Posts.java
  com.smgeha.domain.posts.Posts
  com.smgeha.domain.posts.Posts$PostsBuilder
-com/smgeha/web/dto/products/ProductsResponseDto.java
- com.smgeha.web.dto.products.ProductsResponseDto
 com/smgeha/domain/BaseTimeEntity.java
  com.smgeha.domain.BaseTimeEntity
-com/smgeha/web/HelloController.java
- com.smgeha.web.HelloController
-com/smgeha/domain/products/Products.java
- com.smgeha.domain.products.Products
 com/smgeha/web/PostsApiController.java
  com.smgeha.web.PostsApiController
-com/smgeha/web/dto/HelloResponseDto.java
- com.smgeha.web.dto.HelloResponseDto
+com/smgeha/domain/products/ProductsRepository.java
+ com.smgeha.domain.products.ProductsRepository
+com/smgeha/service/product/ProductServiceImpl.java
+ com.smgeha.service.product.ProductServiceImpl
+com/smgeha/web/CommonApiController.java
+ com.smgeha.web.CommonApiController
+com/smgeha/Application.java
+ com.smgeha.Application
+com/smgeha/web/productApiController.java
+ com.smgeha.web.productApiController
+com/smgeha/domain/product/ProductRepository.java
+ com.smgeha.domain.product.ProductRepository
+com/smgeha/web/WebMvcConfig.java
+ com.smgeha.web.WebMvcConfig
+com/smgeha/domain/product/Product.java
+ com.smgeha.domain.product.Product
+com/smgeha/service/product/ProductService.java
+ com.smgeha.service.product.ProductService
 com/smgeha/service/products/ProductsService.java
  com.smgeha.service.products.ProductsService
 com/smgeha/web/dto/products/ProductsSideMenuSelectRequestDto.java
  com.smgeha.web.dto.products.ProductsSideMenuSelectRequestDto
-com/smgeha/web/WebMvcConfig.java
- com.smgeha.web.WebMvcConfig
-com/smgeha/domain/products/ProductsRepository.java
- com.smgeha.domain.products.ProductsRepository
-com/smgeha/service/products/ProductsServiceImpl.java
- com.smgeha.service.products.ProductsServiceImpl
+com/smgeha/web/dto/products/ProductsResponseDto.java
+ com.smgeha.web.dto.products.ProductsResponseDto
 com/smgeha/web/ProductsApiController.java
  com.smgeha.web.ProductsApiController
+com/smgeha/web/dto/HelloResponseDto.java
+ com.smgeha.web.dto.HelloResponseDto
+com/smgeha/web/dto/product/productResponseDto.java
+ com.smgeha.web.dto.product.productResponseDto
+com/smgeha/domain/products/Products.java
+ com.smgeha.domain.products.Products
+com/smgeha/web/dto/PostsResponseDto.java
+ com.smgeha.web.dto.PostsResponseDto
+com/smgeha/web/HelloController.java
+ com.smgeha.web.HelloController

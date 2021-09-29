@@ -2,7 +2,7 @@ import Header from 'components/common/Header';
 import {
   productsMainMenuSelect,
   productsMainMenuSelectAsync,
-} from 'lib/modules/products';
+} from 'lib/modules/products/actions';
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 

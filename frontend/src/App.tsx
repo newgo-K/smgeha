@@ -7,6 +7,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 
 import initTheme from 'initTheme';
 import ProductsPage from 'pages/ProductsPage';
+import ProductPage from 'pages/ProductPage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
       <Global styles={initStyles} />
       <ThemeProvider theme={initTheme}>
         <Route component={ProductsPage} path="/main" exact />
+        <Route component={ProductPage} path="/product/:id" />
       </ThemeProvider>
     </>
   );

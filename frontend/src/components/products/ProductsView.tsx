@@ -9,7 +9,7 @@ import styled from '@emotion/styled';
 import palette from 'lib/styles/palette';
 import { Grid } from '@material-ui/core';
 import { mediaQuery } from 'lib/styles/common';
-import { resProductPacket } from 'lib/api/product';
+import { resProductPacket } from 'lib/api/products';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -38,12 +38,16 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-const ProductCard = ({ ...data }: resProductPacket) => {
-  const { title, serial, manufactureText, sizeText, type, img } = data;
+type ProductPorps = resProductPacket & {
+  onClick: any;
+};
+
+const ProductCard = ({ onClick, ...props }: ProductPorps) => {
+  const { id, title, serial, manufactureText, sizeText, type, img } = props;
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card className={classes.root} onClick={() => onClick(id)}>
       <CardMedia className={classes.media} image={`/images/${img}`} />
 
       <CardContent className={classes.content}>
@@ -61,13 +65,15 @@ const ProductCard = ({ ...data }: resProductPacket) => {
   );
 };
 
-export default function ProductsView({ data }: any) {
+export default function ProductsView({ ...props }: any) {
+  const { data, onClick } = props;
+
   return (
     <Wrap>
       {data &&
         data.map((t: resProductPacket) => (
           <Grid item lg={3} xs={12}>
-            <ProductCard {...t} />
+            <ProductCard onClick={onClick} {...t} />
           </Grid>
         ))}
     </Wrap>

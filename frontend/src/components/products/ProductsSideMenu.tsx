@@ -8,8 +8,6 @@ import {
   AccordionSummary,
 } from 'components/common/Accordion';
 import styled from '@emotion/styled';
-import { css } from '@emotion/react';
-import { Typography } from '@material-ui/core';
 
 function ProductSideMenuSub({ menu, menuIndex, checked, handleChange }: any) {
   return (
@@ -57,31 +55,6 @@ function ProductsSideMenu({ menu, menuTitle, checked, handleChange }: any) {
             />
           </Accordion>
         ))}
-      {/* <Accordion square>
-        <AccordionSummary
-          expandIcon={
-            <Icon icon="upArrow" color={palette.black[0]} size="0.8rem" />
-          }
-        >
-          <MenuTitle>크기</MenuTitle>
-        </AccordionSummary>
-
-        {type &&
-          type.map((data: string, index: number) => (
-            <li key={index}>
-              <AccordionDetails>
-                <Checkbox
-                  checked={checked.type[index]}
-                  icon="circle"
-                  checkedIcon="checkCircleFill"
-                  label={data}
-                  size="small"
-                  onChange={() => handleChange(index, checked.type)}
-                />
-              </AccordionDetails>
-            </li>
-          ))}
-      </Accordion> */}
     </div>
   );
 }

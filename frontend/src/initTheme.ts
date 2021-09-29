@@ -1,5 +1,5 @@
+import { createTheme } from '@material-ui/core';
 import palette from 'lib/styles/palette';
-import { createMuiTheme } from '@material-ui/core/styles';
 
 declare module '@material-ui/core/styles/createBreakpoints' {
   interface BreakpointOverrides {
@@ -8,7 +8,7 @@ declare module '@material-ui/core/styles/createBreakpoints' {
   }
 }
 
-const theme = createMuiTheme({
+const theme = createTheme({
   props: {
     MuiTypography: {
       variantMapping: {
@@ -24,7 +24,7 @@ const theme = createMuiTheme({
   },
 });
 
-const initTheme = createMuiTheme({
+const initTheme = createTheme({
   typography: {
     fontFamily: ['Roboto', 'Noto Sans KR', 'sans-serif'].join(','),
     h1: {
@@ -98,18 +98,23 @@ const initTheme = createMuiTheme({
       main: palette.main[4],
     },
   },
-  //   components: {
-  //     MuiButtonBase: {
-  //       defaultProps: {
-  //         disableRipple: true,
-  //       },
-  //     },
-  //     MuiTab: {
-  //       defaultProps: {
-  //         disableRipple: true,
-  //       },
-  //     },
-  //   },
+
+  overrides: {
+    MuiCssBaseline: {
+      '@global': {
+        '*::-webkit-scrollbar': {
+          width: '0.4em',
+        },
+        '*::-webkit-scrollbar-track': {
+          '-webkit-box-shadow': 'inset 0 0 6px rgba(0,0,0,0.00)',
+        },
+        '*::-webkit-scrollbar-thumb': {
+          backgroundColor: 'rgba(0,0,0,.1)',
+          outline: '1px solid slategrey',
+        },
+      },
+    },
+  },
 });
 
 export default initTheme;

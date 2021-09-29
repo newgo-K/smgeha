@@ -2,7 +2,7 @@ import ProductsSideMenu from 'components/products/ProductsSideMenu';
 import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'lib/modules';
-import { productsSideMenuSelectAsync } from 'lib/modules/products';
+import { productsSideMenuSelectAsync } from 'lib/modules/products/actions';
 // const menuGuide = [
 //   // 냉장고
 //   {

@@ -2,7 +2,7 @@ import {
   reqProducts,
   reqProductsMainMenuSelect,
   reqProductsSideMenuSelect,
-} from 'lib/api/product';
+} from 'lib/api/products';
 import { createAsyncSaga } from 'lib/common/sagaUtils';
 import { takeEvery } from '@redux-saga/core/effects';
 import {

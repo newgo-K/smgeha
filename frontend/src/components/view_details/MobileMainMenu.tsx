@@ -1,10 +1,11 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import MainSideMenu from 'components/main/MainSideMenu';
 import Button from 'components/common/Button';
 import Icon from 'lib/icon/Icon';
 import { Drawer } from '@material-ui/core';
 import styled from '@emotion/styled';
+import Header from 'components/common/Header';
+import HeaderContainer from 'containers/common/HeaderContainer';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -28,8 +29,9 @@ export default function MobileMainMenu({ toggleDrawer, state }: any) {
         <Button iconOnly variant="text" onClick={toggleDrawer(false)}>
           <Icon icon="close" />
         </Button>
+        <HeaderContainer />
       </ListStyles>
-      <MainSideMenu />
+      {/* <MainSideMenu /> */}
     </div>
   );
 
