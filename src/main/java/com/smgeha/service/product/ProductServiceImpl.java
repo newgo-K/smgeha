@@ -14,7 +14,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findByProductId(@Param(value = "id") int id) {
         Product product = productRepositoy.findByProductId(id);
-        product.setImgList(productRepositoy.findByProductContent(id));
+        product.setImgs(productRepositoy.findByProductContent(id));
 
         return product;
     }

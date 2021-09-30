@@ -4,17 +4,13 @@ import palette from 'lib/styles/palette';
 import React from 'react';
 
 export type PageTitleProps = {
-  /** 좌측 아이콘 버튼 */
+  /** 좌측 내용 */
   leftContent?: any;
-  // leftIconButton?: string;
-  // leftIconEvent?: any;
   /** 타이틀 */
   title?: string;
   maxWidth?: string | number;
-  /** 우측 아이콘 버튼 */
+  /** 우측 내용 */
   rightContent?: any;
-  // rightIconButton?: string;
-  // rightIconEvent?: any;
 };
 
 function PageTitle({

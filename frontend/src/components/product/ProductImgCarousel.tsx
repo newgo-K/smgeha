@@ -9,13 +9,15 @@ import styled from '@emotion/styled';
 import { Desktop, mediaQuery } from 'lib/styles/common';
 import palette from 'lib/styles/palette';
 
-function ProductImgCarousel({ imgList }: any) {
+function ProductImgCarousel({ imgs }: any) {
   const settings = {
     dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
     centerMode: true,
     centerPadding: '0px',
     prevArrow: <CustomArrow arrow="leftArrow" />,
@@ -45,11 +47,11 @@ function ProductImgCarousel({ imgList }: any) {
   return (
     <Container>
       <StyledSlider {...settings}>
-        {imgList &&
-          imgList.map((img: any) => (
-            <div>
+        {imgs &&
+          imgs.map((img: string) => (
+            <li key={img}>
               <CardImg src={`/images/${img}`} />
-            </div>
+            </li>
           ))}
       </StyledSlider>
     </Container>
@@ -59,10 +61,6 @@ function ProductImgCarousel({ imgList }: any) {
 const StyledSlider = (props: Settings) => (
   <Slider
     css={css`
-      .slick-slide div {
-        /* cursor: pointer; */
-      }
-
       .slick-dots {
         margin-top: 250px !important;
 
@@ -72,6 +70,14 @@ const StyledSlider = (props: Settings) => (
 
           button:before {
             color: ${palette.grey[8]};
+          }
+        }
+      }
+
+      .slick-active {
+        button {
+          &::before {
+            color: ${palette.main[4]} !important;
           }
         }
       }

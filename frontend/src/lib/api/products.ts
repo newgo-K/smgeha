@@ -49,7 +49,6 @@ export async function reqProductsSideMenuSelect({
   sideMenus,
 }: reqProductsSideMenuSelectPacket) {
   const res = await client.post('/main', { id, sideMenus });
-  debugger;
 
   return res.data;
 }

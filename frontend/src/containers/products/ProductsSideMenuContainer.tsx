@@ -3,14 +3,6 @@ import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'lib/modules';
 import { productsSideMenuSelectAsync } from 'lib/modules/products/actions';
-// const menuGuide = [
-//   // 냉장고
-//   {
-//     manufacture: ['LG', '삼성', '기타'],
-//     type: ['일반형', '양문형', '4도어', '김치'],
-//     size: ['299L 이하', '300~499L', '500~700L', '700L 이상'],
-//   },
-// ];
 
 const menuTitle = ['제조사', '유형', '크기'];
 

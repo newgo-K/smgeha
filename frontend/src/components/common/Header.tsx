@@ -5,62 +5,34 @@ import palette from 'lib/styles/palette';
 import Icon from 'lib/icon/Icon';
 import { Desktop, formWidth, mediaQuery, Mobile } from 'lib/styles/common';
 import Button, { ButtonProps } from './Button';
-import { Accordion, AccordionSummary } from '@material-ui/core';
 
 function Header({ titles, onClick }: any) {
   return (
-    <div>
-      <Wrap>
-        <Desktop>
-          <img src="/img/logo.png" alt="logo" />
-          <ElList>
-            {titles.map((title: string, index: number) => (
-              <li key={title}>
-                <ButtonStyles variant="text" onClick={() => onClick(index)}>
-                  {title}
-                </ButtonStyles>
-              </li>
-            ))}
-          </ElList>
+    <Wrap>
+      <Desktop>
+        <img src="/img/logo.png" alt="logo" />
+        <ElList>
+          {titles.map((title: string, index: number) => (
+            <li key={title}>
+              <ButtonStyles variant="text" onClick={() => onClick(index)}>
+                {title}
+              </ButtonStyles>
+            </li>
+          ))}
+        </ElList>
 
-          <Icon icon="search" color={palette.black[0]} size="1.1rem" />
-        </Desktop>
-
-        <Mobile>
-          <img src="/img/logo.png" alt="logo" />
-          <div>
-            <Icon icon="search" color={palette.black[0]} size="1.2rem" />
-          </div>
-        </Mobile>
-      </Wrap>
+        <Icon icon="search" color={palette.black[0]} size="1.1rem" />
+      </Desktop>
 
       <Mobile>
-        <div
-          css={css`
-            text-align: left;
-          `}
-        >
-          <MenuTitle>업체소개</MenuTitle>
-          <MenuTitle>냉장고</MenuTitle>
-          <MenuTitle>에어컨</MenuTitle>
-          <MenuTitle>세탁기</MenuTitle>
+        <img src="/img/logo.png" alt="logo" />
+        <div>
+          <Icon icon="search" color={palette.black[0]} size="1.2rem" />
         </div>
       </Mobile>
-    </div>
+    </Wrap>
   );
 }
-
-const MenuTitle = styled.div`
-  font-size: 14px;
-  font-weight: 500;
-  padding: 12px 15px;
-  border-bottom: 1px solid ${palette.grey[2]};
-`;
-
-const MenuSubTitle = styled.div`
-  font-size: 14px;
-  font-weight: 500;
-`;
 
 const Wrap = styled.div`
   display: flex;

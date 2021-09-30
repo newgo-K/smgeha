@@ -14,13 +14,12 @@ export type resProductPacket = {
   serial: string;
   manufactureText: string;
   sizeText: string;
-  type: number;
+  type: string;
   url: string;
-  imgList: Array<string>;
+  imgs: Array<string>;
 };
 
 export async function reqProductSelect({ id }: reqProductSelectPacket) {
   const res = await client.patch(`/product/${id}`);
-
   return res.data;
 }

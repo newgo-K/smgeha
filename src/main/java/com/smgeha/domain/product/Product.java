@@ -17,5 +17,5 @@ public class Product {
     private String type;
     private String sizeText;
     private String url;
-    private List<String> imgList;
+    private List<String> imgs;
 }
