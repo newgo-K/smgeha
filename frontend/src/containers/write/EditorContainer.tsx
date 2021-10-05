@@ -1,31 +1,54 @@
-import React, { useRef, useState } from 'react';
-import { CKEditor } from 'ckeditor4-react';
-import palette from 'lib/styles/palette';
+import React, { useState } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 function EditorContainer() {
-  const [event, setEvent] = useState<any>();
-
-  const handleClick = () => {
-    alert(event);
+  const modules = {
+    toolbar: [
+      [{ header: [1, 2, false] }],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [
+        { list: 'ordered' },
+        { list: 'bullet' },
+        { indent: '-1' },
+        { indent: '+1' },
+      ],
+      ['link', 'image'],
+      [{ align: [] }, { color: [] }, { background: [] }], // dropdown with defaults from theme
+      ['clean'],
+    ],
   };
 
-  const handleClick1 = (a: any) => {
-    if (a.data) {
-      setEvent(a.data.dataValue);
-    }
-  };
+  const formats = [
+    'header',
+    'bold',
+    'italic',
+    'underline',
+    'strike',
+    'blockquote',
+    'list',
+    'bullet',
+    'indent',
+    'link',
+    'image',
+    'align',
+    'color',
+    'background',
+  ];
+
+  function onChange(editor: any) {
+    console.log(editor.getHTML());
+  }
 
   return (
-    <div>
-      <button onClick={handleClick}>Send</button>
-      <CKEditor
-        config={{
-          uiColor: `${palette.grey[0]}`,
-          height: '70vh',
-        }}
-        initData={'sadfsdfassd'}
-        onGetData={handleClick1}
-        onChange={(event) => handleClick1(event.editor.getData())}
+    <div style={{ height: '650px' }}>
+      <ReactQuill
+        style={{ height: '600px' }}
+        theme="snow"
+        modules={modules}
+        formats={formats}
+        value={''}
+        onChange={onChange(editor)}
       />
     </div>
   );

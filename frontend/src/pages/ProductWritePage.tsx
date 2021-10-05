@@ -1,6 +1,8 @@
 import { css } from '@emotion/react';
 import HeaderContainer from 'containers/common/HeaderContainer';
 import EditorContainer from 'containers/write/EditorContainer';
+import ImgUploadContainer from 'containers/write/ImgUploadContainer';
+import SelectTypeContainer from 'containers/write/SelectTypeContainer';
 import React from 'react';
 
 function ProductWritePage() {
@@ -14,6 +16,12 @@ function ProductWritePage() {
     >
       <div>
         <HeaderContainer />
+      </div>
+      <div>
+        <SelectTypeContainer />
+      </div>
+      <div>
+        <ImgUploadContainer />
       </div>
       <div
         css={css`

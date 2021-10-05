@@ -56,7 +56,7 @@ const ProductCard = ({ onClick, ...props }: ProductPorps) => {
 
         <ContentSub>시리얼 : {serial}</ContentSub>
         <ContentSub>제조사 : {manufactureText}</ContentSub>
-        <ContentSub>용량 : {sizeText}</ContentSub>
+        <ContentSub>크기 : {sizeText}</ContentSub>
         <ContentSub>유형 : {type}</ContentSub>
 
         <ContentPrice>520,000원</ContentPrice>
