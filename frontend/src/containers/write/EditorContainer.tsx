@@ -37,7 +37,8 @@ function EditorContainer() {
   ];
 
   function onChange(editor: any) {
-    console.log(editor.getHTML());
+    debugger;
+    console.log(EditorContainer);
   }
 
   return (
@@ -48,7 +49,7 @@ function EditorContainer() {
         modules={modules}
         formats={formats}
         value={''}
-        onChange={onChange(editor)}
+        onChange={(e: any) => onChange(e)}
       />
     </div>
   );
