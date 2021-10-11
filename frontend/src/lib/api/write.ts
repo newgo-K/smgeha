@@ -6,10 +6,11 @@ import client from './client';
 export type SelectTypesProps = {
   title: string;
   serial: string;
+  product: number;
   manufacture: number;
   size: string;
   type: number;
-  price: number;
+  price: string;
 };
 
 export type ProductImgUploadPorps = {
@@ -28,7 +29,8 @@ export type resProductPacket = {
   msg: string;
 };
 
-export async function reqProductUpload({ id }: reqProductUploadPacket) {
-  const res = await client.patch(`/product/${id}`);
-  return res.data;
+export async function reqWrite({ ...props }: SelectTypesProps) {
+  console.log('업로드', { ...props });
+  // const res = await client.patch(`/product/${id}`);
+  // return res.data;
 }

@@ -1,7 +1,10 @@
-import { FormControl, InputLabel, withStyles } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import MuiSelect from '@material-ui/core/Select';
 import TextField from 'components/common/TextField';
-import React from 'react';
+import { RootState } from 'lib/modules';
+import { productWriteSetData } from 'lib/modules/write/actions';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const PRODUCT_TYPE = {
   REFRIGERATOR: 0,
@@ -19,117 +22,59 @@ const SELECT_TYPE = {
 type PRODUCT_TYPE = typeof PRODUCT_TYPE[keyof typeof PRODUCT_TYPE];
 type SELECT_TYPE = typeof SELECT_TYPE[keyof typeof SELECT_TYPE];
 
-const menuType = {
-  [SELECT_TYPE.PRODUCT]: {
-    [PRODUCT_TYPE.REFRIGERATOR]: '냉장고',
-    [PRODUCT_TYPE.AIRCONDITIONER]: '에어컨',
-    [PRODUCT_TYPE.WASHINGMACHINE]: '세탁기',
-    [PRODUCT_TYPE.TV]: 'TV',
-  },
+const products = {
+  [PRODUCT_TYPE.REFRIGERATOR]: '냉장고',
+  [PRODUCT_TYPE.AIRCONDITIONER]: '에어컨',
+  [PRODUCT_TYPE.WASHINGMACHINE]: '세탁기',
+  [PRODUCT_TYPE.TV]: 'TV',
+};
 
-  [SELECT_TYPE.MANUFACTURE]: {
-    [PRODUCT_TYPE.REFRIGERATOR]: {
-      0: 'LG',
-      1: '삼성',
-      2: '기타',
-    },
-    [PRODUCT_TYPE.AIRCONDITIONER]: {
-      0: 'LG',
-      1: '삼성',
-      2: '위니아',
-      3: '캐리어',
-      4: '기타',
-    },
-    [PRODUCT_TYPE.WASHINGMACHINE]: {
-      0: 'LG',
-      1: '삼성',
-      2: '기타',
-    },
-    [PRODUCT_TYPE.TV]: {
-      0: 'LG',
-      1: '삼성',
-      2: '기타',
-    },
+const manufactures = {
+  [PRODUCT_TYPE.REFRIGERATOR]: {
+    0: 'LG',
+    1: '삼성',
+    2: '기타',
   },
-
-  [SELECT_TYPE.TYPE]: {
-    [PRODUCT_TYPE.REFRIGERATOR]: {
-      0: '일반형',
-      1: '양문형',
-      2: '4도어',
-      3: '김치 냉장고',
-    },
-    [PRODUCT_TYPE.AIRCONDITIONER]: {
-      0: '벽걸이',
-      1: '스탠드',
-      2: '2in1',
-    },
-    [PRODUCT_TYPE.WASHINGMACHINE]: {
-      0: '통돌이',
-      1: '드럼',
-    },
-    [PRODUCT_TYPE.TV]: {
-      0: 'LED',
-      1: 'LCD',
-    },
+  [PRODUCT_TYPE.AIRCONDITIONER]: {
+    0: 'LG',
+    1: '삼성',
+    2: '위니아',
+    3: '캐리어',
+    4: '기타',
+  },
+  [PRODUCT_TYPE.WASHINGMACHINE]: {
+    0: 'LG',
+    1: '삼성',
+    2: '기타',
+  },
+  [PRODUCT_TYPE.TV]: {
+    0: 'LG',
+    1: '삼성',
+    2: '기타',
   },
 };
 
-/*
-// const products = {
-//   [PRODUCT_TYPE.REFRIGERATOR]: '냉장고',
-//   [PRODUCT_TYPE.AIRCONDITIONER]: '에어컨',
-//   [PRODUCT_TYPE.WASHINGMACHINE]: '세탁기',
-//   [PRODUCT_TYPE.TV]: 'TV',
-// };
-
-// const manufactures = {
-//   [PRODUCT_TYPE.REFRIGERATOR]: {
-//     0: 'LG',
-//     1: '삼성',
-//     2: '기타',
-//   },
-//   [PRODUCT_TYPE.AIRCONDITIONER]: {
-//     0: 'LG',
-//     1: '삼성',
-//     2: '위니아',
-//     3: '캐리어',
-//     4: '기타',
-//   },
-//   [PRODUCT_TYPE.WASHINGMACHINE]: {
-//     0: 'LG',
-//     1: '삼성',
-//     2: '기타',
-//   },
-//   [PRODUCT_TYPE.TV]: {
-//     0: 'LG',
-//     1: '삼성',
-//     2: '기타',
-//   },
-// };
-
-// const types = {
-//   [PRODUCT_TYPE.REFRIGERATOR]: {
-//     0: '일반형',
-//     1: '양문형',
-//     2: '4도어',
-//     3: '김치 냉장고',
-//   },
-//   [PRODUCT_TYPE.AIRCONDITIONER]: {
-//     0: '벽걸이',
-//     1: '스탠드',
-//     2: '2in1',
-//   },
-//   [PRODUCT_TYPE.WASHINGMACHINE]: {
-//     0: '통돌이',
-//     1: '드럼',
-//   },
-//   [PRODUCT_TYPE.TV]: {
-//     0: 'LED',
-//     1: 'LCD',
-//   },
-// };
-*/
+const types = {
+  [PRODUCT_TYPE.REFRIGERATOR]: {
+    0: '일반형',
+    1: '양문형',
+    2: '4도어',
+    3: '김치 냉장고',
+  },
+  [PRODUCT_TYPE.AIRCONDITIONER]: {
+    0: '벽걸이',
+    1: '스탠드',
+    2: '2in1',
+  },
+  [PRODUCT_TYPE.WASHINGMACHINE]: {
+    0: '통돌이',
+    1: '드럼',
+  },
+  [PRODUCT_TYPE.TV]: {
+    0: 'LED',
+    1: 'LCD',
+  },
+};
 
 export const Select = withStyles({
   root: {
@@ -144,36 +89,40 @@ export const Select = withStyles({
 })(MuiSelect);
 
 function SelectTypeContainer() {
-  const [selectType, setSelectType] = React.useState<any>(menuType);
+  const dispatch = useDispatch();
+  const { form } = useSelector(({ write }: RootState) => ({
+    form: write.productWriteSetData,
+  }));
+  const [selectTypes, setSelectTypes] = React.useState<any>([0, 0, 0]);
 
   const [dropManufacture, setDropManufacture] = React.useState<any>(
-    menuType[SELECT_TYPE.MANUFACTURE][PRODUCT_TYPE.REFRIGERATOR],
+    manufactures[PRODUCT_TYPE.REFRIGERATOR],
   );
   const [dorpTypes, setDropTypes] = React.useState<any>(
-    menuType[SELECT_TYPE.TYPE][PRODUCT_TYPE.REFRIGERATOR],
+    types[PRODUCT_TYPE.REFRIGERATOR],
   );
 
-  const onChange = (
-    event: React.ChangeEvent<{ value: any }>,
-    a: SELECT_TYPE,
-  ) => {
-    const value = event.target.value as any;
+  const onChange = useCallback(
+    (
+      event: React.ChangeEvent<{ value: PRODUCT_TYPE }>,
+      select: SELECT_TYPE,
+    ) => {
+      const value = event.target.value;
 
-    let b = selectType;
-    b[a] = value;
+      let updateTypes = selectTypes;
+      updateTypes[select] = value;
 
-    if (a === SELECT_TYPE.PRODUCT) {
-      setDropManufacture(
-        menuType[SELECT_TYPE.MANUFACTURE][value as PRODUCT_TYPE],
-      );
-      setDropTypes(menuType[SELECT_TYPE.TYPE][value as PRODUCT_TYPE]);
-    }
+      if (select === SELECT_TYPE.PRODUCT) {
+        setDropManufacture(manufactures[value]);
+        setDropTypes(types[value]);
+      }
 
-    setSelectType(b);
-  };
+      setSelectTypes([...updateTypes]);
+    },
+    [selectTypes],
+  );
 
   const Menus = ({ value, onChange, menus }: any) => {
-    debugger;
     return (
       <>
         {menus && (
@@ -187,20 +136,69 @@ function SelectTypeContainer() {
     );
   };
 
+  const onTextChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>): void => {
+      const { value, name } = e.target;
+      console.log(value, name);
+      dispatch(
+        productWriteSetData({
+          key: name,
+          value,
+        }),
+      );
+    },
+    [dispatch],
+  );
+
   return (
     <div>
-      <TextField placeholder="제품명" />
-      <TextField placeholder="시리얼" />
-      <TextField placeholder="크기" />
-      <TextField placeholder="가격" />
-      {selectType &&
-        selectType.map((key: any, select: SELECT_TYPE) => (
-          <Menus
-            value={selectType[select]}
-            onChange={(e: any) => onChange(e, select)}
-            menus={menuType[key][select]}
-          />
-        ))}
+      <form>
+        <TextField
+          name="title"
+          value={form.title}
+          placeholder="제품명"
+          onChange={onTextChange}
+        />
+        <TextField
+          name="serial"
+          value={form.serial}
+          placeholder="시리얼"
+          onChange={onTextChange}
+        />
+        <TextField
+          name="size"
+          value={form.size}
+          placeholder="크기"
+          onChange={onTextChange}
+        />
+        <TextField
+          name="price"
+          value={form.price}
+          placeholder="가격"
+          onChange={onTextChange}
+        />
+        <Menus
+          value={selectTypes[SELECT_TYPE.PRODUCT]}
+          onChange={(e: React.ChangeEvent<{ value: PRODUCT_TYPE }>) =>
+            onChange(e, SELECT_TYPE.PRODUCT)
+          }
+          menus={products}
+        />
+        <Menus
+          value={selectTypes[SELECT_TYPE.MANUFACTURE]}
+          onChange={(e: React.ChangeEvent<{ value: PRODUCT_TYPE }>) =>
+            onChange(e, SELECT_TYPE.MANUFACTURE)
+          }
+          menus={dropManufacture}
+        />
+        <Menus
+          value={selectTypes[SELECT_TYPE.TYPE]}
+          onChange={(e: React.ChangeEvent<{ value: PRODUCT_TYPE }>) =>
+            onChange(e, SELECT_TYPE.TYPE)
+          }
+          menus={dorpTypes}
+        />
+      </form>
     </div>
   );
 }

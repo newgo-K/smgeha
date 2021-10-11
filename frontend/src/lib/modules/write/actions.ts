@@ -1,23 +1,23 @@
+import { createActionEntity } from 'lib/common/reducerUtils';
+import { createAction } from 'typesafe-actions';
+
 /////////////////////////////////////
 // createActionType
-
-import { createActionEntity } from 'lib/common/reducerUtils';
-
 /////////////////////////////////////
+export const PRODUCT_WRITE_SET_DATA = 'write/PRODUCT_WRITE_SELECT';
 export const PRODUCT_UPLOAD = 'write/PRODUCT_UPLOAD';
 
 /////////////////////////////////////
 // createActionEntity
 /////////////////////////////////////
-// export const productsUploadAsync = createActionEntity<
-//   null,
-//   resProductPacket,
-//   AxiosError
-// >(REQ_PRODUCTS_INIT);
+export const productWriteSetData = createAction(
+  PRODUCT_WRITE_SET_DATA,
+  ({ key, value }) => ({ key, value }),
+)<any>();
 
 /////////////////////////////////////
 // actionsSetting
 /////////////////////////////////////
 export const actions = {
-  //   productsInitAsync,
+  productWriteSetData,
 };
