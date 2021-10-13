@@ -1,68 +1,72 @@
-import { css } from '@emotion/react';
-import React, { useState } from 'react';
-import ReactImageUploading, { ImageListType } from 'react-images-uploading';
+import ImgUpload from 'components/productWrite/ImgUpload';
+import {
+  productWriteSetData,
+  productWriteUploadAsync,
+} from 'lib/modules/write/actions';
+import React, { useCallback, useState } from 'react';
+import { ImageListType } from 'react-images-uploading';
+import { useDispatch, useSelector } from 'react-redux';
 
 function ImgUploadContainer() {
+  const dispatch = useDispatch();
   const [images, setImages] = useState([]);
-  const maxNumber = 69;
+  const maxNumber = 4;
+  const [imghover, setImgHover] = useState<Array<boolean>>([]);
 
-  const onChange = (
-    imageList: ImageListType,
-    addUpdateIndex: number[] | undefined,
-  ) => {
-    // data for submit
-    console.log(imageList, addUpdateIndex);
-    setImages(imageList as never[]);
+  const handleMouseEnter = (index: any) => {
+    let a = imghover;
+    a[index] = true;
+
+    setImgHover([...a]);
   };
 
-  return (
-    <div className="App">
-      <ReactImageUploading
-        multiple
-        value={images}
-        onChange={onChange}
-        maxNumber={maxNumber}
-      >
-        {({
-          imageList,
-          onImageUpload,
-          onImageRemoveAll,
-          onImageUpdate,
-          onImageRemove,
-          isDragging,
-          dragProps,
-        }) => (
-          // write your building UI
-          <div className="upload__image-wrapper">
-            <button
-              style={isDragging ? { color: 'red' } : undefined}
-              onClick={onImageUpload}
-              {...dragProps}
-            >
-              Click or Drop here
-            </button>
-            &nbsp;
-            <button onClick={onImageRemoveAll}>Remove all images</button>
-            <div
-              css={css`
-                display: flex;
-              `}
-            >
-              {imageList.map((image, index) => (
-                <div key={index} className="image-item">
-                  <img src={image.dataURL} alt="" width="100" />
-                  <div className="image-item__btn-wrapper">
-                    <button onClick={() => onImageUpdate(index)}>Update</button>
-                    <button onClick={() => onImageRemove(index)}>Remove</button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
-      </ReactImageUploading>
-    </div>
+  const handleMouseLeave = (index: any) => {
+    let a = imghover;
+    a[index] = false;
+
+    setImgHover([...a]);
+  };
+
+  const onChange = useCallback(
+    (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
+      // data for submit
+      console.log(imageList);
+      setImages(imageList as never[]);
+
+      dispatch(
+        productWriteSetData({
+          form: 'imgForm',
+          key: 'img',
+          value: imageList,
+        }),
+      );
+
+      const abc = imageList.map((img: any) => img.file);
+
+      const formData = new FormData();
+
+      const a = abc[0];
+      const b = abc[1];
+
+      formData.append('file', a);
+      formData.append('file', b);
+
+      console.log(formData);
+      dispatch(productWriteUploadAsync.request(formData as any));
+    },
+    [dispatch],
   );
+
+  const props = {
+    images,
+    onChange,
+    maxNumber,
+    handleMouseEnter,
+    handleMouseLeave,
+    imghover,
+  };
+
+  return <ImgUpload {...props} />;
 }
 
 export default ImgUploadContainer;

@@ -13,3 +13,5 @@ export { ReactComponent as search } from './search.svg';
 export { ReactComponent as upArrow } from './upArrow.svg';
 export { ReactComponent as circle } from './circle.svg';
 export { ReactComponent as close } from './close.svg';
+export { ReactComponent as update } from './update.svg';
+export { ReactComponent as delete } from './delete.svg';

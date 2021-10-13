@@ -53,3 +53,13 @@ com/smgeha/domain/product/Product.java
  com.smgeha.domain.product.Product
 com/smgeha/service/product/ProductServiceImpl.java
  com.smgeha.service.product.ProductServiceImpl
+com/smgeha/web/dto/common/fileRequestDto.java
+ com.smgeha.web.dto.common.fileRequestDto
+com/smgeha/domain/common/FileRepository.java
+ com.smgeha.domain.common.FileRepository
+com/smgeha/web/util/MD5Generator.java
+ com.smgeha.web.util.MD5Generator
+com/smgeha/domain/common/File.java
+ com.smgeha.domain.common.File
+com/smgeha/web/productWriteApiController.java
+ com.smgeha.web.productWriteApiController

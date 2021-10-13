@@ -8,6 +8,7 @@ import { productsSaga } from './products/sagas';
 import product from './product/reducer';
 import { productSaga } from './product/sagas';
 import write from './write/reducer';
+import { writeSaga } from './write/sagas';
 
 const rootReducer = combineReducers({
   naverMap,
@@ -22,5 +23,5 @@ export default rootReducer;
 export type RootState = ReturnType<typeof rootReducer>;
 
 export function* rootSaga() {
-  yield all([authSaga(), productsSaga(), productSaga()]);
+  yield all([authSaga(), productsSaga(), productSaga(), writeSaga()]);
 }

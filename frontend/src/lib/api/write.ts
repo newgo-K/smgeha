@@ -13,6 +13,10 @@ export type SelectTypesProps = {
   price: string;
 };
 
+export type ImgsProps = {
+  img: [];
+};
+
 export type ProductImgUploadPorps = {
   imgs: Array<string>;
 };
@@ -21,16 +25,13 @@ export type ProductEditorProps = {
   imgs: Array<string>;
 };
 
-export type reqProductUploadPacket = {
-  id: number;
-};
-
 export type resProductPacket = {
   msg: string;
 };
 
-export async function reqWrite({ ...props }: SelectTypesProps) {
-  console.log('업로드', { ...props });
-  // const res = await client.patch(`/product/${id}`);
-  // return res.data;
+export async function reqWrite(file: any) {
+  console.log('img', file);
+  const res = await client.post('/write', file);
+
+  return res.data;
 }

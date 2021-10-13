@@ -6,14 +6,14 @@ import ProductsView from 'components/products/ProductsView';
 import { RouteChildrenProps, withRouter } from 'react-router';
 
 function ProductsViewContainer({ history }: RouteChildrenProps) {
-  const dispacth = useDispatch();
+  const dispatch = useDispatch();
   const { data } = useSelector(({ products }: RootState) => ({
     data: products.viewData.success,
   }));
 
   useEffect(() => {
-    dispacth(productsInitAsync.request(null));
-  }, [dispacth]);
+    dispatch(productsInitAsync.request(null));
+  }, [dispatch]);
 
   useEffect(() => {}, [data]);
 

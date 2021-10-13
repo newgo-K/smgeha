@@ -1,27 +1,10 @@
 import { withStyles } from '@material-ui/core';
 import MuiSelect from '@material-ui/core/Select';
-import TextField from 'components/common/TextField';
 import SelectInputForm from 'components/productWrite/SelectInputForm';
 import { RootState } from 'lib/modules';
 import { productWriteSetData } from 'lib/modules/write/actions';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-export const PRODUCT_TYPE = {
-  REFRIGERATOR: 0,
-  AIRCONDITIONER: 1,
-  WASHINGMACHINE: 2,
-  TV: 3,
-} as const;
-
-export const SELECT_TYPE = {
-  PRODUCT: 0,
-  MANUFACTURE: 1,
-  TYPE: 2,
-} as const;
-
-export type PRODUCT_TYPE = typeof PRODUCT_TYPE[keyof typeof PRODUCT_TYPE];
-export type SELECT_TYPE = typeof SELECT_TYPE[keyof typeof SELECT_TYPE];
 
 const products = {
   refrigerator: '냉장고',
@@ -92,7 +75,7 @@ export const Select = withStyles({
 function SelectTypeContainer() {
   const dispatch = useDispatch();
   const { form } = useSelector(({ write }: RootState) => ({
-    form: write.productWriteSetData,
+    form: write.selectForm,
   }));
   const [selects, setSelects] = React.useState<any>({
     product: 0,
@@ -129,6 +112,7 @@ function SelectTypeContainer() {
 
       dispatch(
         productWriteSetData({
+          form: 'selectForm',
           key: name,
           value,
         }),
@@ -143,6 +127,7 @@ function SelectTypeContainer() {
 
       dispatch(
         productWriteSetData({
+          form: 'selectForm',
           key: name,
           value,
         }),
