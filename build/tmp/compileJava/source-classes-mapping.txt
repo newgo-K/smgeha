@@ -1,6 +1,8 @@
 com/smgeha/web/dto/PostsSaveRequestDto.java
  com.smgeha.web.dto.PostsSaveRequestDto
  com.smgeha.web.dto.PostsSaveRequestDto$PostsSaveRequestDtoBuilder
+com/smgeha/web/dto/write/WriteDto.java
+ com.smgeha.web.dto.write.WriteDto
 com/smgeha/web/dto/PostsUpdateRequestDto.java
  com.smgeha.web.dto.PostsUpdateRequestDto
  com.smgeha.web.dto.PostsUpdateRequestDto$PostsUpdateRequestDtoBuilder
@@ -17,24 +19,38 @@ com/smgeha/domain/BaseTimeEntity.java
  com.smgeha.domain.BaseTimeEntity
 com/smgeha/web/PostsApiController.java
  com.smgeha.web.PostsApiController
+com/smgeha/domain/write/WriteRepository.java
+ com.smgeha.domain.write.WriteRepository
 com/smgeha/domain/products/ProductsRepository.java
  com.smgeha.domain.products.ProductsRepository
-com/smgeha/web/dto/HelloResponseDto.java
- com.smgeha.web.dto.HelloResponseDto
+com/smgeha/service/product/ProductServiceImpl.java
+ com.smgeha.service.product.ProductServiceImpl
 com/smgeha/web/CommonApiController.java
  com.smgeha.web.CommonApiController
 com/smgeha/Application.java
  com.smgeha.Application
-com/smgeha/web/dto/PostsResponseDto.java
- com.smgeha.web.dto.PostsResponseDto
-com/smgeha/domain/products/Products.java
- com.smgeha.domain.products.Products
+com/smgeha/domain/common/FileRepository.java
+ com.smgeha.domain.common.FileRepository
+com/smgeha/web/util/MD5Generator.java
+ com.smgeha.web.util.MD5Generator
+com/smgeha/web/productApiController.java
+ com.smgeha.web.productApiController
+com/smgeha/domain/product/ProductRepository.java
+ com.smgeha.domain.product.ProductRepository
+com/smgeha/domain/common/File.java
+ com.smgeha.domain.common.File
 com/smgeha/web/WebMvcConfig.java
  com.smgeha.web.WebMvcConfig
-com/smgeha/web/dto/product/productResponseDto.java
- com.smgeha.web.dto.product.productResponseDto
+com/smgeha/domain/product/Product.java
+ com.smgeha.domain.product.Product
 com/smgeha/web/HelloController.java
  com.smgeha.web.HelloController
+com/smgeha/domain/write/Write.java
+ com.smgeha.domain.write.Write
+com/smgeha/service/product/ProductService.java
+ com.smgeha.service.product.ProductService
+com/smgeha/web/dto/common/fileRequestDto.java
+ com.smgeha.web.dto.common.fileRequestDto
 com/smgeha/service/products/ProductsService.java
  com.smgeha.service.products.ProductsService
 com/smgeha/web/dto/products/ProductsSideMenuSelectRequestDto.java
@@ -43,23 +59,13 @@ com/smgeha/web/dto/products/ProductsResponseDto.java
  com.smgeha.web.dto.products.ProductsResponseDto
 com/smgeha/web/ProductsApiController.java
  com.smgeha.web.ProductsApiController
-com/smgeha/service/product/ProductService.java
- com.smgeha.service.product.ProductService
-com/smgeha/web/productApiController.java
- com.smgeha.web.productApiController
-com/smgeha/domain/product/ProductRepository.java
- com.smgeha.domain.product.ProductRepository
-com/smgeha/domain/product/Product.java
- com.smgeha.domain.product.Product
-com/smgeha/service/product/ProductServiceImpl.java
- com.smgeha.service.product.ProductServiceImpl
-com/smgeha/web/dto/common/fileRequestDto.java
- com.smgeha.web.dto.common.fileRequestDto
-com/smgeha/domain/common/FileRepository.java
- com.smgeha.domain.common.FileRepository
-com/smgeha/web/util/MD5Generator.java
- com.smgeha.web.util.MD5Generator
-com/smgeha/domain/common/File.java
- com.smgeha.domain.common.File
+com/smgeha/web/dto/HelloResponseDto.java
+ com.smgeha.web.dto.HelloResponseDto
+com/smgeha/web/dto/product/productResponseDto.java
+ com.smgeha.web.dto.product.productResponseDto
+com/smgeha/domain/products/Products.java
+ com.smgeha.domain.products.Products
+com/smgeha/web/dto/PostsResponseDto.java
+ com.smgeha.web.dto.PostsResponseDto
 com/smgeha/web/productWriteApiController.java
  com.smgeha.web.productWriteApiController

@@ -1,11 +1,11 @@
 import produce from 'immer';
 import { asyncState, createAsyncReducer } from 'lib/common/reducerUtils';
 import { createReducer } from 'typesafe-actions';
-import { productWriteUploadAsync, PRODUCT_WRITE_SET_DATA } from './actions';
+import { productWriteUploadAsync, PRODUCT_WRITE_SET_FORM } from './actions';
 import { ProductWriteAction, ProductWriteState } from './types';
 
 const initState: ProductWriteState = {
-  selectForm: {
+  writeForm: {
     title: '',
     serial: '',
     product: 0,
@@ -13,17 +13,15 @@ const initState: ProductWriteState = {
     size: '',
     type: 0,
     price: '',
-  },
-  imgForm: {
-    img: [],
+    imgs: [],
   },
   upload: asyncState.init(),
 };
 
 const write = createReducer<ProductWriteState, ProductWriteAction>(initState, {
-  [PRODUCT_WRITE_SET_DATA]: (state, { payload: { form, key, value } }) =>
+  [PRODUCT_WRITE_SET_FORM]: (state, { payload: { key, value } }) =>
     produce(state, (draft: { [index: string]: any }) => {
-      draft[form][key] = value;
+      draft['writeForm'][key] = value;
     }),
   ...createAsyncReducer(productWriteUploadAsync, 'upload'),
 });

@@ -2,7 +2,10 @@ import { withStyles } from '@material-ui/core';
 import MuiSelect from '@material-ui/core/Select';
 import SelectInputForm from 'components/productWrite/SelectInputForm';
 import { RootState } from 'lib/modules';
-import { productWriteSetData } from 'lib/modules/write/actions';
+import {
+  productWriteSetForm,
+  productWriteUploadAsync,
+} from 'lib/modules/write/actions';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -75,7 +78,7 @@ export const Select = withStyles({
 function SelectTypeContainer() {
   const dispatch = useDispatch();
   const { form } = useSelector(({ write }: RootState) => ({
-    form: write.selectForm,
+    form: write.writeForm,
   }));
   const [selects, setSelects] = React.useState<any>({
     product: 0,
@@ -95,7 +98,7 @@ function SelectTypeContainer() {
         value: string;
       }>,
     ) => {
-      const { value, name } = e.target;
+      let { value, name } = e.target;
 
       let updateSelects = selects;
       updateSelects[name] = value;
@@ -106,13 +109,16 @@ function SelectTypeContainer() {
 
         setViewManufacture(manufactures[value as 'refrigerator']);
         setViewTypes(types[value as 'refrigerator']);
+
+        value = (Object.entries(products).findIndex(
+          (a: any) => a[0] === value,
+        ) as any) as string;
       }
 
       setSelects({ ...updateSelects });
 
       dispatch(
-        productWriteSetData({
-          form: 'selectForm',
+        productWriteSetForm({
           key: name,
           value,
         }),
@@ -126,8 +132,7 @@ function SelectTypeContainer() {
       const { value, name } = e.target;
 
       dispatch(
-        productWriteSetData({
-          form: 'selectForm',
+        productWriteSetForm({
           key: name,
           value,
         }),
@@ -135,6 +140,10 @@ function SelectTypeContainer() {
     },
     [dispatch],
   );
+
+  const onUpload = useCallback(() => {
+    dispatch(productWriteUploadAsync.request(form));
+  }, [dispatch, form]);
 
   const props = {
     form,
@@ -144,6 +153,7 @@ function SelectTypeContainer() {
     products,
     manufacture: viewManufacture,
     types: viewTypes,
+    onUpload,
   };
 
   return <SelectInputForm {...props} />;

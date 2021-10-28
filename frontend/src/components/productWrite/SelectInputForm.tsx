@@ -1,4 +1,5 @@
 import { Select, TextField } from '@material-ui/core';
+import Button from 'components/common/Button';
 import React from 'react';
 
 // adfsdf
@@ -10,6 +11,7 @@ interface selectInputFormProps {
   products: any;
   manufacture: any;
   types: any;
+  onUpload: any;
 }
 
 /**
@@ -29,6 +31,7 @@ function SelectInputForm({ ...props }: selectInputFormProps) {
     products,
     manufacture,
     types,
+    onUpload,
   } = props;
 
   const Menus = ({ name, value, type, menus }: any) => {
@@ -49,6 +52,7 @@ function SelectInputForm({ ...props }: selectInputFormProps) {
 
   return (
     <div>
+      <Button onClick={onUpload}>업로드</Button>
       <form>
         <TextField
           name="title"

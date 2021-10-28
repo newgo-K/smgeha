@@ -1,6 +1,7 @@
+import Alert from 'components/common/Alert';
 import ImgUpload from 'components/productWrite/ImgUpload';
 import {
-  productWriteSetData,
+  productWriteSetForm,
   productWriteUploadAsync,
 } from 'lib/modules/write/actions';
 import React, { useCallback, useState } from 'react';
@@ -29,30 +30,40 @@ function ImgUploadContainer() {
 
   const onChange = useCallback(
     (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
-      // data for submit
-      console.log(imageList);
-      setImages(imageList as never[]);
+      let check = false;
+      const fileForm = /(.*?)\/(jpg|jpeg|png)$/;
+      const maxSize = 1 * 1024 * 1024;
 
-      dispatch(
-        productWriteSetData({
-          form: 'imgForm',
-          key: 'img',
-          value: imageList,
-        }),
-      );
+      const files = imageList.map((img: any) => {
+        const file = img.file;
 
-      const abc = imageList.map((img: any) => img.file);
+        if (!file.type.match(fileForm)) {
+          alert('jpg / jpeg / png 파일만 등록 가능합니다.');
+          check = true;
+        } else if (file.size >= maxSize) {
+          alert('1MB 이하 파일만 등록 가능합니다.');
+          check = true;
+        }
+
+        return file;
+      });
+      debugger;
+      if (check) return;
 
       const formData = new FormData();
 
-      const a = abc[0];
-      const b = abc[1];
+      files.map((file: any) => formData.append('imgs', file));
 
-      formData.append('file', a);
-      formData.append('file', b);
+      setImages(imageList as never[]);
 
-      console.log(formData);
-      dispatch(productWriteUploadAsync.request(formData as any));
+      dispatch(
+        productWriteSetForm({
+          key: 'imgs',
+          value: formData,
+        }),
+      );
+
+      // dispatch(productWriteUploadAsync.request(formData as any));
     },
     [dispatch],
   );
