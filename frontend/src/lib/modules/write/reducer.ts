@@ -13,7 +13,7 @@ const initState: ProductWriteState = {
     size: '',
     type: 0,
     price: '',
-    imgs: [],
+    images: [],
   },
   upload: asyncState.init(),
 };

@@ -1,5 +1,6 @@
 package com.smgeha.web;
 
+import com.smgeha.domain.write.Write;
 import com.smgeha.web.dto.write.WriteDto;
 import com.smgeha.web.util.MD5Generator;
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -22,14 +24,13 @@ public class productWriteApiController {
     @Value("${file.path}")
     private String fileRealPath;
 
-    @PostMapping(value = "/write", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String write(@RequestBody  WriteDto write) throws IOException {
-        String a = reFile(write.getImgs());
+    @PostMapping(value = "/write", consumes = "multipart/form-data")
+    public String write(/*@RequestPart("images") List<MultipartFile> images,*/ @ModelAttribute WriteDto write) throws IOException {
+        String a = reFile(write.getImages());
 
         return a;
     }
 //    @PostMapping("/write")
-//public String write(@RequestParam("file") List<MultipartFile> files) throws IOException {
 
     public String reFile(List<MultipartFile> files) throws IOException {
 //    public String reFile(List<MultipartFile> files) throws IOException {

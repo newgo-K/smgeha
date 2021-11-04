@@ -1,3 +1,4 @@
+import { config } from 'process';
 import client from './client';
 
 /////////////////////////////////////
@@ -11,7 +12,7 @@ export type ReqWriteForm = {
   size: string;
   type: number;
   price: string;
-  imgs: Array<string>;
+  images: Array<string>;
 };
 
 export type SelectTypesProps = {
@@ -41,10 +42,21 @@ export type resProductPacket = {
   msg: string;
 };
 
-export async function reqWrite(file1: any) {
-  debugger;
-  const file = file1.imgs;
-  const res = await client.post('/write', file);
+export async function reqWrite(files: any) {
+  const formData = new FormData();
+  try {
+    formData.append('title', files.title);
+    formData.append('serial', files.serial);
+    formData.append('product', files.product);
+    formData.append('manufacture', files.manufacture);
+    formData.append('size', files.size);
+    formData.append('type', files.type);
+    formData.append('price', files.price);
+    files.images.map((file: any) => formData.append('images', file));
 
-  return res.data;
+    const res = await client.post('/write', formData);
+  } catch (e: any) {
+    console.log(e);
+  }
+  return 'ok';
 }

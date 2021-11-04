@@ -47,19 +47,18 @@ function ImgUploadContainer() {
 
         return file;
       });
-      debugger;
       if (check) return;
 
       const formData = new FormData();
 
-      files.map((file: any) => formData.append('imgs', file));
+      files.map((file: any) => formData.append('images', file));
 
       setImages(imageList as never[]);
 
       dispatch(
         productWriteSetForm({
-          key: 'imgs',
-          value: formData,
+          key: 'images',
+          value: files,
         }),
       );
 

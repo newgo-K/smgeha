@@ -1,8 +1,8 @@
 com/smgeha/web/dto/PostsSaveRequestDto.java
  com.smgeha.web.dto.PostsSaveRequestDto
  com.smgeha.web.dto.PostsSaveRequestDto$PostsSaveRequestDtoBuilder
-com/smgeha/web/dto/write/WriteDto.java
- com.smgeha.web.dto.write.WriteDto
+com/smgeha/web/dto/PostsResponseDto.java
+ com.smgeha.web.dto.PostsResponseDto
 com/smgeha/web/dto/PostsUpdateRequestDto.java
  com.smgeha.web.dto.PostsUpdateRequestDto
  com.smgeha.web.dto.PostsUpdateRequestDto$PostsUpdateRequestDtoBuilder
@@ -65,7 +65,7 @@ com/smgeha/web/dto/product/productResponseDto.java
  com.smgeha.web.dto.product.productResponseDto
 com/smgeha/domain/products/Products.java
  com.smgeha.domain.products.Products
-com/smgeha/web/dto/PostsResponseDto.java
- com.smgeha.web.dto.PostsResponseDto
+com/smgeha/web/dto/write/WriteDto.java
+ com.smgeha.web.dto.write.WriteDto
 com/smgeha/web/productWriteApiController.java
  com.smgeha.web.productWriteApiController
