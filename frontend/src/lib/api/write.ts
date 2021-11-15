@@ -9,7 +9,9 @@ export type ReqWriteForm = {
   serial: string;
   product: number;
   manufacture: number;
-  size: string;
+  manufactureText: string;
+  size: number;
+  sizeText: string;
   type: number;
   price: string;
   images: Array<string>;
@@ -44,19 +46,17 @@ export type resProductPacket = {
 
 export async function reqWrite(files: any) {
   const formData = new FormData();
-  try {
-    formData.append('title', files.title);
-    formData.append('serial', files.serial);
-    formData.append('product', files.product);
-    formData.append('manufacture', files.manufacture);
-    formData.append('size', files.size);
-    formData.append('type', files.type);
-    formData.append('price', files.price);
-    files.images.map((file: any) => formData.append('images', file));
 
-    const res = await client.post('/write', formData);
-  } catch (e: any) {
-    console.log(e);
-  }
-  return 'ok';
+  formData.append('title', files.title);
+  formData.append('serial', files.serial);
+  formData.append('product', files.product);
+  formData.append('manufacture', files.manufacture);
+  formData.append('size', files.size);
+  formData.append('type', files.type);
+  formData.append('price', files.price);
+  files.images.map((file: any) => formData.append('images', file));
+
+  const res = await client.post('/write', formData);
+
+  return res.data;
 }

@@ -1,6 +1,7 @@
 package com.smgeha.web;
 
 import com.smgeha.domain.write.Write;
+import com.smgeha.service.write.WriteService;
 import com.smgeha.web.dto.write.WriteDto;
 import com.smgeha.web.util.MD5Generator;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,15 +26,23 @@ public class productWriteApiController {
     @Value("${file.path}")
     private String fileRealPath;
 
+    private final WriteService writeService;
+
     @PostMapping(value = "/write", consumes = "multipart/form-data")
-    public String write(/*@RequestPart("images") List<MultipartFile> images,*/ @ModelAttribute WriteDto write) throws IOException {
-        String a = reFile(write.getImages());
+    public String write(@ModelAttribute WriteDto write) throws IOException {
+        List<String> images = saveImages(write.getImages());
 
-        return a;
+        if(null != images) {
+            int id = writeService.saveProduct(write);
+            writeService.saveProductImages(id, images);
+
+            return "ok";
+        }
+
+        return "error";
     }
-//    @PostMapping("/write")
 
-    public String reFile(List<MultipartFile> files) throws IOException {
+    public List<String> saveImages(List<MultipartFile> files) throws IOException {
 //    public String reFile(List<MultipartFile> files) throws IOException {
         // 파일이 빈 것이 들어오면 빈 것을 반환
         if (files.isEmpty()) {
@@ -55,6 +65,7 @@ public class productWriteApiController {
             file.mkdirs();
         }
 
+        List<String> imageNames = new ArrayList<String>();
         // 파일들을 이제 만져볼 것이다
         for (MultipartFile multipartFile : files) {
             // 파일이 비어 있지 않을 때 작업을 시작해야 오류가 나지 않는다
@@ -81,11 +92,12 @@ public class productWriteApiController {
                 // 각 이름은 겹치면 안되므로 나노 초까지 동원하여 지정
                 String new_file_name = Long.toString(System.nanoTime()) + originalFileExtension;
 
+                imageNames.add((new_file_name));
                 // 저장된 파일로 변경하여 이를 보여주기 위함
                 file = new File(path + "/" + new_file_name);
                 multipartFile.transferTo(file);
             }
         }
-        return "ok";
+        return imageNames;
     }
 }

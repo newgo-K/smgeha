@@ -142,7 +142,53 @@ function SelectTypeContainer() {
   );
 
   const onUpload = useCallback(() => {
-    dispatch(productWriteUploadAsync.request(form));
+    const value = Object.keys(products)[form.product];
+
+    const sizes = {
+      refrigerator: {
+        0: 299,
+        1: 499,
+        2: 699,
+        3: 700,
+      },
+      airConditioner: {
+        0: 8,
+        1: 12,
+        2: 18,
+        3: 19,
+      },
+      washingMachine: {
+        0: 10,
+        1: 15,
+        2: 16,
+      },
+      tv: {
+        0: 39,
+        1: 50,
+        2: 51,
+      },
+    };
+
+    const a = sizes[value as 'refrigerator'];
+
+    const size = form.sizeText;
+    let c = Object.keys(a).length - 1;
+
+    for (const abc in a) {
+      if (parseInt(size) < parseInt(abc[1])) {
+        c = parseInt(abc[0]);
+        break;
+      }
+    }
+
+    dispatch(
+      productWriteSetForm({
+        key: 'size',
+        c,
+      }),
+    );
+
+    // dispatch(productWriteUploadAsync.request(form));
   }, [dispatch, form]);
 
   const props = {

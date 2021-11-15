@@ -13,5 +13,5 @@ public class Write  {
     private String size;
     private short type;
     private String price;
-    private MultipartFile[] imgs;
+    private List<MultipartFile> images;
 }

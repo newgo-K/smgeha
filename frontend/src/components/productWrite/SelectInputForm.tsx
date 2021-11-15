@@ -67,8 +67,8 @@ function SelectInputForm({ ...props }: selectInputFormProps) {
           onChange={onTextChange}
         />
         <TextField
-          name="size"
-          value={form.size}
+          name="sizeText"
+          value={form.sizeText}
           placeholder="크기"
           onChange={onTextChange}
         />
@@ -76,6 +76,12 @@ function SelectInputForm({ ...props }: selectInputFormProps) {
           name="price"
           value={form.price}
           placeholder="가격"
+          onChange={onTextChange}
+        />
+        <TextField
+          name="manufactureText"
+          value={form.manufactureText}
+          placeholder="제조사"
           onChange={onTextChange}
         />
         <Menus
