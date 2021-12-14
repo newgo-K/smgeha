@@ -4,13 +4,13 @@ import client from './client';
 // 메인 메뉴 선택
 /////////////////////////////////////
 export type reqProductsMainMenuSelectPacket = {
-  id: number;
+  code: number;
 };
 
 export async function reqProductsMainMenuSelect({
-  id,
+  code,
 }: reqProductsMainMenuSelectPacket) {
-  const res = await client.patch(`/main/${id}`);
+  const res = await client.patch(`/main/${code}`);
 
   return res.data;
 }

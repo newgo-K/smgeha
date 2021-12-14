@@ -35,7 +35,7 @@ export const productsMainMenuSelect = createAction(
 )<any>();
 
 export const productsInitAsync = createActionEntity<
-  null,
+  number,
   resProductPacket,
   AxiosError
 >(REQ_PRODUCTS_INIT);

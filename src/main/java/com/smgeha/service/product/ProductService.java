@@ -1,9 +1,11 @@
 package com.smgeha.service.product;
 
 import com.smgeha.domain.product.Product;
+import com.smgeha.domain.product.ProductDTO;
 
 import java.util.List;
 
 public interface ProductService {
-    Product findByProductId (int id);
+    public List<ProductDTO> selectProductList(int code);
+//    Product findByProductId (int id);
 }

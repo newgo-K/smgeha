@@ -14,8 +14,6 @@ function MainContainer() {
     dispacth(productsInitAsync.request(null));
   }, [dispacth]);
 
-  useEffect(() => {}, [data]);
-
   return (
     <div>
       <ProductsView data={data} />

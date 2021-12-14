@@ -5,20 +5,30 @@ import palette from 'lib/styles/palette';
 import Icon from 'lib/icon/Icon';
 import { Desktop, formWidth, mediaQuery, Mobile } from 'lib/styles/common';
 import Button, { ButtonProps } from './Button';
+import { resProductCategoryPacket } from 'lib/api/category';
 
-function Header({ titles, onClick }: any) {
+type HeaderPorps = {
+  categories: Array<resProductCategoryPacket> | null;
+  onClick: (e: number) => void;
+};
+
+function Header({ categories, onClick }: HeaderPorps) {
   return (
     <Wrap>
       <Desktop>
         <img src="/img/logo.png" alt="logo" />
         <ElList>
-          {titles.map((title: string, index: number) => (
-            <li key={title}>
-              <ButtonStyles variant="text" onClick={() => onClick(index)}>
-                {title}
-              </ButtonStyles>
-            </li>
-          ))}
+          {categories &&
+            categories.map((category: resProductCategoryPacket) => (
+              <li key={category.code}>
+                <ButtonStyles
+                  variant="text"
+                  onClick={() => onClick(category.code)}
+                >
+                  {category.name}
+                </ButtonStyles>
+              </li>
+            ))}
         </ElList>
 
         <Icon icon="search" color={palette.black[0]} size="1.1rem" />
