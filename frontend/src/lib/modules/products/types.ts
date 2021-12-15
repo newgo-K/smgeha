@@ -12,9 +12,9 @@ export type ProductsAction = ActionType<typeof actions>;
 
 export type ProductsState = {
   productsMainMenuSelect: number;
-  viewData: AsyncState<
+  list: AsyncState<
     reqProductsMainMenuSelectPacket | reqProductsSideMenuSelectPacket,
-    resProductPacket,
+    Array<resProductPacket>,
     AxiosError
   >;
 };

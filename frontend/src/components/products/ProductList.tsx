@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
@@ -38,25 +38,30 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-type ProductPorps = resProductPacket & {
+type ProductProps = resProductPacket & {
   onClick: any;
 };
 
-const ProductCard = ({ onClick, ...props }: ProductPorps) => {
-  const { id, title, serial, manufactureText, sizeText, type, img } = props;
+const ProductCard = ({ onClick, ...props }: ProductProps) => {
+  const { id, name, serial, image, size, manufacture, subTypes } = props;
+  const [type, setType] = useState<string>('');
   const classes = useStyles();
+
+  useEffect(() => {
+    setType(subTypes.split(',')[2]);
+  }, [subTypes]);
 
   return (
     <Card className={classes.root} onClick={() => onClick(id)}>
-      <CardMedia className={classes.media} image={`/images/${img}`} />
+      <CardMedia className={classes.media} image={`/images/${image}`} />
 
       <CardContent className={classes.content}>
-        <Typography variant="h4">{title}</Typography>
+        <Typography variant="h4">{name}</Typography>
         <Divider />
 
         <ContentSub>시리얼 : {serial}</ContentSub>
-        <ContentSub>제조사 : {manufactureText}</ContentSub>
-        <ContentSub>크기 : {sizeText}</ContentSub>
+        <ContentSub>제조사 : {manufacture}</ContentSub>
+        <ContentSub>크기 : {size}</ContentSub>
         <ContentSub>유형 : {type}</ContentSub>
 
         <ContentPrice>520,000원</ContentPrice>
@@ -65,15 +70,18 @@ const ProductCard = ({ onClick, ...props }: ProductPorps) => {
   );
 };
 
-export default function ProductsView({ ...props }: any) {
-  const { data, onClick } = props;
+type ProductsProps = {
+  products: Array<resProductPacket> | null;
+  onClick: any;
+};
 
+export default function ProductList({ products, onClick }: ProductsProps) {
   return (
     <Wrap>
-      {data &&
-        data.map((t: resProductPacket) => (
+      {products &&
+        products.map((product: resProductPacket) => (
           <Grid item lg={3} xs={12}>
-            <ProductCard onClick={onClick} {...t} />
+            <ProductCard onClick={onClick} {...product} />
           </Grid>
         ))}
     </Wrap>

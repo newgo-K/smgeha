@@ -20,14 +20,13 @@ export async function reqProductsMainMenuSelect({
 /////////////////////////////////////
 export type resProductPacket = {
   id: number;
-  productId: number;
-  title: string;
+  name: string;
   serial: string;
-  manufactureText: string;
-  sizeText: string;
-  type: number;
-  design: string;
-  img: string;
+  image: string;
+  size: string;
+  manufacture: string;
+  url: string;
+  subTypes: string;
 };
 
 export async function reqProducts() {

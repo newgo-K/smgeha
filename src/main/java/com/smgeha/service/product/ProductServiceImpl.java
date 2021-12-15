@@ -17,8 +17,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> selectProductList(@Param(value = "code")int code) {
-        List<ProductDTO> a = productMapper.selectProductList(code);
-
         return productMapper.selectProductList(code);
     }
 //    @Override

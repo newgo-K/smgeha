@@ -5,6 +5,6 @@
 
 <mapper namespace="com.smgeha.mapper.category.CategoryMapper">
             <select id="getProductCategoryList" resultType="com.smgeha.domain.category.ProductCategoryDTO">
-            SELECT code, name FROM product_category
+            SELECT code, name FROM product_category order by code;
             </select>
 </mapper>

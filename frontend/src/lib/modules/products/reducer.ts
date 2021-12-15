@@ -10,7 +10,7 @@ import { ProductsState, ProductsAction } from './types';
 
 const initState: ProductsState = {
   productsMainMenuSelect: 0,
-  viewData: asyncState.init(),
+  list: asyncState.init(),
 };
 
 const products = createReducer<ProductsState, ProductsAction>(initState, {
@@ -21,9 +21,9 @@ const products = createReducer<ProductsState, ProductsAction>(initState, {
     ...state,
     productsMainMenuSelect: productsMainMenuSelect,
   }),
-  ...createAsyncReducer(productsInitAsync, 'viewData'),
-  ...createAsyncReducer(productsMainMenuSelectAsync, 'viewData'),
-  ...createAsyncReducer(productsSideMenuSelectAsync, 'viewData'),
+  ...createAsyncReducer(productsInitAsync, 'list'),
+  ...createAsyncReducer(productsMainMenuSelectAsync, 'list'),
+  ...createAsyncReducer(productsSideMenuSelectAsync, 'list'),
 });
 
 export default products;

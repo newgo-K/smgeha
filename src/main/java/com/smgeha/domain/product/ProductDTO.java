@@ -3,6 +3,9 @@ package com.smgeha.domain.product;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+import java.util.Map;
+
 @Getter
 @Setter
 public class ProductDTO {
@@ -13,4 +16,5 @@ public class ProductDTO {
     private String size;
     private String manufacture;
     private String url;
+    private String subTypes;
 }

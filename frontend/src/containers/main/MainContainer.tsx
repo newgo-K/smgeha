@@ -1,22 +1,18 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import { RootState } from 'lib/modules';
-import { productsInitAsync } from 'lib/modules/products/actions';
-import ProductsView from 'components/products/ProductsView';
+import ProductList from 'components/products/ProductList';
 
 function MainContainer() {
-  const dispacth = useDispatch();
-  const { data } = useSelector(({ products }: RootState) => ({
-    data: products.viewData.success,
+  const { products } = useSelector(({ products }: RootState) => ({
+    products: products.list.success,
   }));
 
-  useEffect(() => {
-    dispacth(productsInitAsync.request(null));
-  }, [dispacth]);
+  const onClick = null;
 
   return (
     <div>
-      <ProductsView data={data} />
+      <ProductList products={products} onClick={onClick} />
     </div>
   );
 }

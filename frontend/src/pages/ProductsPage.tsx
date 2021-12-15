@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import HeaderContainer from 'containers/common/HeaderContainer';
 import ProductsSideMenuContainer from 'containers/products/ProductsSideMenuContainer';
-import ProductsViewContainer from 'containers/products/ProductsViewContainer';
+import ProductListContainer from 'containers/products/ProductListContainer';
 import React from 'react';
 
 /** `Products` 페이지는 제품 전체 목록을 보여주는 페이지입니다. */
@@ -38,7 +38,7 @@ function ProductsPage() {
             margin: 0 auto;
           `}
         >
-          <ProductsViewContainer />
+          <ProductListContainer />
         </div>
       </div>
     </div>
