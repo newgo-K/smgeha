@@ -5,12 +5,25 @@
 
 <mapper namespace="com.smgeha.mapper.product.ProductMapper">
     <select id="selectProductList" parameterType="int" resultType="com.smgeha.domain.product.ProductDTO">
-        select p.id, p.name, p.serial, p.image, p.`size`, p.manufacture, p.url, group_concat(psc.name order by psc.code) as sub_types from product p
+        select p.id, p.name, p.serial, p.image, p.`size`, p.manufacture, p.price, p.url, group_concat(psc.name order by psc.code) as sub_types
+        from product p
         inner join product_search_info psi
         inner join product_sub_category psc
         where p.id = psi.product_id and psc.code = psi.product_sub_category_code and psi.product_category_code = #{code}
         group by psi.product_id;
+    </select>
 
+    <select id="selectProductInfo" parameterType="int" resultType="com.smgeha.domain.product.ProductDTO">
+        select p.id, p.name, p.serial, p.image, p.`size`, p.manufacture, p.price, p.url, group_concat(psc.name order by psc.code) as sub_types
+        from product p
+        inner join product_search_info psi
+        inner join product_sub_category psc
+        where p.id = #{id} and p.id = psi.product_id and psc.code = psi.product_sub_category_code
+        group by psi.product_id;
+    </select>
+
+    <select id="selectProductSubImage" parameterType="int" resultType="string">
+        select image from product_sub_image where product_id = #{id};
     </select>
 
 

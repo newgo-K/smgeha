@@ -10,7 +10,7 @@ export type reqProductsMainMenuSelectPacket = {
 export async function reqProductsMainMenuSelect({
   code,
 }: reqProductsMainMenuSelectPacket) {
-  const res = await client.patch(`/main/${code}`);
+  const res = await client.get(`/main/${code}`);
 
   return res.data;
 }
@@ -25,6 +25,7 @@ export type resProductPacket = {
   image: string;
   size: string;
   manufacture: string;
+  price: number;
   url: string;
   subTypes: string;
 };

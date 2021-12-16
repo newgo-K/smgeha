@@ -21,7 +21,7 @@ export const mediaQuery = (type?: string): string => {
 
 export const formWidth = (type?: string): string => {
   if (type === 'desktop') {
-    return '400px';
+    return '440px';
   } else {
     return '340px';
   }

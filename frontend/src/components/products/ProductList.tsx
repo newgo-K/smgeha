@@ -43,7 +43,7 @@ type ProductProps = resProductPacket & {
 };
 
 const ProductCard = ({ onClick, ...props }: ProductProps) => {
-  const { id, name, serial, image, size, manufacture, subTypes } = props;
+  const { id, name, serial, image, size, manufacture, price, subTypes } = props;
   const [type, setType] = useState<string>('');
   const classes = useStyles();
 
@@ -64,7 +64,9 @@ const ProductCard = ({ onClick, ...props }: ProductProps) => {
         <ContentSub>크기 : {size}</ContentSub>
         <ContentSub>유형 : {type}</ContentSub>
 
-        <ContentPrice>520,000원</ContentPrice>
+        <ContentPrice>
+          {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+        </ContentPrice>
       </CardContent>
     </Card>
   );

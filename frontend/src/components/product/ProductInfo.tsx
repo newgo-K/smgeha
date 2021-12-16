@@ -1,36 +1,56 @@
 import { css } from '@emotion/react';
 import palette from 'lib/styles/palette';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import styled from '@emotion/styled';
 import ProductImgCarousel from './ProductImgCarousel';
 import { formWidth, mediaQuery } from 'lib/styles/common';
 
-function ProductView({ ...props }: any) {
-  const { title, serial, manufactureText, sizeText, type, url, imgs } = props;
+function ProductInfo({ ...props }: any) {
+  const {
+    id,
+    name,
+    serial,
+    image,
+    size,
+    manufacture,
+    price,
+    url,
+    subTypes,
+    subImages,
+  } = props;
+  const [type, setType] = useState<string>('');
+
+  useEffect(() => {
+    if (subTypes) {
+      setType(subTypes.split(',')[2]);
+    }
+  }, [subTypes]);
 
   return (
     <Wrap>
       <Title>
-        <Typography variant="h1">{title}</Typography>
+        <Typography variant="h1">{name}</Typography>
       </Title>
       <ContentWrap>
         <Grid item xs={7}>
           {/* Carousel */}
-          <ProductImgCarousel imgs={imgs} />
+          <ProductImgCarousel imgs={subImages} />
         </Grid>
         <Grid item xs={5}>
           {/* Content */}
           <ContentTitle>시리얼</ContentTitle>
           <ContentSub>{serial}</ContentSub>
           <ContentTitle>제조사</ContentTitle>
-          <ContentSub>{manufactureText}</ContentSub>
-          <ContentTitle>용량</ContentTitle>
-          <ContentSub>{sizeText}</ContentSub>
+          <ContentSub>{manufacture}</ContentSub>
+          <ContentTitle>크기</ContentTitle>
+          <ContentSub>{size}</ContentSub>
           <ContentTitle>유형</ContentTitle>
           <ContentSub>{type}</ContentSub>
-          <ContentPrice>520,000원</ContentPrice>
+          <ContentPrice>
+            {price && price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+          </ContentPrice>
         </Grid>
       </ContentWrap>
       <GuideDetail>
@@ -50,7 +70,6 @@ const Wrap = styled.div`
   width: 430px;
 
   ${mediaQuery('xs')} {
-    padding: 0 10px;
     width: ${formWidth()};
   }
 `;
@@ -81,7 +100,7 @@ const ContentSub = (props: any) => (
       color: ${palette.grey[4]} !important;
     `}
   >
-    <Typography variant="subtitle2" {...props} />
+    <Typography variant="subtitle1" {...props} />
   </div>
 );
 
@@ -99,4 +118,4 @@ const GuideDetail = styled.div`
   padding: 2px 7px;
 `;
 
-export default ProductView;
+export default ProductInfo;

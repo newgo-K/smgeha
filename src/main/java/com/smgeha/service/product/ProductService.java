@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ProductService {
     public List<ProductDTO> selectProductList(int code);
-//    Product findByProductId (int id);
+    public ProductDTO selectProductInfo(int id);
 }

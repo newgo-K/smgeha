@@ -15,6 +15,8 @@ public class ProductDTO {
     private String image;
     private String size;
     private String manufacture;
+    private Integer price;
     private String url;
     private String subTypes;
+    private List<String> subImages;
 }

@@ -15,11 +15,12 @@ export type resProductPacket = {
   manufactureText: string;
   sizeText: string;
   type: string;
+  price: number;
   url: string;
   imgs: Array<string>;
 };
 
 export async function reqProductSelect({ id }: reqProductSelectPacket) {
-  const res = await client.patch(`/product/${id}`);
+  const res = await client.get(`/product/${id}`);
   return res.data;
 }

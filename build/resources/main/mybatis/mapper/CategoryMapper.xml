@@ -4,7 +4,21 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.smgeha.mapper.category.CategoryMapper">
-            <select id="getProductCategoryList" resultType="com.smgeha.domain.category.ProductCategoryDTO">
-            SELECT code, name FROM product_category order by code;
-            </select>
+    <select id="getProductCategoryList" resultType="com.smgeha.domain.category.ProductCategoryDTO">
+        SELECT code, name FROM product_category order by code;
+    </select>
+
+    <select id="selectProductSubCategoryList" parameterType="int" resultType="com.smgeha.domain.category.ProductSubCategoryDTO">
+        WITH RECURSIVE t3 (code, name, parent, `depth`, `order`) AS
+        (
+            SELECT t1.code, t1.name, t1.parent, t1.depth, t1.order
+            FROM product_sub_category t1
+            WHERE t1.product_category_id = #{code} and t1.parent is null
+            UNION ALL
+            SELECT t2.code, t2.name, t2.parent, t2.depth, t2.order
+            FROM product_sub_category t2
+            INNER JOIN t3 ON t2.parent = t3.code
+        )
+        SELECT code, name, parent FROM t3 where t3.parent is not null order BY t3.code, t3.order;
+    </select>
 </mapper>

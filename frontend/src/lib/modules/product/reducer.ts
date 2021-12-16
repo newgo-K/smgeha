@@ -4,11 +4,11 @@ import { productSelectAsync } from './actions';
 import { ProductAction, ProductState } from './types';
 
 const initState: ProductState = {
-  view: asyncState.init(),
+  info: asyncState.init(),
 };
 
 const product = createReducer<ProductState, ProductAction>(initState, {
-  ...createAsyncReducer(productSelectAsync, 'view'),
+  ...createAsyncReducer(productSelectAsync, 'info'),
 });
 
 export default product;

@@ -18,7 +18,7 @@ function HeaderContainer() {
     categories: category.productCategory.success,
   }));
 
-  // 메인 페이지는 업체 소개 다음 메뉴로 초기화
+  // 최초 메인 카테고리는 업체 소개 다음 카테고리로 초기화
   useEffect(() => {
     const code = CATEGORY.INTRODUCE + 1;
     dispatch(productsMainMenuSelectAsync.request({ code }));

@@ -8,4 +8,6 @@ import java.util.List;
 @Mapper
 public interface ProductMapper {
     public List<ProductDTO> selectProductList(int code);
+    public ProductDTO selectProductInfo(int id);
+    public List<String> selectProductSubImage(int id);
 }

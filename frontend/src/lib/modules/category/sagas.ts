@@ -1,13 +1,25 @@
-import { reqProductCategory } from 'lib/api/category';
-import { takeEvery } from '@redux-saga/core/effects';
+import { reqProductCategory, reqProductSubCategory } from 'lib/api/category';
+import { takeLatest } from '@redux-saga/core/effects';
 import { createAsyncSaga } from 'lib/common/sagaUtils';
-import { productCategoryInitAsync } from './actions';
+import {
+  productCategoryInitAsync,
+  productSubCategorySelectAsync,
+} from './actions';
 
 const productCategoryInitSaga = createAsyncSaga(
   productCategoryInitAsync,
   reqProductCategory,
 );
 
+const productSubCategorySelectSaga = createAsyncSaga(
+  productSubCategorySelectAsync,
+  reqProductSubCategory,
+);
+
 export function* categorySaga() {
-  yield takeEvery(productCategoryInitAsync.request, productCategoryInitSaga);
+  yield takeLatest(productCategoryInitAsync.request, productCategoryInitSaga);
+  yield takeLatest(
+    productSubCategorySelectAsync.request,
+    productSubCategorySelectSaga,
+  );
 }

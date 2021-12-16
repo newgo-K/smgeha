@@ -17,8 +17,13 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    @PatchMapping("/main/{code}")
+    @GetMapping("/main/{code}")
     public List<ProductDTO> selectProductList(@PathVariable int code) {
         return productService.selectProductList(code);
+    }
+
+    @GetMapping("/product/{id}")
+    public ProductDTO selectProductInfo(@PathVariable int id) {
+        return productService.selectProductInfo(id);
     }
 }

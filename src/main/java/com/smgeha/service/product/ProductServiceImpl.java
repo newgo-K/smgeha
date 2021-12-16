@@ -16,9 +16,17 @@ public class ProductServiceImpl implements ProductService {
     private ProductMapper productMapper;
 
     @Override
-    public List<ProductDTO> selectProductList(@Param(value = "code")int code) {
+    public List<ProductDTO> selectProductList(@Param(value = "code") int code) {
         return productMapper.selectProductList(code);
     }
+
+    @Override
+    public ProductDTO selectProductInfo(@Param(value = "id") int id) {
+        ProductDTO product = productMapper.selectProductInfo(id);
+        product.setSubImages(productMapper.selectProductSubImage(id));
+
+        return product;
+    };
 //    @Override
 //    public Product findByProductId(@Param(value = "id") int id) {
 //        Product product = productRepositoy.findByProductId(id);

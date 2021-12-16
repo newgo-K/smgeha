@@ -7,5 +7,5 @@ import { actions } from './actions';
 export type ProductAction = ActionType<typeof actions>;
 
 export type ProductState = {
-  view: AsyncState<reqProductSelectPacket, resProductPacket, AxiosError>;
+  info: AsyncState<reqProductSelectPacket, resProductPacket, AxiosError>;
 };

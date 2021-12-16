@@ -1,25 +1,26 @@
 import Button from 'components/common/Button';
 import PageTitle from 'components/common/PageTitle';
 import CommonTemplate from 'components/common/template/CommonTemplate';
-import ProductView from 'components/product/ProductView';
+import ProductInfo from 'components/product/ProductInfo';
 import Icon from 'lib/icon/Icon';
 import { RootState } from 'lib/modules';
 import { productSelectAsync } from 'lib/modules/product/actions';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
+import { reqProductSelectPacket } from 'lib/api/product';
 
-function ProductViewContainer() {
+function ProductInfoContainer() {
   const dispacth = useDispatch();
-  const { view } = useSelector(({ product }: RootState) => ({
-    view: product.view.success,
+  const { product } = useSelector(({ product }: RootState) => ({
+    product: product.info.success,
   }));
 
   const history = useHistory();
   const { id }: any = useParams();
 
   useEffect(() => {
-    dispacth(productSelectAsync.request({ id }));
+    dispacth(productSelectAsync.request({ id } as reqProductSelectPacket));
   }, [dispacth, id]);
 
   const leftContent = () => (
@@ -31,9 +32,9 @@ function ProductViewContainer() {
   return (
     <CommonTemplate>
       <PageTitle leftContent={leftContent} title="상세내용" />
-      <ProductView {...view} />
+      <ProductInfo {...product} />
     </CommonTemplate>
   );
 }
 
-export default ProductViewContainer;
+export default ProductInfoContainer;

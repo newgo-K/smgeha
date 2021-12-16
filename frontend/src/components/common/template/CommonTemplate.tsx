@@ -21,7 +21,7 @@ const Wrap = styled.div`
   display: flex;
   justify-content: center;
   margin: 0 auto;
-  padding: 0 30px;
+  padding: 0 10px;
   background: ${palette.white};
   max-width: ${formWidth('desktop')};
 
@@ -29,7 +29,6 @@ const Wrap = styled.div`
   border-right: 1px solid ${palette.grey[2]};
 
   ${mediaQuery('xs')} {
-    padding: 0 10px;
     width: ${formWidth()};
     /* max-width: ${formWidth('desktop')}; */
   }
