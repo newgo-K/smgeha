@@ -1,10 +1,9 @@
 import { css } from '@emotion/react';
 import Button from 'components/common/Button';
-import { AnyArray } from 'immer/dist/internal';
 import Icon from 'lib/icon/Icon';
 import palette from 'lib/styles/palette';
-import React, { useState } from 'react';
-import ReactImageUploading, { ImageListType } from 'react-images-uploading';
+import React from 'react';
+import ReactImageUploading from 'react-images-uploading';
 import styled from '@emotion/styled';
 
 function ImgUpload({ ...props }: any) {

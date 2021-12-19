@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'lib/modules';
 import { productsSideMenuSelectAsync } from 'lib/modules/products/actions';
 import { productSubCategorySelectAsync } from 'lib/modules/category/actions';
-import { resProductSubCategoryPacket } from 'lib/api/category';
 
 const menuTitle = ['제조사', '유형', '크기'];
 
@@ -45,9 +44,6 @@ function ProductsSideMenuContainer() {
     id: products.productsMainMenuSelect,
   }));
 
-  const [subCategory, setSubCategory] = useState<
-    Array<resProductSubCategoryPacket>
-  >([]);
   const [menu, setMenu] = useState(menuGuide[id]);
 
   // 최초 서브 카테고리는 업체 소개 다음 카테고리로 초기화

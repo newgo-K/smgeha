@@ -1,9 +1,8 @@
-import Alert from 'components/common/Alert';
 import ImgUpload from 'components/productWrite/ImgUpload';
 import { productWriteSetForm } from 'lib/modules/write/actions';
 import React, { useCallback, useState } from 'react';
 import { ImageListType } from 'react-images-uploading';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 function ImgUploadContainer() {
   const dispatch = useDispatch();

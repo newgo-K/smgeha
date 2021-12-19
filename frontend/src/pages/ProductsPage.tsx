@@ -3,6 +3,7 @@ import HeaderContainer from 'containers/common/HeaderContainer';
 import ProductsSideMenuContainer from 'containers/products/ProductsSideMenuContainer';
 import ProductListContainer from 'containers/products/ProductListContainer';
 import React from 'react';
+import ProductSubCategoryContainer from 'containers/products/ProductsSubCategoryContainer';
 
 /** `Products` 페이지는 제품 전체 목록을 보여주는 페이지입니다. */
 function ProductsPage() {
@@ -29,7 +30,8 @@ function ProductsPage() {
             margin: 0 auto;
           `}
         >
-          <ProductsSideMenuContainer />
+          {/* <ProductsSideMenuContainer /> */}
+          <ProductSubCategoryContainer />
         </div>
 
         <div

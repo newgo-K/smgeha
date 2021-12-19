@@ -26,9 +26,9 @@ export const AccordionSummary = withStyles({
     borderBottom: `1px solid ${palette.grey[2]}`,
     marginBottom: -1,
     padding: '0 5px',
-    minHeight: 40,
+    minHeight: 35,
     '&$expanded': {
-      minHeight: 40,
+      minHeight: 35,
     },
   },
   content: {
@@ -50,6 +50,7 @@ export const AccordionSummary = withStyles({
 export const AccordionDetails = withStyles((theme) => ({
   root: {
     height: 26,
-    padding: '5px',
+    padding: 3,
+    marginLeft: 13,
   },
 }))(MuiAccordionDetails);

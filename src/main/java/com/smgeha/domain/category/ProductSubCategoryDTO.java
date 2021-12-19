@@ -9,4 +9,5 @@ public class ProductSubCategoryDTO {
     private Integer code;
     private String name;
     private Integer parent;
+    private Integer depth;
 }

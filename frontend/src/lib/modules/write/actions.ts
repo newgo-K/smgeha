@@ -1,5 +1,4 @@
 import { AxiosError } from 'axios';
-import { ImgsProps } from 'lib/api/write';
 import {
   createActionEntity,
   createAsyncActionType,

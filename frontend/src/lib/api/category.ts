@@ -22,6 +22,7 @@ export type resProductSubCategoryPacket = {
   code: number;
   name: string;
   parent: number;
+  depth: number;
 };
 
 export async function reqProductSubCategory({

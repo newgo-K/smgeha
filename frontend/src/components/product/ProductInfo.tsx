@@ -9,10 +9,10 @@ import { formWidth, mediaQuery } from 'lib/styles/common';
 
 function ProductInfo({ ...props }: any) {
   const {
-    id,
+    // id,
     name,
     serial,
-    image,
+    // image,
     size,
     manufacture,
     price,

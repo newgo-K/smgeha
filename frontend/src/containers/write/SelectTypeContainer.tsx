@@ -2,10 +2,7 @@ import { withStyles } from '@material-ui/core';
 import MuiSelect from '@material-ui/core/Select';
 import SelectInputForm from 'components/productWrite/SelectInputForm';
 import { RootState } from 'lib/modules';
-import {
-  productWriteSetForm,
-  productWriteUploadAsync,
-} from 'lib/modules/write/actions';
+import { productWriteSetForm } from 'lib/modules/write/actions';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
