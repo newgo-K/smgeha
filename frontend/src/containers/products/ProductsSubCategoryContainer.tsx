@@ -4,6 +4,8 @@ import { RootState } from 'lib/modules';
 import { productSubCategorySelectAsync } from 'lib/modules/category/actions';
 import { resProductSubCategoryPacket } from 'lib/api/category';
 import ProductSubCategory from 'components/products/ProductsSubCategory';
+import { reqProductSubCategorySearchPacket } from 'lib/api/products';
+import { productsSubCategorySearchAsync } from 'lib/modules/products/actions';
 
 const enum CATEGORY {
   INTRODUCE = 1,
@@ -20,11 +22,15 @@ export type subCategoryProps = {
 
 function ProductSubCategoryContainer() {
   const dispatch = useDispatch();
-  const { subCategory } = useSelector(({ products, category }: RootState) => ({
-    subCategory: category.productSubCategory.success,
-  }));
+  const { mainCode, subCategory } = useSelector(
+    ({ products, category }: RootState) => ({
+      mainCode: products.productsMainMenuSelect,
+      subCategory: category.productSubCategory.success,
+    }),
+  );
 
   const [categories, setCategories] = useState<Array<subCategoryProps>>([]);
+  const [checkFlag, setCheckFlag] = useState<boolean>(false);
 
   // 최초 서브 카테고리는 업체 소개 다음 카테고리로 초기화
   useEffect(() => {
@@ -35,8 +41,8 @@ function ProductSubCategoryContainer() {
   useEffect(() => {
     if (subCategory) {
       let tempCategories = Array<subCategoryProps>();
-      // 부모값을 이용해서 카테고리 분류
-      let parent = subCategory[subCategory.length - 1].parent;
+      // 부모값을 이용해 대분류를 찾음
+      let parent = subCategory[0].parent;
       let title: categoryContent = {
         code: 0,
         name: '',
@@ -46,8 +52,13 @@ function ProductSubCategoryContainer() {
       };
       let contents = Array<categoryContent>();
 
-      subCategory.forEach(
-        (category: resProductSubCategoryPacket, index: number) => {
+      // subCategory value 값이 0부터 시작하면
+      // 최초 카테고리 값을 분류해야하는 코드가 필요
+      // 카테고리 개수가 많지 않으니 reverse 사용
+      // 만약 성능에 지장을 줄 정도라면 reverse 지우고 코드를 추가해야 함
+      subCategory
+        .reverse()
+        .forEach((category: resProductSubCategoryPacket, index: number) => {
           const addCategory: categoryContent = {
             ...category,
             checked: false,
@@ -64,16 +75,17 @@ function ProductSubCategoryContainer() {
           if (parent === category.parent) {
             const tempCategory: subCategoryProps = {
               title,
-              contents: [...contents].reverse(),
+              contents: [...contents.reverse()],
             };
 
             tempCategories.push(tempCategory);
             contents.length = 0;
           }
-        },
-      );
+        });
 
-      setCategories([...tempCategories].reverse());
+      if (tempCategories.length > 2) {
+        setCategories([...tempCategories.reverse()]);
+      }
     }
   }, [subCategory]);
 
@@ -97,7 +109,27 @@ function ProductSubCategoryContainer() {
     }
 
     setCategories([...tempCategory]);
+    setCheckFlag(true);
   };
+
+  useEffect(() => {
+    if (checkFlag) {
+      let subCodes = Array<number>();
+
+      categories.forEach((category: subCategoryProps) => {
+        category.contents.forEach((content: categoryContent) => {
+          if (content.checked) {
+            subCodes.push(content.code);
+          }
+        });
+      });
+
+      setCheckFlag(false);
+      dispatch(
+        productsSubCategorySearchAsync.request({ mainCode, subCodes } as any),
+      );
+    }
+  }, [mainCode, categories, checkFlag, dispatch]);
 
   return (
     <>

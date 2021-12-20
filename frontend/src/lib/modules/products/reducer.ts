@@ -4,7 +4,7 @@ import {
   PRODUCTS_MAIN_MENU_SELECT,
   productsInitAsync,
   productsMainMenuSelectAsync,
-  productsSideMenuSelectAsync,
+  productsSubCategorySearchAsync,
 } from './actions';
 import { ProductsState, ProductsAction } from './types';
 
@@ -23,7 +23,7 @@ const products = createReducer<ProductsState, ProductsAction>(initState, {
   }),
   ...createAsyncReducer(productsInitAsync, 'list'),
   ...createAsyncReducer(productsMainMenuSelectAsync, 'list'),
-  ...createAsyncReducer(productsSideMenuSelectAsync, 'list'),
+  ...createAsyncReducer(productsSubCategorySearchAsync, 'list'),
 });
 
 export default products;

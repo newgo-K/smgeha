@@ -1,13 +1,11 @@
 package com.smgeha.controller;
 
 import com.smgeha.domain.product.ProductDTO;
+import com.smgeha.domain.product.ProductSubCategorySerachDTO;
 import com.smgeha.service.product.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,8 +20,16 @@ public class ProductController {
         return productService.selectProductList(code);
     }
 
+    @PostMapping("/main")
+    public List<ProductDTO> findSubCategoryProductList(@RequestBody ProductSubCategorySerachDTO searchCodes) {
+        return productService.findSubCategoryProductList(searchCodes);
+    }
+
     @GetMapping("/product/{id}")
     public ProductDTO selectProductInfo(@PathVariable int id) {
         return productService.selectProductInfo(id);
     }
+
+
+
 }

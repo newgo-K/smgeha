@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import {
   reqProductsMainMenuSelectPacket,
-  reqProductsSideMenuSelectPacket,
+  reqProductSubCategorySearchPacket,
   resProductPacket,
 } from 'lib/api/products';
 import {
@@ -23,8 +23,8 @@ export const REQ_PRODUCTS_MAIN_MENU_SELECT = createAsyncActionType(
   'products/REQ_PRODUCTS_MAIN_MENU_SELECT',
 );
 
-export const REQ_PRODUCTS_SIDE_MENU_SELECT = createAsyncActionType(
-  'products/REQ_PRODUCTS_SIDE_MENU_SELECT',
+export const REQ_PRODUCTS_SUB_CATEGORY_SEARCH = createAsyncActionType(
+  'products/REQ_PRODUCTS_SUB_CATEGORY_SEARCH',
 );
 
 /////////////////////////////////////
@@ -46,11 +46,11 @@ export const productsMainMenuSelectAsync = createActionEntity<
   AxiosError
 >(REQ_PRODUCTS_MAIN_MENU_SELECT);
 
-export const productsSideMenuSelectAsync = createActionEntity<
-  reqProductsSideMenuSelectPacket,
+export const productsSubCategorySearchAsync = createActionEntity<
+  reqProductSubCategorySearchPacket,
   resProductPacket,
   AxiosError
->(REQ_PRODUCTS_SIDE_MENU_SELECT);
+>(REQ_PRODUCTS_SUB_CATEGORY_SEARCH);
 
 /////////////////////////////////////
 // actionsSetting
@@ -59,5 +59,5 @@ export const actions = {
   productsMainMenuSelect,
   productsInitAsync,
   productsMainMenuSelectAsync,
-  productsSideMenuSelectAsync,
+  productsSubCategorySearchAsync,
 };

@@ -37,18 +37,18 @@ export async function reqProducts() {
 }
 
 /////////////////////////////////////
-// 사이드 메뉴 선택
+// 서브 카테고리에 관련된 제품 검색
 /////////////////////////////////////
-export type reqProductsSideMenuSelectPacket = {
-  id: number;
-  sideMenus: Array<Array<number>>;
+export type reqProductSubCategorySearchPacket = {
+  mainCode: number;
+  subCodes: Array<number>;
 };
 
-export async function reqProductsSideMenuSelect({
-  id,
-  sideMenus,
-}: reqProductsSideMenuSelectPacket) {
-  const res = await client.post('/main', { id, sideMenus });
+export async function reqProductSubCategorySearch({
+  mainCode,
+  subCodes,
+}: reqProductSubCategorySearchPacket) {
+  const res = await client.post('/main', { mainCode, subCodes });
 
   return res.data;
 }

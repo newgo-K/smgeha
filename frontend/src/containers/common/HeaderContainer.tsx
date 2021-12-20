@@ -22,12 +22,16 @@ function HeaderContainer() {
   useEffect(() => {
     const code = CATEGORY.INTRODUCE + 1;
     dispatch(productsMainMenuSelectAsync.request({ code }));
+    dispatch(productsMainMenuSelect(code));
   }, [dispatch]);
 
   // 제품 카테고리 내용이 없을 경우 데이터 로드
   useEffect(() => {
     if (!categories) {
+      const code = CATEGORY.INTRODUCE + 1;
+
       dispatch(productCategoryInitAsync.request(null));
+      dispatch(productsMainMenuSelect(code));
     }
   }, [categories, dispatch]);
 

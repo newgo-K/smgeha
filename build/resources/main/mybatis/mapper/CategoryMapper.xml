@@ -19,6 +19,6 @@
             FROM product_sub_category t2
             INNER JOIN t3 ON t2.parent = t3.code
         )
-        SELECT code, name, parent, `depth` FROM t3 where t3.parent is not null order BY t3.code desc, t3.order;
+        SELECT code, name, parent, `depth` FROM t3 where t3.parent is not null order BY t3.code, t3.order;
     </select>
 </mapper>

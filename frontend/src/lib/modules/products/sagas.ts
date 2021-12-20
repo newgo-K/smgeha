@@ -1,14 +1,14 @@
 import {
   reqProducts,
   reqProductsMainMenuSelect,
-  reqProductsSideMenuSelect,
+  reqProductSubCategorySearch,
 } from 'lib/api/products';
 import { createAsyncSaga } from 'lib/common/sagaUtils';
-import { takeEvery } from '@redux-saga/core/effects';
+import { takeLatest } from '@redux-saga/core/effects';
 import {
-  productsSideMenuSelectAsync,
   productsMainMenuSelectAsync,
   productsInitAsync,
+  productsSubCategorySearchAsync,
 } from './actions';
 
 const productsInitSaga = createAsyncSaga(productsInitAsync, reqProducts);
@@ -18,19 +18,19 @@ const productsMainMenuSelectSaga = createAsyncSaga(
   reqProductsMainMenuSelect,
 );
 
-const productsSideMenuSelectSaga = createAsyncSaga(
-  productsSideMenuSelectAsync,
-  reqProductsSideMenuSelect,
+const productsSubCategorySearchSaga = createAsyncSaga(
+  productsSubCategorySearchAsync,
+  reqProductSubCategorySearch,
 );
 
 export function* productsSaga() {
-  yield takeEvery(productsInitAsync.request, productsInitSaga);
-  yield takeEvery(
+  yield takeLatest(productsInitAsync.request, productsInitSaga);
+  yield takeLatest(
     productsMainMenuSelectAsync.request,
     productsMainMenuSelectSaga,
   );
-  yield takeEvery(
-    productsSideMenuSelectAsync.request,
-    productsSideMenuSelectSaga,
+  yield takeLatest(
+    productsSubCategorySearchAsync.request,
+    productsSubCategorySearchSaga,
   );
 }

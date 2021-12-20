@@ -13,6 +13,26 @@
         group by psi.product_id;
     </select>
 
+    <select id="findSubCategoryProductList" parameterType="com.smgeha.domain.product.ProductSubCategorySerachDTO" resultType="com.smgeha.domain.product.ProductDTO">
+        select * from
+        (
+        select p.id, p.name, p.serial, p.image, p.`size`, p.manufacture, p.price, p.url,
+        group_concat(psc.name order by psc.code) as sub_types,
+        group_concat(psi.product_sub_category_code) as sub_codes
+        from product p
+        inner join product_search_info psi
+        inner join product_sub_category psc
+        where p.id = psi.product_id and psc.code = psi.product_sub_category_code and psi.product_category_code = #{mainCode}
+        group by psi.product_id
+        ) as t
+        <if test="subCodes.size != 0">
+            where
+            <foreach collection="subCodes" item="code" index="index" separator="or">
+                 find_in_set(#{code}, sub_codes)
+            </foreach>
+        </if>
+    </select>
+
     <select id="selectProductInfo" parameterType="int" resultType="com.smgeha.domain.product.ProductDTO">
         select p.id, p.name, p.serial, p.image, p.`size`, p.manufacture, p.price, p.url, group_concat(psc.name order by psc.code) as sub_types
         from product p
@@ -25,60 +45,4 @@
     <select id="selectProductSubImage" parameterType="int" resultType="string">
         select image from product_sub_image where product_id = #{id};
     </select>
-
-
-<!--    <select id="findByProductId" resultType="Product">-->
-<!--        SELECT-->
-<!--        id,-->
-<!--        title,-->
-<!--        serial,-->
-<!--        manufactureText,-->
-<!--        sizeText,-->
-<!--        CASE-->
-<!--        WHEN-->
-<!--        productId=0-->
-<!--        THEN-->
-<!--        CASE-->
-<!--        WHEN type=0-->
-<!--        THEN '일반형'-->
-<!--        WHEN type=1-->
-<!--        THEN '양문형'-->
-<!--        WHEN type=2-->
-<!--        THEN '4도어'-->
-<!--        ELSE '김치 냉장고'-->
-<!--        END-->
-<!--        WHEN productId=1-->
-<!--        THEN-->
-<!--        CASE-->
-<!--        WHEN type=0-->
-<!--        THEN '벽걸이'-->
-<!--        WHEN type=1-->
-<!--        THEN '스탠드'-->
-<!--        ELSE '2in1'-->
-<!--        END-->
-<!--        WHEN productId=2-->
-<!--        THEN-->
-<!--        CASE-->
-<!--        WHEN type=0-->
-<!--        THEN '통돌이'-->
-<!--        ELSE '드럼'-->
-<!--        END-->
-<!--        WHEN productId=3-->
-<!--        THEN-->
-<!--        CASE-->
-<!--        WHEN type=0-->
-<!--        THEN '39인치 이하'-->
-<!--        WHEN type=1-->
-<!--        THEN '40~50인치'-->
-<!--        ELSE '51인치 이상'-->
-<!--        END-->
-<!--        END AS type,-->
-<!--        img,-->
-<!--        url-->
-<!--        FROM product-->
-<!--        WHERE id = #{id}-->
-<!--    </select>-->
-<!--    <select id="findByProductContent" resultType="string">-->
-<!--        SELECT image FROM productContent WHERE productId = #{id}-->
-<!--    </select>-->
 </mapper>

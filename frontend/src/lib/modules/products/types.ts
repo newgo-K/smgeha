@@ -1,7 +1,7 @@
 import { AxiosError } from 'axios';
 import {
   reqProductsMainMenuSelectPacket,
-  reqProductsSideMenuSelectPacket,
+  reqProductSubCategorySearchPacket,
   resProductPacket,
 } from 'lib/api/products';
 import { AsyncState } from 'lib/common/reducerUtils';
@@ -13,7 +13,7 @@ export type ProductsAction = ActionType<typeof actions>;
 export type ProductsState = {
   productsMainMenuSelect: number;
   list: AsyncState<
-    reqProductsMainMenuSelectPacket | reqProductsSideMenuSelectPacket,
+    reqProductsMainMenuSelectPacket | reqProductSubCategorySearchPacket,
     Array<resProductPacket>,
     AxiosError
   >;

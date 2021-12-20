@@ -3,6 +3,7 @@ package com.smgeha.service.product;
 import com.smgeha.domain.product.Product;
 import com.smgeha.domain.product.ProductDTO;
 import com.smgeha.domain.product.ProductRepository;
+import com.smgeha.domain.product.ProductSubCategorySerachDTO;
 import com.smgeha.mapper.product.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
@@ -18,6 +19,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> selectProductList(@Param(value = "code") int code) {
         return productMapper.selectProductList(code);
+    }
+
+    @Override
+    public List<ProductDTO> findSubCategoryProductList(@Param(value = "searchCodes") ProductSubCategorySerachDTO searchCodes) {
+      return productMapper.findSubCategoryProductList(searchCodes);
     }
 
     @Override

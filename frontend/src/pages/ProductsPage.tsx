@@ -1,6 +1,5 @@
 import { css } from '@emotion/react';
 import HeaderContainer from 'containers/common/HeaderContainer';
-import ProductsSideMenuContainer from 'containers/products/ProductsSideMenuContainer';
 import ProductListContainer from 'containers/products/ProductListContainer';
 import React from 'react';
 import ProductSubCategoryContainer from 'containers/products/ProductsSubCategoryContainer';
@@ -30,7 +29,6 @@ function ProductsPage() {
             margin: 0 auto;
           `}
         >
-          {/* <ProductsSideMenuContainer /> */}
           <ProductSubCategoryContainer />
         </div>
 
