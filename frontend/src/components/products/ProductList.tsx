@@ -14,13 +14,14 @@ import { resProductPacket } from 'lib/api/products';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      maxWidth: 170,
-      padding: '20px 40px',
-
+      padding: '20px 30px',
+      margin: '10px',
       boxShadow: 'none',
 
-      [theme.breakpoints.up('sm')]: {
-        margin: 10,
+      [theme.breakpoints.down('sm')]: {
+        maxWidth: 170,
+        margin: 5,
+        padding: 7,
       },
     },
     content: {
@@ -30,10 +31,15 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     media: {
-      width: 170,
-      height: 170,
+      width: 200,
+      height: 200,
       margin: 'auto',
       backgroundSize: 'contain',
+
+      [theme.breakpoints.down('sm')]: {
+        width: 150,
+        height: 150,
+      },
     },
   }),
 );
@@ -82,7 +88,7 @@ export default function ProductList({ products, onClick }: ProductsProps) {
     <Wrap>
       {products &&
         products.map((product: resProductPacket) => (
-          <Grid item lg={3} xs={12}>
+          <Grid item lg={3} xs={6}>
             <ProductCard onClick={onClick} {...product} />
           </Grid>
         ))}
@@ -95,9 +101,10 @@ const Wrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   border-radius: 4px;
-  padding: 5px;
+  padding: 10px;
+
   ${mediaQuery('xs')} {
-    display: inline-block;
+    padding: 5px;
   }
 `;
 

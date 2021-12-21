@@ -37,7 +37,6 @@ function EditorContainer() {
   ];
 
   function onChange(editor: any) {
-    debugger;
     console.log(EditorContainer);
   }
 

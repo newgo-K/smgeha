@@ -4,7 +4,6 @@ import { RootState } from 'lib/modules';
 import { productSubCategorySelectAsync } from 'lib/modules/category/actions';
 import { resProductSubCategoryPacket } from 'lib/api/category';
 import ProductSubCategory from 'components/products/ProductsSubCategory';
-import { reqProductSubCategorySearchPacket } from 'lib/api/products';
 import { productsSubCategorySearchAsync } from 'lib/modules/products/actions';
 
 const enum CATEGORY {
@@ -24,11 +23,12 @@ function ProductSubCategoryContainer() {
   const dispatch = useDispatch();
   const { mainCode, subCategory } = useSelector(
     ({ products, category }: RootState) => ({
-      mainCode: products.productsMainMenuSelect,
+      mainCode: category.productCategoryCode,
       subCategory: category.productSubCategory.success,
     }),
   );
 
+  // checkFlag: 서브 카테고리 값이 체크되었는지 확인하는 Flag
   const [categories, setCategories] = useState<Array<subCategoryProps>>([]);
   const [checkFlag, setCheckFlag] = useState<boolean>(false);
 
@@ -38,11 +38,19 @@ function ProductSubCategoryContainer() {
     dispatch(productSubCategorySelectAsync.request({ code }));
   }, [dispatch]);
 
+  // 메인 카테고리 선택시 그에 맞는 서브 카테고리 로드
+  useEffect(() => {
+    if (mainCode) {
+      dispatch(productSubCategorySelectAsync.request({ code: mainCode }));
+    }
+  }, [mainCode, dispatch]);
+
   useEffect(() => {
     if (subCategory) {
+      const tempArr = [...subCategory];
       let tempCategories = Array<subCategoryProps>();
       // 부모값을 이용해 대분류를 찾음
-      let parent = subCategory[0].parent;
+      let parent = tempArr[0].parent;
       let title: categoryContent = {
         code: 0,
         name: '',
@@ -56,7 +64,7 @@ function ProductSubCategoryContainer() {
       // 최초 카테고리 값을 분류해야하는 코드가 필요
       // 카테고리 개수가 많지 않으니 reverse 사용
       // 만약 성능에 지장을 줄 정도라면 reverse 지우고 코드를 추가해야 함
-      subCategory
+      tempArr
         .reverse()
         .forEach((category: resProductSubCategoryPacket, index: number) => {
           const addCategory: categoryContent = {
@@ -83,9 +91,7 @@ function ProductSubCategoryContainer() {
           }
         });
 
-      if (tempCategories.length > 2) {
-        setCategories([...tempCategories.reverse()]);
-      }
+      setCategories([...tempCategories.reverse()]);
     }
   }, [subCategory]);
 
@@ -93,6 +99,7 @@ function ProductSubCategoryContainer() {
     let tempCategory = [...categories];
     let discovery = false;
 
+    // break 사용을 위한 for문
     for (let outer = 0; outer < tempCategory.length; outer++) {
       const contents = tempCategory[outer].contents;
       for (let inner = 0; inner < contents.length; inner++) {
@@ -108,11 +115,13 @@ function ProductSubCategoryContainer() {
       }
     }
 
+    // 체크가 변경되면 setFlag true
     setCategories([...tempCategory]);
     setCheckFlag(true);
   };
 
   useEffect(() => {
+    // 체크가 변경(false -> true)됐을 때만 함수 실행
     if (checkFlag) {
       let subCodes = Array<number>();
 
@@ -125,9 +134,7 @@ function ProductSubCategoryContainer() {
       });
 
       setCheckFlag(false);
-      dispatch(
-        productsSubCategorySearchAsync.request({ mainCode, subCodes } as any),
-      );
+      dispatch(productsSubCategorySearchAsync.request({ mainCode, subCodes }));
     }
   }, [mainCode, categories, checkFlag, dispatch]);
 

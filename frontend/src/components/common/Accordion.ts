@@ -14,7 +14,7 @@ export const Accordion = withStyles({
       display: 'none',
     },
     '&$expanded': {
-      margin: 'auto',
+      margin: 0,
     },
   },
   expanded: {},

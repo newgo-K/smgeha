@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import HeaderContainer from 'containers/common/HeaderContainer';
+import CategoryContainer from 'containers/common/CategoryContainer';
 import EditorContainer from 'containers/write/EditorContainer';
 import ImgUploadContainer from 'containers/write/ImgUploadContainer';
 import SelectTypeContainer from 'containers/write/SelectTypeContainer';
@@ -15,7 +15,7 @@ function ProductWritePage() {
       `}
     >
       <div>
-        <HeaderContainer />
+        <CategoryContainer />
       </div>
       <div>
         <SelectTypeContainer />

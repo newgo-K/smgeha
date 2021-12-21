@@ -1,15 +1,15 @@
 import client from './client';
 
 /////////////////////////////////////
-// 메인 메뉴 선택
+// 제품 카테고리 항목 선택
 /////////////////////////////////////
-export type reqProductsMainMenuSelectPacket = {
+export type reqProductsCategorySelectPacket = {
   code: number;
 };
 
-export async function reqProductsMainMenuSelect({
+export async function reqProductsCategorySelect({
   code,
-}: reqProductsMainMenuSelectPacket) {
+}: reqProductsCategorySelectPacket) {
   const res = await client.get(`/main/${code}`);
 
   return res.data;

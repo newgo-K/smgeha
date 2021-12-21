@@ -1,21 +1,21 @@
 import {
   reqProducts,
-  reqProductsMainMenuSelect,
+  reqProductsCategorySelect,
   reqProductSubCategorySearch,
 } from 'lib/api/products';
 import { createAsyncSaga } from 'lib/common/sagaUtils';
 import { takeLatest } from '@redux-saga/core/effects';
 import {
-  productsMainMenuSelectAsync,
+  productsCategorySelectAsync,
   productsInitAsync,
   productsSubCategorySearchAsync,
 } from './actions';
 
 const productsInitSaga = createAsyncSaga(productsInitAsync, reqProducts);
 
-const productsMainMenuSelectSaga = createAsyncSaga(
-  productsMainMenuSelectAsync,
-  reqProductsMainMenuSelect,
+const productsCategorySelectSaga = createAsyncSaga(
+  productsCategorySelectAsync,
+  reqProductsCategorySelect,
 );
 
 const productsSubCategorySearchSaga = createAsyncSaga(
@@ -26,8 +26,8 @@ const productsSubCategorySearchSaga = createAsyncSaga(
 export function* productsSaga() {
   yield takeLatest(productsInitAsync.request, productsInitSaga);
   yield takeLatest(
-    productsMainMenuSelectAsync.request,
-    productsMainMenuSelectSaga,
+    productsCategorySelectAsync.request,
+    productsCategorySelectSaga,
   );
   yield takeLatest(
     productsSubCategorySearchAsync.request,

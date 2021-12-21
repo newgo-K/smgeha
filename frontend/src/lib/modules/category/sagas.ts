@@ -1,4 +1,7 @@
-import { reqProductCategory, reqProductSubCategory } from 'lib/api/category';
+import {
+  reqProductCategoryInit,
+  reqProductSubCategory,
+} from 'lib/api/category';
 import { takeLatest } from '@redux-saga/core/effects';
 import { createAsyncSaga } from 'lib/common/sagaUtils';
 import {
@@ -8,7 +11,7 @@ import {
 
 const productCategoryInitSaga = createAsyncSaga(
   productCategoryInitAsync,
-  reqProductCategory,
+  reqProductCategoryInit,
 );
 
 const productSubCategorySelectSaga = createAsyncSaga(

@@ -21,7 +21,7 @@ public class CategoryController {
     CategoryService categoryService;
 
     @GetMapping(value = "/productCategory")
-    public List<ProductCategoryDTO> getProductList() {
+    public List<ProductCategoryDTO> getProductCategoryList() {
         return categoryService.getProductCategoryList();
     }
 

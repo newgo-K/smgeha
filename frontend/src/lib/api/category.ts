@@ -1,5 +1,5 @@
 import client from './client';
-import { reqProductsMainMenuSelectPacket } from './products';
+import { reqProductsCategorySelectPacket } from './products';
 
 /////////////////////////////////////
 // 제품 카테고리
@@ -9,7 +9,7 @@ export type resProductCategoryPacket = {
   name: string;
 };
 
-export async function reqProductCategory() {
+export async function reqProductCategoryInit() {
   const res = await client.get('/productCategory');
 
   return res.data;
@@ -27,7 +27,7 @@ export type resProductSubCategoryPacket = {
 
 export async function reqProductSubCategory({
   code,
-}: reqProductsMainMenuSelectPacket) {
+}: reqProductsCategorySelectPacket) {
   const res = await client.get(`/productSubCategory/${code}`);
 
   return res.data;

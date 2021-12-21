@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import {
-  reqProductsMainMenuSelectPacket,
+  reqProductsCategorySelectPacket,
   reqProductSubCategorySearchPacket,
   resProductPacket,
 } from 'lib/api/products';
@@ -11,9 +11,8 @@ import { actions } from './actions';
 export type ProductsAction = ActionType<typeof actions>;
 
 export type ProductsState = {
-  productsMainMenuSelect: number;
   list: AsyncState<
-    reqProductsMainMenuSelectPacket | reqProductSubCategorySearchPacket,
+    reqProductsCategorySelectPacket | reqProductSubCategorySearchPacket,
     Array<resProductPacket>,
     AxiosError
   >;

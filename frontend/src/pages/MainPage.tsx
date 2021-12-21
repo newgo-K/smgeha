@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import HeaderContainer from 'containers/common/HeaderContainer';
+import CategoryContainer from 'containers/common/CategoryContainer';
 import MainContainer from 'containers/main/MainContainer';
 import React from 'react';
 
@@ -14,7 +14,7 @@ function MainPage() {
       `}
     >
       <div>
-        <HeaderContainer />
+        <CategoryContainer />
       </div>
       <div
         css={css`

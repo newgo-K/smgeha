@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios';
 import {
-  reqProductsMainMenuSelectPacket,
+  reqProductsCategorySelectPacket,
   reqProductSubCategorySearchPacket,
   resProductPacket,
 } from 'lib/api/products';
@@ -8,19 +8,16 @@ import {
   createActionEntity,
   createAsyncActionType,
 } from 'lib/common/reducerUtils';
-import { createAction } from 'typesafe-actions';
 
 /////////////////////////////////////
 // createActionType
 /////////////////////////////////////
-export const PRODUCTS_MAIN_MENU_SELECT = 'products/PRODUCTS_MAIN_MENU_SELECT';
-
 export const REQ_PRODUCTS_INIT = createAsyncActionType(
   'products/REQ_PRODUCTS_INIT',
 );
 
-export const REQ_PRODUCTS_MAIN_MENU_SELECT = createAsyncActionType(
-  'products/REQ_PRODUCTS_MAIN_MENU_SELECT',
+export const REQ_PRODUCTS_CATEGORY_SELECT = createAsyncActionType(
+  'products/REQ_PRODUCTS_CATEGORY_SELECT',
 );
 
 export const REQ_PRODUCTS_SUB_CATEGORY_SEARCH = createAsyncActionType(
@@ -30,21 +27,17 @@ export const REQ_PRODUCTS_SUB_CATEGORY_SEARCH = createAsyncActionType(
 /////////////////////////////////////
 // createActionEntity
 /////////////////////////////////////
-export const productsMainMenuSelect = createAction(
-  PRODUCTS_MAIN_MENU_SELECT,
-)<any>();
-
 export const productsInitAsync = createActionEntity<
   number,
   resProductPacket,
   AxiosError
 >(REQ_PRODUCTS_INIT);
 
-export const productsMainMenuSelectAsync = createActionEntity<
-  reqProductsMainMenuSelectPacket,
+export const productsCategorySelectAsync = createActionEntity<
+  reqProductsCategorySelectPacket,
   resProductPacket,
   AxiosError
->(REQ_PRODUCTS_MAIN_MENU_SELECT);
+>(REQ_PRODUCTS_CATEGORY_SELECT);
 
 export const productsSubCategorySearchAsync = createActionEntity<
   reqProductSubCategorySearchPacket,
@@ -56,8 +49,7 @@ export const productsSubCategorySearchAsync = createActionEntity<
 // actionsSetting
 /////////////////////////////////////
 export const actions = {
-  productsMainMenuSelect,
   productsInitAsync,
-  productsMainMenuSelectAsync,
+  productsCategorySelectAsync,
   productsSubCategorySearchAsync,
 };

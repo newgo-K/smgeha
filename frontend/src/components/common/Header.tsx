@@ -81,7 +81,7 @@ const Wrap = styled.div`
 
     padding: 0 10px;
     min-width: ${formWidth()};
-    max-width: ${formWidth('desktop')};
+    max-width: ${formWidth()};
   }
 `;
 
