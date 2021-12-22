@@ -4,6 +4,7 @@ import ProductListContainer from 'containers/products/ProductListContainer';
 import React from 'react';
 import ProductSubCategoryContainer from 'containers/products/ProductsSubCategoryContainer';
 import { Desktop, Mobile } from 'lib/styles/common';
+import palette from 'lib/styles/palette';
 
 /** `Products` 페이지는 제품 전체 목록을 보여주는 페이지입니다. */
 function ProductsPage() {
@@ -13,7 +14,8 @@ function ProductsPage() {
         <div
           css={css`
             margin: 0 auto;
-            width: 1350px;
+            min-width: 768px;
+            max-width: 1350px;
             background-color: white;
           `}
         >
@@ -23,7 +25,7 @@ function ProductsPage() {
           <div
             css={css`
               display: flex;
-              margin-top: 60px;
+              margin-top: 40px;
             `}
           >
             <div
@@ -48,9 +50,18 @@ function ProductsPage() {
       </Desktop>
 
       <Mobile>
-        <CategoryContainer />
-        <ProductSubCategoryContainer />
-        <ProductListContainer />
+        <div
+          css={css`
+            border: 1px solid ${palette.grey[3]};
+            min-width: 360px;
+            max-width: 360px;
+            margin: 0 auto;
+          `}
+        >
+          <CategoryContainer />
+          <ProductSubCategoryContainer />
+          <ProductListContainer />
+        </div>
       </Mobile>
     </>
   );

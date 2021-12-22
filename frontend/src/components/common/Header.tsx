@@ -6,31 +6,72 @@ import Icon from 'lib/icon/Icon';
 import { Desktop, formWidth, mediaQuery, Mobile } from 'lib/styles/common';
 import Button, { ButtonProps } from './Button';
 import { resProductCategoryPacket } from 'lib/api/category';
+import { HeaderPorps } from 'containers/common/CategoryContainer';
+import { Drawer } from '@material-ui/core';
+import { makeStyles } from '@material-ui/styles';
 
-type HeaderPorps = {
-  categories: Array<resProductCategoryPacket> | null;
-  onClick: (e: number) => void;
-};
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    width: '340px',
+  },
+  fullList: {
+    width: 'auto',
+  },
+}));
 
-function Header({ categories, onClick }: HeaderPorps) {
-  return (
-    <Wrap>
-      <Desktop>
-        <img src="/img/logo.png" alt="logo" />
-        <ElList>
+function Header({
+  categories,
+  drawerFlag,
+  onClick,
+  toggleDrawer,
+}: HeaderPorps) {
+  const classes = useStyles();
+
+  const list = (categories: any) => {
+    return (
+      <>
+        <Mobile>
+          <DrawerHeaderStyles>
+            <Button variant="text" onClick={() => toggleDrawer(false)}>
+              <Icon icon="close" color={palette.black[0]} size="1.1rem" />
+            </Button>
+          </DrawerHeaderStyles>
+
           {categories &&
             categories.map((category: resProductCategoryPacket) => (
-              <li key={category.code}>
+              <DrawerContentStyles>
                 <ButtonStyles
                   variant="text"
                   onClick={() => onClick(category.code)}
                 >
                   {category.name}
                 </ButtonStyles>
-              </li>
+              </DrawerContentStyles>
             ))}
-        </ElList>
-
+        </Mobile>
+        <Desktop>
+          <ElList>
+            {categories &&
+              categories.map((category: resProductCategoryPacket) => (
+                <li key={category.code}>
+                  <ButtonStyles
+                    variant="text"
+                    onClick={() => onClick(category.code)}
+                  >
+                    {category.name}
+                  </ButtonStyles>
+                </li>
+              ))}
+          </ElList>
+        </Desktop>
+      </>
+    );
+  };
+  return (
+    <Wrap>
+      <Desktop>
+        <img src="/img/logo.png" alt="logo" />
+        {list(categories)}
         <Icon icon="search" color={palette.black[0]} size="1.1rem" />
       </Desktop>
 
@@ -38,7 +79,18 @@ function Header({ categories, onClick }: HeaderPorps) {
         <img src="/img/logo.png" alt="logo" />
         <div>
           <Icon icon="search" color={palette.black[0]} size="1.2rem" />
+          <Button variant="text" onClick={() => toggleDrawer(true)}>
+            <Icon icon="menu" color={palette.black[0]} size="1.1rem" />
+          </Button>
         </div>
+        <Drawer
+          classes={{ paper: classes.paper }}
+          anchor="right"
+          open={drawerFlag}
+          onClose={() => toggleDrawer(false)}
+        >
+          {list(categories)}
+        </Drawer>
       </Mobile>
     </Wrap>
   );
@@ -47,7 +99,7 @@ function Header({ categories, onClick }: HeaderPorps) {
 const Wrap = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px 25px;
+  padding: 10px 18px;
   background: ${palette.white};
   height: 40px;
   justify-content: space-between;
@@ -85,6 +137,10 @@ const Wrap = styled.div`
   }
 `;
 
+const DrawerContentStyles = styled.li`
+  border-bottom: 1px solid ${palette.grey[2]};
+`;
+
 const ButtonStyles = (props: ButtonProps) => (
   <Button
     css={css`
@@ -109,7 +165,16 @@ const ElList = styled.ul`
   li {
     display: flex;
     align-items: center;
+
+    ${mediaQuery('xs')} {
+      border-bottom: 1px solid ${palette.grey[2]} !important;
+    }
   }
+`;
+
+const DrawerHeaderStyles = styled.div`
+  border-bottom: 1px solid ${palette.grey[2]};
+  text-align: right;
 `;
 
 export default Header;

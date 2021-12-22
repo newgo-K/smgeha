@@ -1,22 +1,36 @@
 import Header from 'components/common/Header';
+import { resProductCategoryPacket } from 'lib/api/category';
 import { RootState } from 'lib/modules';
 import {
   productCategoryCode,
   productCategoryInitAsync,
 } from 'lib/modules/category/actions';
 import { productsCategorySelectAsync } from 'lib/modules/products/actions';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 const enum CATEGORY {
   INTRODUCE = 1,
 }
 
+export type HeaderPorps = {
+  categories: Array<resProductCategoryPacket> | null;
+  drawerFlag: boolean;
+  onClick: (e: number) => void;
+  toggleDrawer: (e: boolean) => void;
+};
+
 function HeaderContainer() {
   const dispatch = useDispatch();
   const { categories } = useSelector(({ category }: RootState) => ({
     categories: category.productCategory.success,
   }));
+
+  const [drawerFlag, setDrawerFlag] = useState(false);
+
+  const toggleDrawer = (open: boolean) => {
+    setDrawerFlag(open);
+  };
 
   // 제품 카테고리 내용이 없을 경우 카테고리와 제품 목록 로드
   // 업체 소개일 경우 프론트단에서 처리
@@ -43,9 +57,14 @@ function HeaderContainer() {
   );
 
   return (
-    <div>
-      <Header categories={categories} onClick={onClick} />
-    </div>
+    <>
+      <Header
+        categories={categories}
+        drawerFlag={drawerFlag}
+        onClick={onClick}
+        toggleDrawer={toggleDrawer}
+      />
+    </>
   );
 }
 

@@ -60,7 +60,7 @@ const initTheme = createTheme({
       },
     },
     subtitle1: {
-      fontSize: 15,
+      fontSize: 17,
       fontWeight: 400,
       [theme.breakpoints.down('lg')]: {
         fontSize: 15,
@@ -76,7 +76,7 @@ const initTheme = createTheme({
       },
     },
     body1: {
-      fontSize: 12,
+      fontSize: 14,
       fontWeight: 400,
       [theme.breakpoints.down('lg')]: {
         fontSize: 13,

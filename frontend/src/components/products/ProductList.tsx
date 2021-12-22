@@ -88,7 +88,7 @@ export default function ProductList({ products, onClick }: ProductsProps) {
     <Wrap>
       {products &&
         products.map((product: resProductPacket) => (
-          <Grid item lg={3} xs={6}>
+          <Grid item lg={3} sm={4} xs={6}>
             <ProductCard onClick={onClick} {...product} />
           </Grid>
         ))}

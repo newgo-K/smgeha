@@ -14,9 +14,16 @@ export type categoryContent = resProductSubCategoryPacket & {
   checked: boolean;
 };
 
-export type subCategoryProps = {
+export type subCategoryState = {
   title: categoryContent;
   contents: Array<categoryContent>;
+};
+
+export type productSubCategoryPorps = {
+  categories: Array<subCategoryState>;
+  drawerFlag: boolean;
+  onChecked: (e: number) => void;
+  toggleDrawer: (e: boolean) => void;
 };
 
 function ProductSubCategoryContainer() {
@@ -29,8 +36,13 @@ function ProductSubCategoryContainer() {
   );
 
   // checkFlag: 서브 카테고리 값이 체크되었는지 확인하는 Flag
-  const [categories, setCategories] = useState<Array<subCategoryProps>>([]);
+  const [categories, setCategories] = useState<Array<subCategoryState>>([]);
   const [checkFlag, setCheckFlag] = useState<boolean>(false);
+  const [drawerFlag, setDrawerFlag] = useState(false);
+
+  const toggleDrawer = (open: boolean) => {
+    setDrawerFlag(open);
+  };
 
   // 최초 서브 카테고리는 업체 소개 다음 카테고리로 초기화
   useEffect(() => {
@@ -48,16 +60,10 @@ function ProductSubCategoryContainer() {
   useEffect(() => {
     if (subCategory) {
       const tempArr = [...subCategory];
-      let tempCategories = Array<subCategoryProps>();
+      let tempCategories = Array<subCategoryState>();
       // 부모값을 이용해 대분류를 찾음
       let parent = tempArr[0].parent;
-      let title: categoryContent = {
-        code: 0,
-        name: '',
-        parent: 0,
-        depth: 0,
-        checked: false,
-      };
+      let title: any = {};
       let contents = Array<categoryContent>();
 
       // subCategory value 값이 0부터 시작하면
@@ -81,7 +87,7 @@ function ProductSubCategoryContainer() {
 
           // 현재 부모값이 대분류값일 경우 카테고리를 분류
           if (parent === category.parent) {
-            const tempCategory: subCategoryProps = {
+            const tempCategory: subCategoryState = {
               title,
               contents: [...contents.reverse()],
             };
@@ -125,7 +131,7 @@ function ProductSubCategoryContainer() {
     if (checkFlag) {
       let subCodes = Array<number>();
 
-      categories.forEach((category: subCategoryProps) => {
+      categories.forEach((category: subCategoryState) => {
         category.contents.forEach((content: categoryContent) => {
           if (content.checked) {
             subCodes.push(content.code);
@@ -140,7 +146,12 @@ function ProductSubCategoryContainer() {
 
   return (
     <>
-      <ProductSubCategory categories={categories} onChecked={onChecked} />
+      <ProductSubCategory
+        categories={categories}
+        drawerFlag={drawerFlag}
+        onChecked={onChecked}
+        toggleDrawer={toggleDrawer}
+      />
     </>
   );
 }

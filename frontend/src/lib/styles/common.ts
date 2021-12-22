@@ -1,8 +1,7 @@
-//////////////////////////////////////
-// 반응형 분기점
-
 import { useMediaQuery } from 'react-responsive';
 
+//////////////////////////////////////
+// 반응형 분기점
 // desktop: 1024px ~
 // tablet: 768px ~ 1023px
 // mobile: 360px ~ 767px
