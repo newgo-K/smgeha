@@ -66,7 +66,7 @@ const DefaultTextField = (props: TextFieldProps) => (
     css={css`
       .MuiInput-underline {
         &::before {
-          border-bottom: 1px solid ${palette.grey[2]};
+          border-bottom: 2px solid ${palette.grey[2]};
         }
 
         &:hover:not(.Mui-disabled):before {

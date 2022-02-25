@@ -1,8 +1,10 @@
 import { css } from '@emotion/react';
+import ProductWriteForm from 'components/productWrite/productWriteForm';
 import CategoryContainer from 'containers/common/CategoryContainer';
 import EditorContainer from 'containers/write/EditorContainer';
 import ImgUploadContainer from 'containers/write/ImgUploadContainer';
 import SelectTypeContainer from 'containers/write/SelectTypeContainer';
+import { mediaQuery } from 'lib/styles/common';
 import React from 'react';
 
 function ProductWritePage() {
@@ -12,12 +14,17 @@ function ProductWritePage() {
         margin: 0 auto;
         width: 1350px;
         background-color: white;
+
+        ${mediaQuery('xs')} {
+          width: 360px;
+        }
       `}
     >
       <div>
         <CategoryContainer />
       </div>
-      <div>
+      <ProductWriteForm />
+      {/* <div>
         <SelectTypeContainer />
       </div>
       <div>
@@ -29,7 +36,7 @@ function ProductWritePage() {
         `}
       >
         <EditorContainer />
-      </div>
+      </div> */}
     </div>
   );
 }
