@@ -1,5 +1,6 @@
 import { css } from '@emotion/react';
 import ProductWriteForm from 'components/productWrite/productWriteForm';
+import SelectInputForm from 'components/productWrite/SelectInputForm';
 import CategoryContainer from 'containers/common/CategoryContainer';
 import EditorContainer from 'containers/write/EditorContainer';
 import ImgUploadContainer from 'containers/write/ImgUploadContainer';
@@ -24,6 +25,7 @@ function ProductWritePage() {
         <CategoryContainer />
       </div>
       <ProductWriteForm />
+
       {/* <div>
         <SelectTypeContainer />
       </div>

@@ -2,6 +2,7 @@ package com.smgeha.controller;
 
 import com.smgeha.domain.category.ProductCategoryDTO;
 import com.smgeha.domain.category.ProductSubCategoryDTO;
+import com.smgeha.domain.category.WriteCategoryListDTO;
 import com.smgeha.service.category.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +30,7 @@ public class CategoryController {
     public List<ProductSubCategoryDTO> selectProductSubCategoryList(@PathVariable int code) {
         return categoryService.selectProductSubCategoryList(code);
     }
+
+    @GetMapping(value = "/writeCategory/{id}")
+    public WriteCategoryListDTO getWrtieCategoryList(@PathVariable int id) { return categoryService.getWriteCategoryList(id);}
 }

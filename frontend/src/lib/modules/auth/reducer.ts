@@ -1,39 +1,16 @@
 import produce from 'immer';
 import { asyncState, createAsyncReducer } from 'lib/common/reducerUtils';
 import { createReducer } from 'typesafe-actions';
-import {
-  changePasswordAsync,
-  CHANGE_FIELD,
-  checkCodeAsync,
-  INITIALIZE_FORM,
-  loginAsync,
-  pinCodeAsync,
-  registerAsync,
-} from './actions';
+import { CHANGE_FIELD, INITIALIZE_FORM, loginAsync } from './actions';
 import { AuthAction, UserState } from './types';
 
 const initState: UserState = {
   loginForm: {
-    email: '',
+    userId: '',
     password: '',
   },
-  registerForm: {
-    email: '',
-    pinCode: '',
-    password: '',
-    nickname: '',
-    mobile: '',
-  },
-  findPasswordForm: {
-    email: '',
-    pinCode: '',
-    password: '',
-  },
+
   login: asyncState.init(),
-  register: asyncState.init(),
-  pinCode: asyncState.init(),
-  checkCode: asyncState.init(),
-  changePassword: asyncState.init(),
 };
 
 const user = createReducer<UserState, AuthAction>(initState, {
@@ -46,10 +23,6 @@ const user = createReducer<UserState, AuthAction>(initState, {
     [form]: initState[form as 'loginForm'],
   }),
   ...createAsyncReducer(loginAsync, 'login'),
-  ...createAsyncReducer(registerAsync, 'register'),
-  ...createAsyncReducer(pinCodeAsync, 'pinCode'),
-  ...createAsyncReducer(checkCodeAsync, 'checkCode'),
-  ...createAsyncReducer(changePasswordAsync, 'changePassword'),
 });
 
 export default user;
