@@ -70,9 +70,11 @@ const ProductCard = ({ onClick, ...props }: ProductProps) => {
         <ContentSub>크기 : {size}</ContentSub>
         <ContentSub>유형 : {type}</ContentSub>
 
-        <ContentPrice>
-          {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
-        </ContentPrice>
+        {price && (
+          <ContentPrice>
+            {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+          </ContentPrice>
+        )}
       </CardContent>
     </Card>
   );

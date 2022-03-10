@@ -10,16 +10,11 @@ export type reqLoginPacket = {
 };
 
 export type resLoginPacket = {
-  data: any;
+  role: string;
+  token: string;
 };
 
 export async function reqLogin({ userId, password }: reqLoginPacket) {
-  const formData = new FormData();
-
-  formData.append('userId', userId);
-  formData.append('password', password);
-
-  const res = await client.post('/login/action', formData);
-  debugger;
+  const res = await client.post('/login', { userId, password });
   return res.data;
 }

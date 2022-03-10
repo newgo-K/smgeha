@@ -48,9 +48,11 @@ function ProductInfo({ ...props }: any) {
           <ContentSub>{size}</ContentSub>
           <ContentTitle>유형</ContentTitle>
           <ContentSub>{type}</ContentSub>
-          <ContentPrice>
-            {price && price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
-          </ContentPrice>
+          {price && (
+            <ContentPrice>
+              {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
+            </ContentPrice>
+          )}
         </Grid>
       </ContentWrap>
       <GuideDetail>

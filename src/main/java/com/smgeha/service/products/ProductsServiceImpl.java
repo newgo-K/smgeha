@@ -1,10 +1,13 @@
 package com.smgeha.service.products;
 
+import com.smgeha.domain.auth.PrincipalDetails;
 import com.smgeha.domain.products.Products;
 import com.smgeha.domain.products.ProductsRepository;
 import com.smgeha.web.dto.products.ProductsSideMenuSelectRequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

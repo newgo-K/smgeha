@@ -1,7 +1,9 @@
 package com.smgeha.service.auth;
 
 import com.smgeha.domain.auth.AuthDTO;
+import com.smgeha.domain.auth.PrincipalDetails;
 import com.smgeha.mapper.auth.AuthMapper;
+import com.smgeha.web.util.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -21,18 +23,12 @@ public class UserService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        AuthDTO auth1 = authMapper.getAuthInfo(userId);
+        AuthDTO auth = authMapper.getAuthInfo(userId);
 
-        if(auth1 == null) {
+        if(auth == null) {
             return null;
         }
 
-
-        AuthDTO auth = new AuthDTO();
-
-        auth.setUserId(auth1.getUserId());
-        auth.setPassword(auth1.getPassword());
-
-        return auth;//반환할 타입이 Member와 맞지 않는다.
+        return new PrincipalDetails(auth);
     }
 }

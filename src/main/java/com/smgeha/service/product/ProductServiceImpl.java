@@ -1,12 +1,16 @@
 package com.smgeha.service.product;
 
+import com.smgeha.domain.auth.PrincipalDetails;
 import com.smgeha.domain.product.Product;
 import com.smgeha.domain.product.ProductDTO;
 import com.smgeha.domain.product.ProductRepository;
 import com.smgeha.domain.product.ProductSubCategorySerachDTO;
 import com.smgeha.mapper.product.ProductMapper;
+import com.smgeha.web.dto.auth.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,7 +22,15 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> selectProductList(@Param(value = "code") int code) {
-        return productMapper.selectProductList(code);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PrincipalDetails user = (PrincipalDetails) authentication.getPrincipal();
+        String role = user.getAuth().getRole();
+
+        if(role.equals("ROLE_SUB_ADMIN")) {
+            return productMapper.selectProductPriceList(code);
+        } else {
+            return productMapper.selectProductList(code);
+        }
     }
 
     @Override
@@ -28,7 +40,18 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO selectProductInfo(@Param(value = "id") int id) {
-        ProductDTO product = productMapper.selectProductInfo(id);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PrincipalDetails user = (PrincipalDetails) authentication.getPrincipal();
+        String role = user.getAuth().getRole();
+
+        ProductDTO product = new ProductDTO();
+
+        if(role.equals("ROLE_SUB_ADMIN")) {
+            product = productMapper.selectProductPriceInfo(id);
+        } else {
+            product = productMapper.selectProductInfo(id);
+        }
+
         product.setSubImages(productMapper.selectProductSubImage(id));
 
         return product;

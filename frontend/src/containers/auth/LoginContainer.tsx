@@ -3,9 +3,10 @@ import { RootState } from 'lib/modules';
 import { changeField, loginAsync } from 'lib/modules/auth';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { RouteChildrenProps, withRouter } from 'react-router-dom';
 import { authErrorTexts, authErrorStates } from './error';
 
-function LoginContainer() {
+function LoginContainer({ history }: RouteChildrenProps) {
   const dispatch = useDispatch();
   const { form, data, status } = useSelector(({ auth }: RootState) => ({
     form: auth.loginForm,
@@ -51,11 +52,20 @@ function LoginContainer() {
   };
 
   useEffect(() => {
-    if (status === 401) {
-      setError(authErrorTexts.login401);
-      return;
+    if (data) {
+      history.push('/main');
     }
-  }, [status]);
+
+    try {
+      localStorage.setItem('user', JSON.stringify(data));
+    } catch (e) {
+      console.log('localStorage is not working');
+    }
+  }, [history, data]);
+
+  useEffect(() => {
+    debugger;
+  }, [error]);
 
   return (
     <Login
@@ -68,4 +78,4 @@ function LoginContainer() {
   );
 }
 
-export default LoginContainer;
+export default withRouter(LoginContainer);
