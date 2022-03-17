@@ -168,15 +168,15 @@ function SelectTypeContainer() {
 
     const a = sizes[value as 'refrigerator'];
 
-    const size = form.sizeText;
+    const size = form.size;
     let c = Object.keys(a).length - 1;
 
-    for (const abc in a) {
-      if (parseInt(size) < parseInt(abc[1])) {
-        c = parseInt(abc[0]);
-        break;
-      }
-    }
+    // for (const abc in a) {
+    //   if (parseInt(size) < parseInt(abc[1])) {
+    //     c = parseInt(abc[0]);
+    //     break;
+    //   }
+    // }
 
     dispatch(
       productWriteSetForm({

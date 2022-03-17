@@ -7,13 +7,14 @@ import {
   MenuItem,
   Theme,
 } from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
+import { writeCategoryData } from 'lib/api/write';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
+      margin: theme.spacing(0),
+      width: '100%',
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
@@ -21,24 +22,50 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-function Select() {
+type test = {
+  name: string;
+  code: number;
+  onChange: any;
+  label: string;
+  categories: any;
+  onClick: any;
+};
+
+function Select({ name, code, onChange, label, categories, onClick }: test) {
   const classes = useStyles();
+
+  // const [code, setCode] = React.useState('');
+  // const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+  //   console.log(event.target.value);
+  //   setCode(event.target.value as string);
+  // };
 
   return (
     <>
       <FormControl variant="outlined" className={classes.formControl}>
-        <InputLabel>제품</InputLabel>
+        <InputLabel>{label}</InputLabel>
         <MaterialSelect
-          label="제품"
-          // value={age}
-          // onChange={handleChange}
+          name={name}
+          label={label}
+          value={code}
+          onChange={onChange}
         >
-          <MenuItem value="">
-            <em>None</em>
-          </MenuItem>
-          <MenuItem value={2}>냉장고</MenuItem>
-          <MenuItem value={3}>에어컨</MenuItem>
-          <MenuItem value={4}>세탁기</MenuItem>
+          {categories &&
+            categories.map((category: writeCategoryData) => (
+              <MenuItem
+                key={category.code}
+                value={
+                  label === '제품' ? category.productCategoryId : category.code
+                }
+                onClick={
+                  onClick
+                    ? () => onClick(category.productCategoryId)
+                    : undefined
+                }
+              >
+                {category.name}
+              </MenuItem>
+            ))}
         </MaterialSelect>
       </FormControl>
     </>

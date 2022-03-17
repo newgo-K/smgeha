@@ -14,5 +14,5 @@ public interface CategoryMapper {
     public List<WriteCategoryDTO> getWriteProductCategoryList();
     public List<WriteCategoryDTO> getWriteManufactureCategoryList(int id);
     public List<WriteCategoryDTO> getWriteSizeCategoryList(int id);
-    public List<WriteCategoryDTO> getWriteTyoeCategoryList(int id);
+    public List<WriteCategoryDTO> getWriteTypeCategoryList(int id);
 }

@@ -11,5 +11,5 @@ public class WriteCategoryListDTO {
     private List<WriteCategoryDTO> prodcutCategoryList;
     private List<WriteCategoryDTO> manufactureCategoryList;
     private List<WriteCategoryDTO> sizeCategoryList;
-    private List<WriteCategoryDTO> tyoeCategoryList;
+    private List<WriteCategoryDTO> typeCategoryList;
 }

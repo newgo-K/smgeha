@@ -2,15 +2,14 @@ package com.smgeha.controller;
 
 import com.smgeha.domain.category.ProductCategoryDTO;
 import com.smgeha.domain.category.ProductSubCategoryDTO;
+import com.smgeha.domain.category.WriteCategoryDTO;
 import com.smgeha.domain.category.WriteCategoryListDTO;
 import com.smgeha.service.category.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +30,7 @@ public class CategoryController {
         return categoryService.selectProductSubCategoryList(code);
     }
 
-    @GetMapping(value = "/writeCategory/{id}")
-    public WriteCategoryListDTO getWrtieCategoryList(@PathVariable int id) { return categoryService.getWriteCategoryList(id);}
+    @PostMapping(value = "/writeCategory")
+    public WriteCategoryListDTO getWrtieCategoryList(@RequestBody WriteCategoryDTO categoryDTO) {
+        return categoryService.getWriteCategoryList(categoryDTO.getProductCategoryId());}
 }

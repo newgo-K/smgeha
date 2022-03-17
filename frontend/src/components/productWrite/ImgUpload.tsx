@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import Button from 'components/common/Button';
+import Button, { ButtonProps } from 'components/common/Button';
 import Icon from 'lib/icon/Icon';
 import palette from 'lib/styles/palette';
 import React from 'react';
@@ -49,15 +49,22 @@ function ImgUpload({ ...props }: any) {
         }) => (
           // write your building UI
           <div className="upload__image-wrapper">
-            <button
-              style={isDragging ? { color: 'red' } : undefined}
-              onClick={onImageUpload}
-              {...dragProps}
+            <div
+              css={css`
+                display: flex;
+                justify-content: flex-end;
+              `}
             >
-              이미지 올리기
-            </button>
-            &nbsp;
-            <button onClick={onImageRemoveAll}>전체 삭제</button>
+              <ButtonStyles variant="text" onClick={onImageUpload}>
+                <Icon icon="imgAdd" color={palette.grey[4]} />
+                <TextStyles>이미지 올리기</TextStyles>
+              </ButtonStyles>
+
+              <ButtonStyles variant="text" onClick={onImageRemoveAll}>
+                <Icon icon="delete" color={palette.grey[4]} />
+                <TextStyles>전체 삭제</TextStyles>
+              </ButtonStyles>
+            </div>
             <div
               css={css`
                 display: flex;
@@ -73,13 +80,15 @@ function ImgUpload({ ...props }: any) {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    border: 1px solid black;
+                    border: 1px solid ${palette.grey[3]};
+                    border-radius: 5px;
                     width: 170px;
                     height: 170px;
                     top: 0;
                     left: 0;
                     bottom: 0;
                     right: 0;
+                    margin: 6px;
                     :hover {
                       img {
                         opacity: 0.4;
@@ -144,6 +153,21 @@ function ImgUpload({ ...props }: any) {
     </div>
   );
 }
+
+const ButtonStyles = (props: ButtonProps) => (
+  <Button
+    css={css`
+      font-size: 15px !important;
+      color: ${palette.grey[4]} !important;
+      cursor: pointer;
+    `}
+    {...props}
+  />
+);
+
+const TextStyles = styled.span`
+  margin-left: 5px;
+`;
 
 const HoverWrap = styled.ul`
   position: absolute;

@@ -23,7 +23,7 @@
     </select>
 
     <select id="getWriteProductCategoryList" resultType="com.smgeha.domain.category.WriteCategoryDTO">
-        select name, product_category_id from product_sub_category psc where type = 0;
+        select name, product_category_id, code from product_sub_category psc where type = 0;
     </select>
 
     <select id="getWriteManufactureCategoryList" resultType="com.smgeha.domain.category.WriteCategoryDTO">
@@ -34,7 +34,7 @@
         select name, code from product_sub_category psc where product_category_id = #{id} and type = 3
     </select>
 
-    <select id="getWriteTyoeCategoryList" resultType="com.smgeha.domain.category.WriteCategoryDTO">
+    <select id="getWriteTypeCategoryList" resultType="com.smgeha.domain.category.WriteCategoryDTO">
         select name, code from product_sub_category psc where product_category_id = #{id} and type = 4
     </select>
 </mapper>

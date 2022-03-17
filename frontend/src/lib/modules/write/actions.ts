@@ -9,6 +9,9 @@ import { createAction } from 'typesafe-actions';
 // createActionType
 /////////////////////////////////////
 export const PRODUCT_WRITE_SET_FORM = 'write/PRODUCT_WRITE_SET_FORM';
+export const REQ_PRODUCT_WRITE_CATEGORY = createAsyncActionType(
+  'write/REQ_PRODUCT_WRITE_CATEGORY',
+);
 export const REQ_PRODUCT_WRITE_UPLOAD = createAsyncActionType(
   'write/REQ_PRODUCT_WRITE_UPLOAD',
 );
@@ -21,6 +24,12 @@ export const productWriteSetForm = createAction(
   ({ key, value }) => ({ key, value }),
 )<any>();
 
+export const productWriteCategoryAsync = createActionEntity<
+  any,
+  any,
+  AxiosError
+>(REQ_PRODUCT_WRITE_CATEGORY);
+
 export const productWriteUploadAsync = createActionEntity<any, any, AxiosError>(
   REQ_PRODUCT_WRITE_UPLOAD,
 );
@@ -30,5 +39,6 @@ export const productWriteUploadAsync = createActionEntity<any, any, AxiosError>(
 /////////////////////////////////////
 export const actions = {
   productWriteSetForm,
+  productWriteCategoryAsync,
   productWriteUploadAsync,
 };

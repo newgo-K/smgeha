@@ -33,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
         categoryList.setProdcutCategoryList(categoryMapper.getWriteProductCategoryList());
         categoryList.setManufactureCategoryList(categoryMapper.getWriteManufactureCategoryList(id));
         categoryList.setSizeCategoryList(categoryMapper.getWriteSizeCategoryList(id));
-        categoryList.setTyoeCategoryList(categoryMapper.getWriteTyoeCategoryList(id));
+        categoryList.setTypeCategoryList(categoryMapper.getWriteTypeCategoryList(id));
 
         return categoryList;
     }

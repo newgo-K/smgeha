@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.smgeha.mapper.write.WriteMapper">
+    <insert id="saveProduct" parameterType="com.smgeha.domain.write.WriteDTO">
+        insert into
+        product(name, url, serial, manufacture, size, price, image, createdDate, modifiedDate)
+        values(#{title},#{url},#{serial},#{manufacture},
+        #{size}, #{price}, #{image}, now(), now());
+
+        <selectKey keyProperty="id" resultType="Integer" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <insert id="saveProductSearchInfo" parameterType="map">
+        insert into product_search_info(product_id, product_category_code, product_sub_category_code)
+        value(#{id}, #{code}, #{subCode})
+    </insert>
+
+    <insert id="saveProductImages" parameterType="map">
+        insert into product_sub_image(product_id, image)
+        value(#{id}, #{image})
+    </insert>
+</mapper>

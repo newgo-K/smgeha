@@ -80,10 +80,10 @@ const DefaultTextField = (props: TextFieldProps) => (
 
       .MuiOutlinedInput-root {
         .MuiOutlinedInput-input {
-          padding: 0.5rem;
+          padding: 1.2rem;
         }
         .MuiOutlinedInput-notchedOutline {
-          border: 1px solid ${palette.grey[2]};
+          border: 1px solid ${palette.grey[3]};
         }
         &:hover fieldset {
           border: 1px solid ${palette.grey[2]};

@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 function ImgUploadContainer() {
   const dispatch = useDispatch();
   const [images, setImages] = useState([]);
-  const maxNumber = 4;
+  const maxNumber = 5;
   const [imghover, setImgHover] = useState<Array<boolean>>([]);
 
   const handleMouseEnter = (index: any) => {
@@ -28,7 +28,7 @@ function ImgUploadContainer() {
     (imageList: ImageListType, addUpdateIndex: number[] | undefined) => {
       let check = false;
       const fileForm = /(.*?)\/(jpg|jpeg|png)$/;
-      const maxSize = 1 * 1024 * 1024;
+      const maxSize = 2 * 1024 * 1024;
 
       const files = imageList.map((img: any) => {
         const file = img.file;
@@ -51,6 +51,7 @@ function ImgUploadContainer() {
 
       setImages(imageList as never[]);
 
+      debugger;
       dispatch(
         productWriteSetForm({
           key: 'images',

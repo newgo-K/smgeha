@@ -16,3 +16,4 @@ export { ReactComponent as close } from './close.svg';
 export { ReactComponent as update } from './update.svg';
 export { ReactComponent as delete } from './delete.svg';
 export { ReactComponent as filter } from './filter.svg';
+export { ReactComponent as imgAdd } from './imageAdd.svg';

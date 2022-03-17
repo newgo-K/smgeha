@@ -4,15 +4,17 @@ import client from './client';
 // 제품 업로드
 /////////////////////////////////////
 export type ReqWriteForm = {
+  productCode: number;
+  manufactureCode: number;
+  sizeCode: number;
+  typeCode: number;
   title: string;
+  url: string;
   serial: string;
   product: number;
-  manufacture: number;
-  manufactureText: string;
-  size: number;
-  sizeText: string;
-  type: number;
-  price: string;
+  manufacture: string;
+  size: string;
+  price: number;
   images: Array<string>;
 };
 
@@ -43,19 +45,45 @@ export type resProductPacket = {
   msg: string;
 };
 
+export type writeCategoryData = {
+  productCategoryId: number;
+  name: string;
+  code: number;
+};
+
+export type resWriteCategoryPacket = {
+  prodcutCategoryList: Array<writeCategoryData>;
+  manufactureCategoryList: Array<writeCategoryData>;
+  sizeCategoryList: Array<writeCategoryData>;
+  typeCategoryList: Array<writeCategoryData>;
+};
+
+export async function reqCategory(productCategoryId: number) {
+  const res = await client.post('/writeCategory', { productCategoryId });
+  return res.data;
+}
+
 export async function reqWrite(files: any) {
   const formData = new FormData();
 
+  formData.append('productCode', files.productCode);
+  formData.append('manufactureCode', files.manufactureCode);
+  formData.append('sizeCode', files.sizeCode);
+  formData.append('typeCode', files.typeCode);
+
   formData.append('title', files.title);
+  formData.append('url', files.url);
   formData.append('serial', files.serial);
   formData.append('product', files.product);
   formData.append('manufacture', files.manufacture);
   formData.append('size', files.size);
-  formData.append('type', files.type);
   formData.append('price', files.price);
+
   files.images.map((file: any) => formData.append('images', file));
+
+  console.log(formData);
 
   const res = await client.post('/write', formData);
 
-  return res.data;
+  return res;
 }

@@ -1,5 +1,7 @@
 import { css } from '@emotion/react';
+import { Grid } from '@material-ui/core';
 import ProductWriteForm from 'components/productWrite/productWriteForm';
+import ProductWriteSelect from 'components/productWrite/productWriteSelect';
 import SelectInputForm from 'components/productWrite/SelectInputForm';
 import CategoryContainer from 'containers/common/CategoryContainer';
 import EditorContainer from 'containers/write/EditorContainer';
@@ -21,11 +23,17 @@ function ProductWritePage() {
         }
       `}
     >
-      <div>
-        <CategoryContainer />
-      </div>
-      <ProductWriteForm />
-
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <ProductWriteSelect />
+        </Grid>
+        <Grid item sm={6} xs={12}>
+          <ImgUploadContainer />
+        </Grid>
+        <Grid item sm={6} xs={12}>
+          <ProductWriteForm />
+        </Grid>
+      </Grid>
       {/* <div>
         <SelectTypeContainer />
       </div>

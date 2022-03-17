@@ -41,9 +41,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDTO selectProductInfo(@Param(value = "id") int id) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PrincipalDetails user = (PrincipalDetails) authentication.getPrincipal();
-        String role = user.getAuth().getRole();
-
+        String role = "";
+        if(authentication.getPrincipal() != "anonymousUser") {
+            PrincipalDetails user = (PrincipalDetails) authentication.getPrincipal();
+            role = user.getAuth().getRole();
+        }
         ProductDTO product = new ProductDTO();
 
         if(role.equals("ROLE_SUB_ADMIN")) {
