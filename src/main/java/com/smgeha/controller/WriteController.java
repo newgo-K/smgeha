@@ -1,6 +1,8 @@
 package com.smgeha.controller;
 
+import com.smgeha.domain.category.ProductSubCategoryDTO;
 import com.smgeha.domain.write.WriteDTO;
+import com.smgeha.domain.write.WriteFormDTO;
 import com.smgeha.service.write.WriteService;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.ObjectUtils;
@@ -32,6 +34,28 @@ public class WriteController {
         if(null != images) {
             write.setImage(images.get(0));
             int id = writeService.saveProduct(write);
+            writeService.saveProductSearchInfo(write);
+            writeService.saveProductImages(write.getId(), images);
+
+            return "ok";
+        }
+
+        return "error";
+    }
+
+    @GetMapping(value = "/write/{id}")
+    public WriteFormDTO selectProductSubCategoryList(@PathVariable int id) {
+        return writeService.selectWriteData(id);
+    }
+
+    @PatchMapping(value = "/write/{id}", consumes = "multipart/form-data")
+    public String modify(@PathVariable int id, @ModelAttribute WriteDTO write) throws IOException {
+        List<String> images = saveImages(write.getImages());
+
+        if(null != images) {
+            write.setImage(images.get(0));
+            writeService.updateWrite(id, write);
+            writeService.saveProduct(write);
             writeService.saveProductSearchInfo(write);
             writeService.saveProductImages(write.getId(), images);
 

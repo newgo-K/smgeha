@@ -10,4 +10,5 @@ public interface ProductService {
     public List<ProductDTO> selectProductList(int code);
     public List<ProductDTO> findSubCategoryProductList(ProductSubCategorySerachDTO searchCodes);
     public ProductDTO selectProductInfo(int id);
+    public void deleteProductInfo(int id);
 }

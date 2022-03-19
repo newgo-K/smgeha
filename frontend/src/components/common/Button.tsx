@@ -96,7 +96,7 @@ const DefaultButton = (props: ButtonProps) => (
         border: 1px solid ${palette.main[4]};
 
         &:hover {
-          background-color: ${palette.main[0]};
+          background-color: ${palette.white};
         }
       }
 

@@ -9,6 +9,7 @@ export type TextFieldProps = {
   type?: 'password' | 'number';
   /** 내용 */
   value?: string;
+  defaultValue?: string;
   /** 형태 */
   variant?: 'outlined' | 'filled' | 'standard';
   width?: string | number;
@@ -34,6 +35,7 @@ function TextField({
   name,
   type,
   value,
+  defaultValue,
   variant = 'standard',
   width,
   maxWidth,
@@ -49,6 +51,7 @@ function TextField({
       css={[{ width }, maxWidth && maxWidthStyle]}
       name={name}
       type={type}
+      defaultValue={defaultValue}
       value={value}
       variant={variant}
       placeholder={placeholder}

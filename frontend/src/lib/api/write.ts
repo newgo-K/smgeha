@@ -4,6 +4,7 @@ import client from './client';
 // 제품 업로드
 /////////////////////////////////////
 export type ReqWriteForm = {
+  id: number;
   productCode: number;
   manufactureCode: number;
   sizeCode: number;
@@ -74,16 +75,44 @@ export async function reqWrite(files: any) {
   formData.append('title', files.title);
   formData.append('url', files.url);
   formData.append('serial', files.serial);
-  formData.append('product', files.product);
   formData.append('manufacture', files.manufacture);
   formData.append('size', files.size);
   formData.append('price', files.price);
 
   files.images.map((file: any) => formData.append('images', file));
 
-  console.log(formData);
-
   const res = await client.post('/write', formData);
+
+  return res;
+}
+
+export async function reqWriteSelect(id: any) {
+  const res = await client.get(`/write/${id}`);
+  return res.data;
+}
+
+export async function reqModify(files: any) {
+  debugger;
+  const formData = new FormData();
+
+  // formData.append('id', files.id);
+  formData.append('productCode', files.productCode);
+  formData.append('manufactureCode', files.manufactureCode);
+  formData.append('sizeCode', files.sizeCode);
+  formData.append('typeCode', files.typeCode);
+
+  formData.append('title', files.title);
+  formData.append('url', files.url);
+  formData.append('serial', files.serial);
+  formData.append('manufacture', files.manufacture);
+  formData.append('size', files.size);
+  formData.append('price', files.price);
+
+  files.images.map((file: any) => formData.append('images', file));
+
+  debugger;
+
+  const res = await client.patch(`/write/${files.id}`, formData);
 
   return res;
 }

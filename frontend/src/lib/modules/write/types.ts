@@ -9,5 +9,7 @@ export type ProductWriteAction = ActionType<typeof actions>;
 export type ProductWriteState = {
   writeForm: ReqWriteForm;
   category: AsyncState<any, any, AxiosError>;
+  select: AsyncState<any, any, AxiosError>;
   upload: AsyncState<ReqWriteForm, null, AxiosError>;
+  modify: AsyncState<ReqWriteForm, null, AxiosError>;
 };

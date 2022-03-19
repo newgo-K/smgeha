@@ -36,11 +36,11 @@ function HeaderContainer() {
   // 업체 소개일 경우 프론트단에서 처리
   useEffect(() => {
     if (!categories) {
-      const code = CATEGORY.INTRODUCE + 1;
+      // const code = CATEGORY.INTRODUCE + 1;
 
       dispatch(productCategoryInitAsync.request(null));
-      dispatch(productsCategorySelectAsync.request({ code }));
-      dispatch(productCategoryCode(code));
+      // dispatch(productsCategorySelectAsync.request({ code }));
+      // dispatch(productCategoryCode(code));
     }
   }, [categories, dispatch]);
 
@@ -49,7 +49,7 @@ function HeaderContainer() {
   const onClick = useCallback(
     (code: number) => {
       if (code !== CATEGORY.INTRODUCE) {
-        dispatch(productsCategorySelectAsync.request({ code }));
+        // dispatch(productsCategorySelectAsync.request({ code }));
         dispatch(productCategoryCode(code));
       }
     },

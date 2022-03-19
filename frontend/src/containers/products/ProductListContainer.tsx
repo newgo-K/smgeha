@@ -1,13 +1,19 @@
-import React, { useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useCallback, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'lib/modules';
 import ProductList from 'components/products/ProductList';
 import { RouteChildrenProps, withRouter } from 'react-router';
+import { productsCategorySelectAsync } from 'lib/modules/products/actions';
+import { reqProductsCategorySelectPacket } from 'lib/api/products';
 
 function ProductsViewContainer({ history }: RouteChildrenProps) {
-  const { products } = useSelector(({ products }: RootState) => ({
-    products: products.list.success,
-  }));
+  const dispatch = useDispatch();
+  const { code, products } = useSelector(
+    ({ category, products }: RootState) => ({
+      code: category.productCategoryCode,
+      products: products.list.success,
+    }),
+  );
 
   const onClick = useCallback(
     (id: number) => {
@@ -15,6 +21,14 @@ function ProductsViewContainer({ history }: RouteChildrenProps) {
     },
     [history],
   );
+
+  useEffect(() => {
+    dispatch(
+      productsCategorySelectAsync.request({
+        code,
+      } as reqProductsCategorySelectPacket),
+    );
+  }, [dispatch, code]);
 
   return <ProductList products={products} onClick={onClick} />;
 }

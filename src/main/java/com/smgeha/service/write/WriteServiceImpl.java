@@ -1,6 +1,8 @@
 package com.smgeha.service.write;
 
 import com.smgeha.domain.write.WriteDTO;
+import com.smgeha.domain.write.WriteFormDTO;
+import com.smgeha.mapper.product.ProductMapper;
 import com.smgeha.mapper.write.WriteMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,9 @@ import java.util.List;
 public class WriteServiceImpl implements WriteService {
     @Autowired
     private WriteMapper writeMapper;
+
+    @Autowired
+    private ProductMapper productMapper;
 
     @Override
     public int saveProduct (WriteDTO write) {
@@ -37,6 +42,30 @@ public class WriteServiceImpl implements WriteService {
         for(String image : images) {
             writeMapper.saveProductImages(id, image);
         }
-
     };
+
+    @Override
+    public WriteFormDTO selectWriteData(int id) {
+        WriteFormDTO write = new WriteFormDTO();
+
+        write = writeMapper.selectProductInfo(id);
+        write.setProductCode(writeMapper.selectProductSearchInfoId(id));
+        List<Short> codes = writeMapper.selectProductSearchInfo(id);
+
+        if(codes.size() > 0) {
+            write.setManufactureCode(codes.get(0));
+            write.setSizeCode(codes.get(1));
+            write.setTypeCode(codes.get(2));
+        }
+
+        write.setImages(writeMapper.selectProductSubImg(id));
+        return write;
+    }
+
+    @Override
+    public void updateWrite(int id, WriteDTO write) {
+        productMapper.deleteProductSearchInfo(id);
+        productMapper.deleteProductSubImg(id);
+        productMapper.deleteProductInfo(id);
+    }
 }

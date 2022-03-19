@@ -63,4 +63,17 @@
     <select id="selectProductSubImage" parameterType="int" resultType="string">
         select image from product_sub_image where product_id = #{id};
     </select>
+
+    <delete id="deleteProductSubImg" parameterType="int">
+        delete from product_sub_image where product_id = #{id}
+
+    </delete>
+
+    <delete id="deleteProductSearchInfo" parameterType="int">
+        delete from product_search_info where product_id = #{id}
+    </delete>
+
+    <delete id="deleteProductInfo" parameterType="int">
+        delete from product where id = #{id}
+    </delete>
 </mapper>

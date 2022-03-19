@@ -14,4 +14,7 @@ public interface ProductMapper {
     public ProductDTO selectProductPriceInfo(int id);
     public ProductDTO selectProductInfo(int id);
     public List<String> selectProductSubImage(int id);
+    public void deleteProductSubImg(int id);
+    public void deleteProductSearchInfo(int id);
+    public void deleteProductInfo(int id);
 }

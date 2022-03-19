@@ -2,6 +2,7 @@ package com.smgeha.controller;
 
 import com.smgeha.domain.auth.AuthDTO;
 import com.smgeha.domain.auth.PrincipalDetails;
+import com.smgeha.domain.product.Product;
 import com.smgeha.domain.product.ProductDTO;
 import com.smgeha.domain.product.ProductSubCategorySerachDTO;
 import com.smgeha.service.auth.UserService;
@@ -38,6 +39,9 @@ public class ProductController {
         return productService.selectProductInfo(id);
     }
 
-
+    @DeleteMapping("/product/{id}")
+    public void deleteProductInfo(@PathVariable int id) {
+        productService.deleteProductInfo(id);
+    }
 
 }

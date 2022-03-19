@@ -8,7 +8,7 @@ import {
 import { CategoryAction, CategoryState } from './types';
 
 const initState: CategoryState = {
-  productCategoryCode: 0,
+  productCategoryCode: 2,
   productCategory: asyncState.init(),
   productSubCategory: asyncState.init(),
 };

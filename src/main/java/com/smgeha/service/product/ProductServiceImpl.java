@@ -6,8 +6,11 @@ import com.smgeha.domain.product.ProductDTO;
 import com.smgeha.domain.product.ProductRepository;
 import com.smgeha.domain.product.ProductSubCategorySerachDTO;
 import com.smgeha.mapper.product.ProductMapper;
+import com.smgeha.service.auth.UserService;
 import com.smgeha.web.dto.auth.Role;
+import com.smgeha.web.util.JwtAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,11 +23,12 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductMapper productMapper;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public List<ProductDTO> selectProductList(@Param(value = "code") int code) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        PrincipalDetails user = (PrincipalDetails) authentication.getPrincipal();
-        String role = user.getAuth().getRole();
+        String role = userService.getRole();
 
         if(role.equals("ROLE_SUB_ADMIN")) {
             return productMapper.selectProductPriceList(code);
@@ -40,13 +44,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTO selectProductInfo(@Param(value = "id") int id) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String role = "";
-        if(authentication.getPrincipal() != "anonymousUser") {
-            PrincipalDetails user = (PrincipalDetails) authentication.getPrincipal();
-            role = user.getAuth().getRole();
-        }
         ProductDTO product = new ProductDTO();
+        String role = userService.getRole();
 
         if(role.equals("ROLE_SUB_ADMIN")) {
             product = productMapper.selectProductPriceInfo(id);
@@ -65,4 +64,10 @@ public class ProductServiceImpl implements ProductService {
 //
 //        return product;
 //    }
+    @Override
+    public void deleteProductInfo(int id) {
+        productMapper.deleteProductSubImg(id);
+        productMapper.deleteProductSearchInfo(id);
+        productMapper.deleteProductInfo(id);
+    };
 }

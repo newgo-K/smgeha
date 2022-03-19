@@ -3,12 +3,14 @@ import { Grid } from '@material-ui/core';
 import styled from '@emotion/styled';
 import TextField from 'components/common/TextField';
 import Select from 'components/common/Select';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { mediaQuery } from 'lib/styles/common';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'lib/modules';
 import {
   productWriteCategoryAsync,
+  productWriteInitForm,
+  productWriteModifyAsync,
   productWriteSetForm,
   productWriteUploadAsync,
 } from 'lib/modules/write/actions';
@@ -18,21 +20,36 @@ import {
   writeCategoryData,
 } from 'lib/api/write';
 import Button from 'components/common/Button';
+import { withRouter } from 'react-router-dom';
 
-function ProductWriteForm() {
+function ProductWriteForm({ match }: any) {
+  const [id, setId] = useState<number>(0);
   const dispatch = useDispatch();
-  const { form, categories } = useSelector(({ write }: RootState) => ({
+  const { form, categories, select } = useSelector(({ write }: RootState) => ({
     form: write.writeForm as ReqWriteForm,
     categories: write.category.success as resWriteCategoryPacket,
+    select: write.select.success,
   }));
 
   useEffect(() => {
     dispatch(productWriteCategoryAsync.request(2));
   }, [dispatch]);
 
+  useEffect(() => {
+    if (select) {
+      setId(select.id);
+      dispatch(productWriteInitForm({ value: select }));
+    }
+  }, [dispatch, select]);
+
   const onClick = useCallback(() => {
-    dispatch(productWriteUploadAsync.request(form));
-  }, [dispatch, form]);
+    if (id === 0) {
+      dispatch(productWriteUploadAsync.request(form));
+    } else {
+      debugger;
+      dispatch(productWriteModifyAsync.request(form));
+    }
+  }, [dispatch, form, id]);
 
   const onChange = useCallback(
     (
@@ -56,6 +73,7 @@ function ProductWriteForm() {
             variant="outlined"
             name="title"
             placeholder="제품명"
+            defaultValue={form.title}
             maxWidth
             onChange={onChange}
           />
@@ -65,6 +83,7 @@ function ProductWriteForm() {
             variant="outlined"
             name="url"
             placeholder="URL"
+            defaultValue={form.url}
             maxWidth
             onChange={onChange}
           />
@@ -74,6 +93,7 @@ function ProductWriteForm() {
             variant="outlined"
             name="serial"
             placeholder="시리얼"
+            defaultValue={form.serial}
             maxWidth
             onChange={onChange}
           />
@@ -83,6 +103,7 @@ function ProductWriteForm() {
             variant="outlined"
             name="manufacture"
             placeholder="제조사"
+            defaultValue={form.manufacture}
             maxWidth
             onChange={onChange}
           />
@@ -92,6 +113,7 @@ function ProductWriteForm() {
             variant="outlined"
             name="size"
             placeholder="크기"
+            defaultValue={form.size}
             maxWidth
             onChange={onChange}
           />
@@ -101,6 +123,7 @@ function ProductWriteForm() {
             variant="outlined"
             name="price"
             placeholder="가격"
+            defaultValue={String(form.price)}
             maxWidth
             onChange={onChange}
           />
@@ -115,7 +138,7 @@ function ProductWriteForm() {
       >
         <Grid item sm={4} xs={12}>
           <Button size="large" maxWidth onClick={onClick}>
-            저장
+            {id === 0 ? '저장' : '수정'}
           </Button>
         </Grid>
       </div>

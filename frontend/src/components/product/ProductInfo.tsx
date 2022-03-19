@@ -6,8 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import styled from '@emotion/styled';
 import ProductImgCarousel from './ProductImgCarousel';
 import { formWidth, mediaQuery } from 'lib/styles/common';
+import Button, { ButtonProps } from 'components/common/Button';
 
-function ProductInfo({ ...props }: any) {
+function ProductInfo({ onEdit, onDelete, ...props }: any) {
   const {
     // id,
     name,
@@ -30,6 +31,22 @@ function ProductInfo({ ...props }: any) {
 
   return (
     <Wrap>
+      <ModifyBtnStyles
+        variant="outlined"
+        size="large"
+        maxWidth
+        onClick={onEdit}
+      >
+        수정
+      </ModifyBtnStyles>
+      <DeleteBtnStyles
+        variant="outlined"
+        size="large"
+        maxWidth
+        onClick={onDelete}
+      >
+        삭제
+      </DeleteBtnStyles>
       <Title>
         <Typography variant="h1">{name}</Typography>
       </Title>
@@ -55,14 +72,16 @@ function ProductInfo({ ...props }: any) {
           )}
         </Grid>
       </ContentWrap>
-      <GuideDetail>
-        <Typography variant="subtitle1">제품 소개</Typography>
-      </GuideDetail>
 
-      {/* 블로그 연동 시 보여주는 영역 */}
-      <iframe title={url} width="100%" height="500" src={url}>
-        이 브라우저는 iframe을 지원하지 않습니다.
-      </iframe>
+      {url && (
+        <>
+          <GuideDetail>
+            <Typography variant="subtitle1">제품 소개</Typography>
+          </GuideDetail>
+          {/* 블로그 연동 시 보여주는 영역 */}
+          <iframe title={url} width="100%" height="500" src={url} />
+        </>
+      )}
     </Wrap>
   );
 }
@@ -75,6 +94,26 @@ const Wrap = styled.div`
     width: ${formWidth()};
   }
 `;
+
+const ModifyBtnStyles = (props: ButtonProps) => (
+  <Button
+    css={css`
+      margin-bottom: 10px !important;
+    `}
+    {...props}
+  />
+);
+
+const DeleteBtnStyles = (props: ButtonProps) => (
+  <Button
+    css={css`
+      border: 1px solid red !important;
+      color: red !important;
+      margin-bottom: 10px !important;
+    `}
+    {...props}
+  />
+);
 
 const ContentWrap = styled.div`
   display: flex;

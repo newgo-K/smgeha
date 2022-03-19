@@ -63,9 +63,7 @@ function LoginContainer({ history }: RouteChildrenProps) {
     }
   }, [history, data]);
 
-  useEffect(() => {
-    debugger;
-  }, [error]);
+  useEffect(() => {}, [error]);
 
   return (
     <Login
