@@ -12,25 +12,23 @@ function CommonTemplate({ children }: CommonTemplateProps) {
 }
 
 const Wrap = styled.div`
+  display: flex;
+  overflow: visible;
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  overflow: visible;
-  display: flex;
   justify-content: center;
-  margin: 0 auto;
-  padding: 0 10px;
-  background: ${palette.white};
   max-width: ${formWidth('desktop')};
-
+  margin: 0 auto;
+  padding: 0 0.625rem;
   border-left: 1px solid ${palette.grey[2]};
   border-right: 1px solid ${palette.grey[2]};
+  background: ${palette.white};
 
   ${mediaQuery('xs')} {
     width: ${formWidth()};
-    /* max-width: ${formWidth('desktop')}; */
   }
 `;
 

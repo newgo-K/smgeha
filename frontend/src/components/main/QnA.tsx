@@ -8,7 +8,6 @@ import Box from '@material-ui/core/Box';
 import { css } from '@emotion/react';
 import palette from 'lib/styles/palette';
 import { withStyles } from '@material-ui/styles';
-import { NONAME } from 'dns';
 import { ButtonBase } from '@material-ui/core';
 
 interface TabPanelProps {
@@ -48,20 +47,20 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     flexGrow: 1,
     width: '100%',
-    backgroundColor: theme.palette.background.paper,
-    fontSize: '14px',
-    fontWeight: 400,
     margin: 100,
+    fontSize: '0.875rem',
+    fontWeight: 400,
+    backgroundColor: theme.palette.background.paper,
   },
 }));
 
 const Tab = withStyles({
   root: {
-    margin: '0 10px',
-    backgroundColor: palette.grey[1], //!important,
-    minWidth: '130px',
-    padding: 0,
+    minWidth: 130,
     minHeight: 35,
+    margin: '0 0.625rem',
+    padding: 0,
+    backgroundColor: palette.grey[1],
   },
 })(MuiTab);
 

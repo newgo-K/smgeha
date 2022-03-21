@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import CategoryContainer from 'containers/common/CategoryContainer';
+import HeaderContainer from 'containers/common/HeaderContainer';
 import ProductListContainer from 'containers/products/ProductListContainer';
 import React from 'react';
 import ProductSubCategoryContainer from 'containers/products/ProductsSubCategoryContainer';
@@ -20,7 +20,7 @@ function ProductsPage() {
           `}
         >
           <div>
-            <CategoryContainer />
+            <HeaderContainer />
           </div>
           <div
             css={css`
@@ -58,7 +58,7 @@ function ProductsPage() {
             margin: 0 auto;
           `}
         >
-          <CategoryContainer />
+          <HeaderContainer />
           <ProductSubCategoryContainer />
           <ProductListContainer />
         </div>

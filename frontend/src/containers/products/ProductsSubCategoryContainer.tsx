@@ -3,28 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'lib/modules';
 import { productSubCategorySelectAsync } from 'lib/modules/category/actions';
 import { resProductSubCategoryPacket } from 'lib/api/category';
-import ProductSubCategory from 'components/products/ProductsSubCategory';
+import ProductSubCategory, {
+  categoryContent,
+  subCategoryState,
+} from 'components/products/ProductsSubCategory';
 import { productsSubCategorySearchAsync } from 'lib/modules/products/actions';
 
 const enum CATEGORY {
   INTRODUCE = 1,
 }
-
-export type categoryContent = resProductSubCategoryPacket & {
-  checked: boolean;
-};
-
-export type subCategoryState = {
-  title: categoryContent;
-  contents: Array<categoryContent>;
-};
-
-export type productSubCategoryPorps = {
-  categories: Array<subCategoryState>;
-  drawerFlag: boolean;
-  onChecked: (e: number) => void;
-  toggleDrawer: (e: boolean) => void;
-};
 
 function ProductSubCategoryContainer() {
   const dispatch = useDispatch();

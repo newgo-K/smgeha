@@ -9,6 +9,7 @@ export type TextFieldProps = {
   type?: 'password' | 'number';
   /** 내용 */
   value?: string;
+  /** 기본 값 */
   defaultValue?: string;
   /** 형태 */
   variant?: 'outlined' | 'filled' | 'standard';
@@ -23,7 +24,6 @@ export type TextFieldProps = {
   helperText?: string;
   /** 텍스트필드에 값이 입력됐을 때 호출되는 함수 */
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  InputProps?: any;
   inputProps?: any;
 };
 
@@ -43,7 +43,6 @@ function TextField({
   error,
   helperText,
   onChange,
-  InputProps,
   inputProps,
 }: TextFieldProps) {
   return (
@@ -58,7 +57,6 @@ function TextField({
       error={error}
       helperText={helperText}
       onChange={onChange}
-      InputProps={InputProps}
       inputProps={inputProps}
     />
   );

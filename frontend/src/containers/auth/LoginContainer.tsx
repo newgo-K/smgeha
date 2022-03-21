@@ -4,14 +4,13 @@ import { changeField, loginAsync } from 'lib/modules/auth';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteChildrenProps, withRouter } from 'react-router-dom';
-import { authErrorTexts, authErrorStates } from './error';
+import { authErrorStates } from './error';
 
 function LoginContainer({ history }: RouteChildrenProps) {
   const dispatch = useDispatch();
-  const { form, data, status } = useSelector(({ auth }: RootState) => ({
+  const { form, data } = useSelector(({ auth }: RootState) => ({
     form: auth.loginForm,
     data: auth.login.success,
-    status: auth.login.error?.response?.status,
   }));
 
   const [errorStates, setErrorStates] = useState<any>(authErrorStates.login);

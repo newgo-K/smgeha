@@ -1,70 +1,39 @@
-import { css } from '@emotion/react';
 import { Grid } from '@material-ui/core';
 import styled from '@emotion/styled';
 import TextField from 'components/common/TextField';
-import Select from 'components/common/Select';
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import { mediaQuery } from 'lib/styles/common';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from 'lib/modules';
-import {
-  productWriteCategoryAsync,
-  productWriteInitForm,
-  productWriteModifyAsync,
-  productWriteSetForm,
-  productWriteUploadAsync,
-} from 'lib/modules/write/actions';
-import {
-  ReqWriteForm,
-  resWriteCategoryPacket,
-  writeCategoryData,
-} from 'lib/api/write';
+
 import Button from 'components/common/Button';
-import { withRouter } from 'react-router-dom';
 
-function ProductWriteForm({ match }: any) {
-  const [id, setId] = useState<number>(0);
-  const dispatch = useDispatch();
-  const { form, categories, select } = useSelector(({ write }: RootState) => ({
-    form: write.writeForm as ReqWriteForm,
-    categories: write.category.success as resWriteCategoryPacket,
-    select: write.select.success,
-  }));
+type ProductWriteSelectProps = {
+  id: number;
+  title: string;
+  serial: string;
+  url: string;
+  manufacture: string;
+  size: string;
+  price: number;
+  onChange: (
+    e: React.ChangeEvent<{
+      name: string;
+      value: string;
+    }>,
+  ) => void;
+  onClick: () => void;
+};
 
-  useEffect(() => {
-    dispatch(productWriteCategoryAsync.request(2));
-  }, [dispatch]);
-
-  useEffect(() => {
-    if (select) {
-      setId(select.id);
-      dispatch(productWriteInitForm({ value: select }));
-    }
-  }, [dispatch, select]);
-
-  const onClick = useCallback(() => {
-    if (id === 0) {
-      dispatch(productWriteUploadAsync.request(form));
-    } else {
-      debugger;
-      dispatch(productWriteModifyAsync.request(form));
-    }
-  }, [dispatch, form, id]);
-
-  const onChange = useCallback(
-    (
-      e: React.ChangeEvent<{
-        name: string;
-        value: string;
-      }>,
-    ) => {
-      let { name, value } = e.target;
-      console.log(e);
-      dispatch(productWriteSetForm({ key: name, value }));
-    },
-    [dispatch],
-  );
-
+function ProductWriteForm({
+  id,
+  title,
+  url,
+  serial,
+  manufacture,
+  size,
+  price,
+  onChange,
+  onClick,
+}: ProductWriteSelectProps) {
   return (
     <Wrap>
       <Grid container spacing={3}>
@@ -73,7 +42,7 @@ function ProductWriteForm({ match }: any) {
             variant="outlined"
             name="title"
             placeholder="제품명"
-            defaultValue={form.title}
+            defaultValue={title}
             maxWidth
             onChange={onChange}
           />
@@ -83,7 +52,7 @@ function ProductWriteForm({ match }: any) {
             variant="outlined"
             name="url"
             placeholder="URL"
-            defaultValue={form.url}
+            defaultValue={url}
             maxWidth
             onChange={onChange}
           />
@@ -93,7 +62,7 @@ function ProductWriteForm({ match }: any) {
             variant="outlined"
             name="serial"
             placeholder="시리얼"
-            defaultValue={form.serial}
+            defaultValue={serial}
             maxWidth
             onChange={onChange}
           />
@@ -103,7 +72,7 @@ function ProductWriteForm({ match }: any) {
             variant="outlined"
             name="manufacture"
             placeholder="제조사"
-            defaultValue={form.manufacture}
+            defaultValue={manufacture}
             maxWidth
             onChange={onChange}
           />
@@ -113,7 +82,7 @@ function ProductWriteForm({ match }: any) {
             variant="outlined"
             name="size"
             placeholder="크기"
-            defaultValue={form.size}
+            defaultValue={size}
             maxWidth
             onChange={onChange}
           />
@@ -123,35 +92,35 @@ function ProductWriteForm({ match }: any) {
             variant="outlined"
             name="price"
             placeholder="가격"
-            defaultValue={String(form.price)}
+            defaultValue={String(price)}
             maxWidth
             onChange={onChange}
           />
         </Grid>
       </Grid>
-      <div
-        css={css`
-          display: flex;
-          justify-content: flex-end;
-          margin: 15px 0;
-        `}
-      >
+      <ButtonStyles>
         <Grid item sm={4} xs={12}>
           <Button size="large" maxWidth onClick={onClick}>
             {id === 0 ? '저장' : '수정'}
           </Button>
         </Grid>
-      </div>
+      </ButtonStyles>
     </Wrap>
   );
 }
 
 const Wrap = styled.div`
-  padding: 20px;
+  padding: 1.25rem;
 
   ${mediaQuery('xs')} {
-    padding: 10px;
+    padding: 0.625rem;
   }
+`;
+
+const ButtonStyles = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin: 0.9375rem 0;
 `;
 
 export default ProductWriteForm;

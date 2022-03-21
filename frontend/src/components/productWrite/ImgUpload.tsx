@@ -16,20 +16,6 @@ function ImgUpload({ ...props }: any) {
     imghover,
   } = props;
 
-  function Test({ index, onImageUpdate, onClick, text, imghover, icon }: any) {
-    return (
-      <>
-        {imghover && (
-          <HoverWrap>
-            <Button iconOnly variant="text" onClick={onClick}>
-              <Icon icon={icon} color={palette.black[0]} size="1.1rem" />
-            </Button>
-          </HoverWrap>
-        )}
-      </>
-    );
-  }
-
   return (
     <div className="App">
       <ReactImageUploading

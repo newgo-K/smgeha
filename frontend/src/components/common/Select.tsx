@@ -7,8 +7,17 @@ import {
   MenuItem,
   Theme,
 } from '@material-ui/core';
-import React, { useState } from 'react';
+import React from 'react';
 import { writeCategoryData } from 'lib/api/write';
+
+export type SelectProps = {
+  name: string;
+  code: number;
+  onChange: (e: any) => void;
+  label: string;
+  categories: any;
+  onClick?: (e: any) => void;
+};
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,23 +31,15 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-type test = {
-  name: string;
-  code: number;
-  onChange: any;
-  label: string;
-  categories: any;
-  onClick: any;
-};
-
-function Select({ name, code, onChange, label, categories, onClick }: test) {
+function Select({
+  name,
+  code,
+  onChange,
+  label,
+  categories,
+  onClick,
+}: SelectProps) {
   const classes = useStyles();
-
-  // const [code, setCode] = React.useState('');
-  // const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-  //   console.log(event.target.value);
-  //   setCode(event.target.value as string);
-  // };
 
   return (
     <>

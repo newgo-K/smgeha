@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'lib/modules';
 import ProductList from 'components/products/ProductList';
@@ -15,12 +15,9 @@ function ProductsViewContainer({ history }: RouteChildrenProps) {
     }),
   );
 
-  const onClick = useCallback(
-    (id: number) => {
-      history.push(`/product/${id}`);
-    },
-    [history],
-  );
+  const onClick = (id: number) => {
+    history.push(`/product/${id}`);
+  };
 
   useEffect(() => {
     dispatch(
@@ -30,7 +27,9 @@ function ProductsViewContainer({ history }: RouteChildrenProps) {
     );
   }, [dispatch, code]);
 
-  return <ProductList products={products} onClick={onClick} />;
+  return (
+    <>{products && <ProductList products={products} onClick={onClick} />}</>
+  );
 }
 
 export default withRouter(ProductsViewContainer);

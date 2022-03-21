@@ -8,13 +8,10 @@ import {
   productDelectAsync,
   productSelectAsync,
 } from 'lib/modules/product/actions';
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
-import {
-  reqProductDeletePacket,
-  reqProductSelectPacket,
-} from 'lib/api/product';
+import {} from 'lib/api/product';
 import { withRouter } from 'react-router-dom';
 import {
   productWriteInitForm,
@@ -24,40 +21,32 @@ import { reqWriteSelect } from 'lib/api/write';
 
 function ProductInfoContainer() {
   const dispatch = useDispatch();
-  const { product, write, select } = useSelector(
-    ({ product, write }: RootState) => ({
-      product: product.info.success,
-      write: write.writeForm,
-      select: write.select.success,
-    }),
-  );
+  const { product, select } = useSelector(({ product, write }: RootState) => ({
+    product: product.info.success,
+    select: write.select.success,
+  }));
 
   const history = useHistory();
-  const { id }: any = useParams();
+  const { id } = useParams<{ id?: string }>();
 
   useEffect(() => {
-    dispatch(productSelectAsync.request({ id } as reqProductSelectPacket));
+    dispatch(productSelectAsync.request({ id } as any));
   }, [dispatch, id]);
 
   const onEdit = async () => {
-    await dispatch(productWriteSelectAsync.request(id));
+    const res = await reqWriteSelect(id);
+    dispatch(productWriteInitForm({ value: res }));
+    history.push(`/write/${id}`);
   };
 
-  useEffect(() => {
-    if (select) {
-      dispatch(productWriteInitForm({ value: select }));
-      history.push(`/write/${id}`);
-    }
-  });
-
-  const onDelete = useCallback(() => {
+  const onDelete = () => {
     try {
-      dispatch(productDelectAsync.request({ id } as reqProductDeletePacket));
+      dispatch(productDelectAsync.request({ id } as any));
       history.push('/');
     } catch (e: string | unknown) {
       console.log(e);
     }
-  }, [dispatch, id, history]);
+  };
 
   const leftContent = () => (
     <Button variant="text" iconOnly onClick={() => history.go(-1)}>
@@ -68,7 +57,20 @@ function ProductInfoContainer() {
   return (
     <CommonTemplate>
       <PageTitle leftContent={leftContent} title="상세내용" />
-      <ProductInfo onEdit={onEdit} onDelete={onDelete} {...product} />
+      {product && (
+        <ProductInfo
+          name={product.name}
+          serial={product.serial}
+          size={product.size}
+          manufacture={product.manufacture}
+          price={product.price}
+          url={product.url}
+          subTypes={product.subTypes}
+          imgs={product.subImages}
+          onEdit={onEdit}
+          onDelete={onDelete}
+        />
+      )}
     </CommonTemplate>
   );
 }

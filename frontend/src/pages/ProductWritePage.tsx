@@ -1,54 +1,42 @@
-import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import { Grid } from '@material-ui/core';
-import ProductWriteForm from 'components/productWrite/productWriteForm';
-import ProductWriteSelect from 'components/productWrite/productWriteSelect';
-import SelectInputForm from 'components/productWrite/SelectInputForm';
-import CategoryContainer from 'containers/common/CategoryContainer';
-import EditorContainer from 'containers/write/EditorContainer';
 import ImgUploadContainer from 'containers/write/ImgUploadContainer';
-import SelectTypeContainer from 'containers/write/SelectTypeContainer';
+import ProductWriteFormContainer from 'containers/write/ProductWriteFormContainer';
+import ProductWriteSelectContainer from 'containers/write/ProductWriteSelectContainer';
 import { mediaQuery } from 'lib/styles/common';
+import palette from 'lib/styles/palette';
 import React from 'react';
+import HeaderContainer from 'containers/common/HeaderContainer';
 
 function ProductWritePage() {
   return (
-    <div
-      css={css`
-        margin: 0 auto;
-        width: 1350px;
-        background-color: white;
-
-        ${mediaQuery('xs')} {
-          width: 360px;
-        }
-      `}
-    >
+    <Wrap>
+      <div>
+        <HeaderContainer />
+      </div>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <ProductWriteSelect />
+          <ProductWriteSelectContainer />
         </Grid>
         <Grid item sm={6} xs={12}>
           <ImgUploadContainer />
         </Grid>
         <Grid item sm={6} xs={12}>
-          <ProductWriteForm />
+          <ProductWriteFormContainer />
         </Grid>
       </Grid>
-      {/* <div>
-        <SelectTypeContainer />
-      </div>
-      <div>
-        <ImgUploadContainer />
-      </div>
-      <div
-        css={css`
-          margin-top: 60px;
-        `}
-      >
-        <EditorContainer />
-      </div> */}
-    </div>
+    </Wrap>
   );
 }
+
+const Wrap = styled.div`
+  width: 1350px;
+  margin: 0 auto;
+  background-color: ${palette.white[0]};
+
+  ${mediaQuery('xs')} {
+    width: 360px;
+  }
+`;
 
 export default ProductWritePage;

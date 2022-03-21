@@ -14,18 +14,19 @@ import { resProductPacket } from 'lib/api/products';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      padding: '20px 30px',
-      margin: '10px',
+      margin: '0.625rem',
+      padding: '1.25rem 1.875rem',
       boxShadow: 'none',
+      cursor: 'pointer',
 
       [theme.breakpoints.down('sm')]: {
         maxWidth: 170,
-        margin: 5,
-        padding: 7,
+        margin: '0.3125rem',
+        padding: '0.4375rem',
       },
     },
     content: {
-      padding: '15px 0',
+      padding: '0.9375rem 0',
       '&:last-child': {
         paddingBottom: '0 !important',
       },
@@ -45,11 +46,20 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 type ProductProps = resProductPacket & {
-  onClick: any;
+  onClick: (e: number) => void;
 };
 
-const ProductCard = ({ onClick, ...props }: ProductProps) => {
-  const { id, name, serial, image, size, manufacture, price, subTypes } = props;
+const ProductCard = ({
+  id,
+  name,
+  serial,
+  image,
+  size,
+  manufacture,
+  price,
+  subTypes,
+  onClick,
+}: ProductProps) => {
   const [type, setType] = useState<string>('');
   const classes = useStyles();
 
@@ -81,7 +91,7 @@ const ProductCard = ({ onClick, ...props }: ProductProps) => {
 };
 
 type ProductsProps = {
-  products: Array<resProductPacket> | null;
+  products: Array<resProductPacket> | undefined;
   onClick: any;
 };
 
@@ -90,7 +100,7 @@ export default function ProductList({ products, onClick }: ProductsProps) {
     <Wrap>
       {products &&
         products.map((product: resProductPacket) => (
-          <Grid item lg={3} sm={4} xs={6}>
+          <Grid key={product.id} item lg={3} sm={4} xs={6}>
             <ProductCard onClick={onClick} {...product} />
           </Grid>
         ))}
@@ -99,20 +109,20 @@ export default function ProductList({ products, onClick }: ProductsProps) {
 }
 
 const Wrap = styled.div`
-  background-color: ${palette.grey[0]};
   display: flex;
   flex-wrap: wrap;
-  border-radius: 4px;
-  padding: 10px;
+  padding: 0.625rem;
+  border-radius: 0.25rem;
+  background-color: ${palette.grey[0]};
 
   ${mediaQuery('xs')} {
-    padding: 5px;
+    padding: 0.3125rem;
   }
 `;
 
 const Divider = styled.div`
+  margin: 0.5rem 0px;
   border-bottom: 1px solid ${palette.grey[4]};
-  margin: 8px 0px;
 `;
 
 const ContentSub = (props: any) => (
@@ -128,7 +138,7 @@ const ContentSub = (props: any) => (
 const ContentPrice = (props: any) => (
   <div
     css={css`
-      padding: 5px 0;
+      padding: 0.3125rem 0;
       color: ${palette.main[4]} !important;
     `}
   >

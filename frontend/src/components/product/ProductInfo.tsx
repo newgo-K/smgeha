@@ -8,19 +8,31 @@ import ProductImgCarousel from './ProductImgCarousel';
 import { formWidth, mediaQuery } from 'lib/styles/common';
 import Button, { ButtonProps } from 'components/common/Button';
 
-function ProductInfo({ onEdit, onDelete, ...props }: any) {
-  const {
-    // id,
-    name,
-    serial,
-    // image,
-    size,
-    manufacture,
-    price,
-    url,
-    subTypes,
-    subImages,
-  } = props;
+export type ProductInfoProps = {
+  name: string;
+  serial: string;
+  size: string;
+  manufacture: string;
+  price: number;
+  url: string;
+  subTypes: string;
+  imgs: Array<string>;
+  onEdit: () => void;
+  onDelete: () => void;
+};
+
+function ProductInfo({
+  name,
+  serial,
+  size,
+  manufacture,
+  price,
+  url,
+  subTypes,
+  imgs,
+  onEdit,
+  onDelete,
+}: ProductInfoProps) {
   const [type, setType] = useState<string>('');
 
   useEffect(() => {
@@ -53,7 +65,7 @@ function ProductInfo({ onEdit, onDelete, ...props }: any) {
       <ContentWrap>
         <Grid item xs={7}>
           {/* Carousel */}
-          <ProductImgCarousel imgs={subImages} />
+          <ProductImgCarousel imgs={imgs} />
         </Grid>
         <Grid item xs={5}>
           {/* Content */}
@@ -73,6 +85,7 @@ function ProductInfo({ onEdit, onDelete, ...props }: any) {
         </Grid>
       </ContentWrap>
 
+      {/* 블로그 내용이 없다면 제품 소개란은 보여주지 않는다. */}
       {url && (
         <>
           <GuideDetail>
@@ -87,8 +100,8 @@ function ProductInfo({ onEdit, onDelete, ...props }: any) {
 }
 
 const Wrap = styled.div`
-  margin-top: 70px;
   width: 430px;
+  margin-top: 4.375rem;
 
   ${mediaQuery('xs')} {
     width: ${formWidth()};
@@ -98,7 +111,7 @@ const Wrap = styled.div`
 const ModifyBtnStyles = (props: ButtonProps) => (
   <Button
     css={css`
-      margin-bottom: 10px !important;
+      margin-bottom: 0.625rem !important;
     `}
     {...props}
   />
@@ -107,9 +120,9 @@ const ModifyBtnStyles = (props: ButtonProps) => (
 const DeleteBtnStyles = (props: ButtonProps) => (
   <Button
     css={css`
+      margin-bottom: 0.625rem !important;
       border: 1px solid red !important;
       color: red !important;
-      margin-bottom: 10px !important;
     `}
     {...props}
   />
@@ -146,17 +159,17 @@ const ContentSub = (props: any) => (
 );
 
 const ContentPrice = styled.div`
-  padding: 5px 0;
+  padding: 0.3125rem 0;
   color: ${palette.main[4]};
   font-weight: 500;
-  font-size: 18px;
+  font-size: 1.125rem;
 `;
 
 const GuideDetail = styled.div`
-  margin-top: 40px;
-  background-color: ${palette.black[0]};
+  margin-top: 2.5rem;
+  padding: 0.125rem 0.4375rem;
   color: ${palette.white[0]};
-  padding: 2px 7px;
+  background-color: ${palette.black[0]};
 `;
 
 export default ProductInfo;

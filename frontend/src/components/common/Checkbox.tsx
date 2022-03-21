@@ -24,7 +24,7 @@ export type CheckboxProps = {
   /** 체크박스 전체 크기 */
   size?: 'small' | 'medium' | 'large';
   onClick?: (e: any) => void;
-  onChange?: any;
+  onChange?: (e: any) => void;
   checked?: boolean;
 };
 
@@ -83,17 +83,17 @@ const Wrap = styled.div`
 const sizes = {
   small: css`
     .MuiCheckbox-root {
-      padding: 5px;
+      padding: 0.3125rem;
       width: 17px;
     }
     .MuiTypography-body1 {
-      font-size: 13px;
       font-weight: 400;
+      font-size: 0.8125rem;
     }
   `,
   medium: css`
     .MuiTypography-body1 {
-      font-size: 14px;
+      font-size: 0.875rem;
     }
   `,
   large: css`

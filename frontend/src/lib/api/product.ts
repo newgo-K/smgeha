@@ -10,14 +10,14 @@ export type reqProductSelectPacket = {
 export type resProductPacket = {
   id: number;
   productId: number;
-  title: string;
+  name: string;
   serial: string;
-  manufactureText: string;
-  sizeText: string;
-  type: string;
+  manufacture: string;
+  size: string;
+  subTypes: string;
   price: number;
   url: string;
-  imgs: Array<string>;
+  subImages: Array<string>;
 };
 
 export async function reqProductSelect({ id }: reqProductSelectPacket) {

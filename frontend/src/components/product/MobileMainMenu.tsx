@@ -4,7 +4,7 @@ import Button from 'components/common/Button';
 import Icon from 'lib/icon/Icon';
 import { Drawer } from '@material-ui/core';
 import styled from '@emotion/styled';
-import CategoryContainer from 'containers/common/CategoryContainer';
+import HeaderContainer from 'containers/common/HeaderContainer';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -13,7 +13,6 @@ const useStyles = makeStyles((theme) => ({
     },
     width: '90%',
   },
-  list: {},
   fullList: {
     width: 'auto',
   },
@@ -28,9 +27,8 @@ export default function MobileMainMenu({ toggleDrawer, state }: any) {
         <Button iconOnly variant="text" onClick={toggleDrawer(false)}>
           <Icon icon="close" />
         </Button>
-        <CategoryContainer />
+        <HeaderContainer />
       </ListStyles>
-      {/* <MainSideMenu /> */}
     </div>
   );
 

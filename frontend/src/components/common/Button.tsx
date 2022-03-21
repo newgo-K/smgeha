@@ -72,8 +72,8 @@ const DefaultButton = (props: ButtonProps) => (
     css={css`
       .MuiButton-root {
         min-width: inherit;
-        font-weight: 400 !important;
         color: ${palette.black};
+        font-weight: 400 !important;
         box-shadow: none;
       }
       .MuiButton-contained {
@@ -91,9 +91,9 @@ const DefaultButton = (props: ButtonProps) => (
         }
       }
       .MuiButton-outlined {
+        border: 1px solid ${palette.main[4]};
         color: ${palette.main[4]};
         background-color: ${palette.white};
-        border: 1px solid ${palette.main[4]};
 
         &:hover {
           background-color: ${palette.white};
@@ -101,8 +101,8 @@ const DefaultButton = (props: ButtonProps) => (
       }
 
       .MuiButton-text {
-        color: ${palette.main[4]};
         padding: 8px !important;
+        color: ${palette.main[4]};
         &:hover {
           background-color: transparent;
         }
@@ -115,18 +115,18 @@ const DefaultButton = (props: ButtonProps) => (
 
 const sizes = {
   small: css`
-    font-size: 0.8125rem !important;
     height: 2.1875rem;
-    padding: 5px 8px !important;
+    padding: 0.3125rem 0.5rem !important;
+    font-size: 0.8125rem !important;
   `,
   medium: css`
-    font-size: 0.9375rem !important;
     height: 2.5rem;
+    font-size: 0.9375rem !important;
   `,
   large: css`
+    height: 3rem;
     font-size: 1rem !important;
     font-weight: 700 !important;
-    height: 3rem;
   `,
 };
 

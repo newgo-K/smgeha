@@ -1,6 +1,5 @@
 import { all } from '@redux-saga/core/effects';
 import { combineReducers } from 'redux';
-import naverMap from './naverMap';
 import auth from './auth/reducer';
 import { authSaga } from './auth';
 import category from './category/reducer';
@@ -13,7 +12,6 @@ import write from './write/reducer';
 import { writeSaga } from './write/sagas';
 
 const rootReducer = combineReducers({
-  naverMap,
   auth,
   category,
   products,

@@ -22,14 +22,14 @@ export const Accordion = withStyles({
 
 export const AccordionSummary = withStyles({
   root: {
-    borderTop: `1px solid ${palette.grey[2]}`,
-    borderBottom: `1px solid ${palette.grey[2]}`,
-    marginBottom: -1,
-    padding: '0 5px',
     minHeight: 35,
     '&$expanded': {
       minHeight: 35,
     },
+    marginBottom: -1,
+    padding: '0 0.3125rem',
+    borderTop: `1px solid ${palette.grey[2]}`,
+    borderBottom: `1px solid ${palette.grey[2]}`,
   },
   content: {
     margin: 0,
@@ -50,7 +50,7 @@ export const AccordionSummary = withStyles({
 export const AccordionDetails = withStyles((theme) => ({
   root: {
     height: 26,
-    padding: 3,
     marginLeft: 13,
+    padding: 3,
   },
 }))(MuiAccordionDetails);

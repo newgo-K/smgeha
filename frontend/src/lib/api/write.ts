@@ -19,16 +19,7 @@ export type ReqWriteForm = {
   images: Array<string>;
 };
 
-export type SelectTypesProps = {
-  title: string;
-  serial: string;
-  product: number;
-  manufacture: number;
-  size: string;
-  type: number;
-  price: string;
-  img: Array<any>;
-};
+export type ResWriteForm = ReqWriteForm & {};
 
 export type ImgsProps = {
   img: [];
@@ -61,6 +52,7 @@ export type resWriteCategoryPacket = {
 
 export async function reqCategory(productCategoryId: number) {
   const res = await client.post('/writeCategory', { productCategoryId });
+
   return res.data;
 }
 
@@ -88,11 +80,11 @@ export async function reqWrite(files: any) {
 
 export async function reqWriteSelect(id: any) {
   const res = await client.get(`/write/${id}`);
+
   return res.data;
 }
 
 export async function reqModify(files: any) {
-  debugger;
   const formData = new FormData();
 
   // formData.append('id', files.id);
@@ -109,8 +101,6 @@ export async function reqModify(files: any) {
   formData.append('price', files.price);
 
   files.images.map((file: any) => formData.append('images', file));
-
-  debugger;
 
   const res = await client.patch(`/write/${files.id}`, formData);
 

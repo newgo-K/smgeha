@@ -8,19 +8,31 @@ import {
   AccordionSummary,
 } from 'components/common/Accordion';
 import styled from '@emotion/styled';
-import {
-  categoryContent,
-  productSubCategoryPorps,
-  subCategoryState,
-} from 'containers/products/ProductsSubCategoryContainer';
 import { Desktop, mediaQuery, Mobile } from 'lib/styles/common';
 import Button from 'components/common/Button';
 import { Drawer } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import { resProductSubCategoryPacket } from 'lib/api/category';
+
+export type categoryContent = resProductSubCategoryPacket & {
+  checked: boolean;
+};
+
+export type subCategoryState = {
+  title: categoryContent;
+  contents: Array<categoryContent>;
+};
+
+export type ProductSubCategoryPorps = {
+  categories: Array<subCategoryState>;
+  drawerFlag: boolean;
+  onChecked: (e: number) => void;
+  toggleDrawer: (e: boolean) => void;
+};
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    width: '340px',
+    width: 340,
   },
   fullList: {
     width: 'auto',
@@ -32,7 +44,7 @@ function ProductSubCategory({
   drawerFlag,
   onChecked,
   toggleDrawer,
-}: productSubCategoryPorps) {
+}: ProductSubCategoryPorps) {
   const classes = useStyles();
 
   const list = (categories: any, onChecked: any) => {
@@ -59,7 +71,7 @@ function ProductSubCategory({
 
               {category.contents &&
                 category.contents.map((content: categoryContent) => (
-                  <li>
+                  <li key={content.code}>
                     <AccordionDetails>
                       <Checkbox
                         checked={content.checked}
@@ -105,10 +117,10 @@ function ProductSubCategory({
 }
 
 const HeaderStyles = styled.div`
-  border-top: 10px solid ${palette.grey[0]};
+  border-top: 0.625rem solid ${palette.grey[0]};
 
   p {
-    margin-left: 7px;
+    margin-left: 0.4375rem;
     color: ${palette.black[0]};
   }
 `;
@@ -119,18 +131,18 @@ const DrawerHeaderStyles = styled.div`
 `;
 
 const CategoryTitle = styled.div`
-  font-size: 14px;
+  padding-left: 0.25rem;
+  padding-bottom: 0.5625rem;
   font-weight: 500;
-  padding-left: 4px;
-  padding-bottom: 9px;
+  font-size: 0.875rem;
 
   ${mediaQuery('xs')} {
-    padding-top: 9px;
+    padding-top: 0.5625rem;
   }
 `;
 
 const CategoryContent = styled.div`
-  font-size: 14px;
+  font-size: 0.875rem;
   font-weight: 500;
 `;
 

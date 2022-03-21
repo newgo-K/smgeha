@@ -36,32 +36,31 @@ function PageTitle({
 }
 
 const Wrap = styled.div`
+  display: flex;
+  overflow: auto;
   position: fixed;
+  align-items: center;
+  justify-content: center;
   left: 0;
   right: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: auto;
+  z-index: 2;
   height: 40px;
   margin: 0 auto;
   padding: 0.375rem 0;
   border-bottom: 1px solid ${palette.grey[2]};
-  background: ${palette.white};
   border-radius: 4px;
-  z-index: 2;
+  background: ${palette.white};
 
   ${mediaQuery('xs')} {
-    padding: 0 10px;
     width: ${formWidth()};
-    /* max-width: ${formWidth('desktop')}; */
+    padding: 0 0.625rem;
   }
 `;
 
 const ElementList = styled.ul`
   display: flex;
-  align-items: center;
   flex: 1;
+  align-items: center;
 
   li {
     :nth-of-type(1) {

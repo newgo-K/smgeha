@@ -9,7 +9,11 @@ import styled from '@emotion/styled';
 import { Desktop, mediaQuery } from 'lib/styles/common';
 import palette from 'lib/styles/palette';
 
-function ProductImgCarousel({ imgs }: any) {
+export type CarouselProps = {
+  imgs: Array<string>;
+};
+
+function ProductImgCarousel({ imgs }: CarouselProps) {
   const settings = {
     dots: true,
     infinite: true,
@@ -46,19 +50,19 @@ function ProductImgCarousel({ imgs }: any) {
 
   return (
     <Container>
-      <StyledSlider {...settings}>
+      <SliderStyles {...settings}>
         {imgs &&
           imgs.map((img: string) => (
             <li key={img}>
               <CardImg src={`/images/${img}`} />
             </li>
           ))}
-      </StyledSlider>
+      </SliderStyles>
     </Container>
   );
 }
 
-const StyledSlider = (props: Settings) => (
+const SliderStyles = (props: Settings) => (
   <Slider
     css={css`
       .slick-dots {
@@ -95,10 +99,10 @@ const Container = styled.div`
 `;
 
 const CardImg = styled.img`
-  width: 150px !important;
-  height: 250px !important;
-  margin: 0 auto !important;
-  object-fit: contain !important;
+  width: 150px;
+  height: 250px;
+  margin: 0 auto;
+  object-fit: contain;
 `;
 
 export default ProductImgCarousel;

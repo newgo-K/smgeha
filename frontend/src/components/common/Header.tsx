@@ -6,9 +6,15 @@ import Icon from 'lib/icon/Icon';
 import { Desktop, formWidth, mediaQuery, Mobile } from 'lib/styles/common';
 import Button, { ButtonProps } from './Button';
 import { resProductCategoryPacket } from 'lib/api/category';
-import { HeaderPorps } from 'containers/common/CategoryContainer';
 import { Drawer } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+
+type HeaderPorps = {
+  categories: Array<resProductCategoryPacket> | null;
+  drawerFlag: boolean;
+  onClick: (e: number) => void;
+  toggleDrawer: (e: boolean) => void;
+};
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -27,7 +33,7 @@ function Header({
 }: HeaderPorps) {
   const classes = useStyles();
 
-  const list = (categories: any) => {
+  const list = (categories: Array<resProductCategoryPacket>) => {
     return (
       <>
         <Mobile>
@@ -39,7 +45,7 @@ function Header({
 
           {categories &&
             categories.map((category: resProductCategoryPacket) => (
-              <DrawerContentStyles>
+              <DrawerContentStyles key={category.name}>
                 <ButtonStyles
                   variant="text"
                   onClick={() => onClick(category.code)}
@@ -49,6 +55,7 @@ function Header({
               </DrawerContentStyles>
             ))}
         </Mobile>
+
         <Desktop>
           <ElList>
             {categories &&
@@ -71,16 +78,16 @@ function Header({
     <Wrap>
       <Desktop>
         <img src="/img/logo.png" alt="logo" />
-        {list(categories)}
-        <Icon icon="search" color={palette.black[0]} size="1.1rem" />
+        {categories && list(categories)}
+        <Icon icon="search" size="1.1rem" color={palette.black[0]} />
       </Desktop>
 
       <Mobile>
         <img src="/img/logo.png" alt="logo" />
         <div>
-          <Icon icon="search" color={palette.black[0]} size="1.2rem" />
+          <Icon icon="search" size="1.2rem" color={palette.black[0]} />
           <Button variant="text" onClick={() => toggleDrawer(true)}>
-            <Icon icon="menu" color={palette.black[0]} size="1.1rem" />
+            <Icon icon="menu" size="1.1rem" color={palette.black[0]} />
           </Button>
         </div>
         <Drawer
@@ -89,7 +96,7 @@ function Header({
           open={drawerFlag}
           onClose={() => toggleDrawer(false)}
         >
-          {list(categories)}
+          {categories && list(categories)}
         </Drawer>
       </Mobile>
     </Wrap>
@@ -99,10 +106,10 @@ function Header({
 const Wrap = styled.div`
   display: flex;
   align-items: center;
-  padding: 10px 18px;
-  background: ${palette.white};
-  height: 40px;
   justify-content: space-between;
+  height: 40px;
+  padding: 0.625rem 1.125rem;
+  background: ${palette.white};
 
   div {
     display: flex;
@@ -128,10 +135,10 @@ const Wrap = styled.div`
     justify-content: space-between;
 
     svg {
-      margin-left: 15px;
+      margin-left: 0.9375rem;
     }
 
-    padding: 0 10px;
+    padding: 0 0.625rem;
     min-width: ${formWidth()};
     max-width: ${formWidth()};
   }
@@ -144,8 +151,8 @@ const DrawerContentStyles = styled.li`
 const ButtonStyles = (props: ButtonProps) => (
   <Button
     css={css`
-      font-size: 15px !important;
       color: ${palette.black[0]} !important;
+      font-size: 15px !important;
       cursor: pointer;
       .MuiButton-label {
         &:hover {
@@ -158,9 +165,9 @@ const ButtonStyles = (props: ButtonProps) => (
 );
 
 const ElList = styled.ul`
-  min-width: 1000px;
   display: flex;
   justify-content: space-between;
+  min-width: 1000px;
 
   li {
     display: flex;

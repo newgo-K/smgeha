@@ -1,29 +1,22 @@
 import Header from 'components/common/Header';
-import { resProductCategoryPacket } from 'lib/api/category';
 import { RootState } from 'lib/modules';
 import {
   productCategoryCode,
   productCategoryInitAsync,
 } from 'lib/modules/category/actions';
-import { productsCategorySelectAsync } from 'lib/modules/products/actions';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { RouteChildrenProps, withRouter } from 'react-router-dom';
 
 const enum CATEGORY {
   INTRODUCE = 1,
 }
 
-export type HeaderPorps = {
-  categories: Array<resProductCategoryPacket> | null;
-  drawerFlag: boolean;
-  onClick: (e: number) => void;
-  toggleDrawer: (e: boolean) => void;
-};
-
-function HeaderContainer() {
+function HeaderContainer({ history }: RouteChildrenProps) {
   const dispatch = useDispatch();
-  const { categories } = useSelector(({ category }: RootState) => ({
+  const { categories, code } = useSelector(({ category }: RootState) => ({
     categories: category.productCategory.success,
+    code: category.productCategoryCode,
   }));
 
   const [drawerFlag, setDrawerFlag] = useState(false);
@@ -36,11 +29,7 @@ function HeaderContainer() {
   // 업체 소개일 경우 프론트단에서 처리
   useEffect(() => {
     if (!categories) {
-      // const code = CATEGORY.INTRODUCE + 1;
-
       dispatch(productCategoryInitAsync.request(null));
-      // dispatch(productsCategorySelectAsync.request({ code }));
-      // dispatch(productCategoryCode(code));
     }
   }, [categories, dispatch]);
 
@@ -49,11 +38,11 @@ function HeaderContainer() {
   const onClick = useCallback(
     (code: number) => {
       if (code !== CATEGORY.INTRODUCE) {
-        // dispatch(productsCategorySelectAsync.request({ code }));
         dispatch(productCategoryCode(code));
+        history.push('/');
       }
     },
-    [dispatch],
+    [dispatch, history],
   );
 
   return (
@@ -68,4 +57,4 @@ function HeaderContainer() {
   );
 }
 
-export default HeaderContainer;
+export default withRouter(HeaderContainer);

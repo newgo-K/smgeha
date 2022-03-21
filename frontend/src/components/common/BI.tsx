@@ -2,7 +2,11 @@ import styled from '@emotion/styled';
 import React from 'react';
 
 function BI() {
-  return <Wrap><img src="/img/logo.png" alt="logo"/></Wrap>;
+  return (
+    <Wrap>
+      <img src="/img/logo.png" alt="logo" />
+    </Wrap>
+  );
 }
 
 const Wrap = styled.div`

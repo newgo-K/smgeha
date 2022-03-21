@@ -1,4 +1,3 @@
-import { ImageList } from '@material-ui/core';
 import ImgUpload from 'components/productWrite/ImgUpload';
 import { RootState } from 'lib/modules';
 import { productWriteSetForm } from 'lib/modules/write/actions';
@@ -8,8 +7,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 function ImgUploadContainer() {
   const dispatch = useDispatch();
-  const { select } = useSelector(({ write }: RootState) => ({
+  const { select, write } = useSelector(({ write }: RootState) => ({
     select: write.select.success,
+    write: write.writeForm,
   }));
   const [images, setImages] = useState([]);
   const maxNumber = 5;
@@ -29,37 +29,10 @@ function ImgUploadContainer() {
     setImgHover([...a]);
   };
 
-  useEffect(() => {
-    if (select) {
-      const file = `/images/${select.images[0]}`;
-
-      var request = new XMLHttpRequest();
-      request.open('GET', file, true);
-      request.responseType = 'blob';
-      request.onload = async function (e: any) {
-        var dataURL = await blobToDataURL(e.target.response);
-      };
-      request.send();
-
-      // setImages();
-    }
-  }, [select]);
-
-  function blobToFile(theBlob: Blob, fileName: string) {
-    var b: any = theBlob;
-    //A Blob() is almost a File() - it's just missing the two properties below which we will add
-    b.lastModifiedDate = new Date();
-    b.name = fileName;
-
-    //Cast to a File() type
-    return theBlob;
-    // return new File([theBlob], fileName);
-  }
-
-  function blobToDataURL(blob: any) {
+  const blobToDataURL = useCallback((blob: Blob) => {
     var a = new FileReader();
     a.onload = function (e: any) {
-      var file = blobToFile(blob, `${select.images[0]}`);
+      var file = blobToFile(blob, `${write.images[0]}`);
       // var file = new File([blob], `${select.images[0]}`);
       var a = {
         dataURL: e.target.result,
@@ -79,10 +52,33 @@ function ImgUploadContainer() {
           value: files,
         }),
       );
-
-      return a;
     };
     a.readAsDataURL(blob);
+  }, []);
+
+  useEffect(() => {
+    if (write.images.length > 0 && 'string' === typeof write.images[0]) {
+      const file = `/images/${write.images[0]}`;
+
+      var request = new XMLHttpRequest();
+      request.open('GET', file, true);
+      request.responseType = 'blob';
+      request.onload = async function (e: any) {
+        blobToDataURL(e.target.response);
+      };
+      request.send();
+    }
+  }, [write.images]);
+
+  function blobToFile(theBlob: Blob, fileName: string) {
+    var b: any = theBlob;
+    //A Blob() is almost a File() - it's just missing the two properties below which we will add
+    b.lastModifiedDate = new Date();
+    b.name = fileName;
+
+    //Cast to a File() type
+    return theBlob;
+    // return new File([theBlob], fileName);
   }
 
   const onChange = useCallback(
@@ -92,7 +88,7 @@ function ImgUploadContainer() {
       const maxSize = 2 * 1024 * 1024;
       const files = imageList.map((img: any) => {
         const file = img.file;
-        debugger;
+
         if (!file.type.match(fileForm)) {
           alert('jpg / jpeg / png 파일만 등록 가능합니다.');
           check = true;
@@ -105,13 +101,7 @@ function ImgUploadContainer() {
       });
       if (check) return;
 
-      // const formData = new FormData();
-
-      // files.map((file: any) => formData.append('images', file));
-
       setImages(imageList as never[]);
-
-      debugger;
 
       dispatch(
         productWriteSetForm({

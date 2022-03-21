@@ -7,16 +7,15 @@ import {
   useMediaQuery,
   useTheme,
 } from '@material-ui/core';
-import PageTitle from './PageTitle';
 import { css } from '@emotion/react';
 import { formWidth } from 'lib/styles/common';
 
 export type DialogProps = {
-  open?: any;
+  open?: boolean | undefined;
   pageTitle?: string;
   title?: string;
   content?: string;
-  onClose?: any;
+  onClose?: (e: any) => void;
 };
 
 function Dialog({ open, pageTitle, title, content, onClose }: DialogProps) {
@@ -31,19 +30,13 @@ function Dialog({ open, pageTitle, title, content, onClose }: DialogProps) {
             max-width: calc(${formWidth('desktop')} - 20px);
           }
         `}
-        open={open}
+        open={open!}
         fullScreen={fullScreen}
         onClose={onClose}
       >
-        {/* <PageTitle
-          maxWidth="inherit"
-          title={pageTitle}
-          rightIconButton="closeLine"
-          rightIconEvent={onClose}
-        /> */}
         <DialogTitle
           css={css`
-            margin-top: 20px !important;
+            margin-top: 1.25rem !important;
           `}
         >
           {title}
