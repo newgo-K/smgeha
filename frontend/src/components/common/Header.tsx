@@ -6,14 +6,17 @@ import Icon from 'lib/icon/Icon';
 import { Desktop, formWidth, mediaQuery, Mobile } from 'lib/styles/common';
 import Button, { ButtonProps } from './Button';
 import { resProductCategoryPacket } from 'lib/api/category';
-import { Drawer } from '@material-ui/core';
+import { Drawer, Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
+import { resLoginPacket } from 'lib/api/auth';
 
 type HeaderPorps = {
   categories: Array<resProductCategoryPacket> | null;
   drawerFlag: boolean;
+  user: resLoginPacket;
   onClick: (e: number) => void;
   toggleDrawer: (e: boolean) => void;
+  onWrite: () => void;
 };
 
 const useStyles = makeStyles((theme) => ({
@@ -28,8 +31,10 @@ const useStyles = makeStyles((theme) => ({
 function Header({
   categories,
   drawerFlag,
+  user,
   onClick,
   toggleDrawer,
+  onWrite,
 }: HeaderPorps) {
   const classes = useStyles();
 
@@ -45,7 +50,7 @@ function Header({
 
           {categories &&
             categories.map((category: resProductCategoryPacket) => (
-              <DrawerContentStyles key={category.name}>
+              <DrawerContentStyles key={category.code}>
                 <ButtonStyles
                   variant="text"
                   onClick={() => onClick(category.code)}
@@ -60,14 +65,16 @@ function Header({
           <ElList>
             {categories &&
               categories.map((category: resProductCategoryPacket) => (
-                <li key={category.code}>
-                  <ButtonStyles
-                    variant="text"
-                    onClick={() => onClick(category.code)}
-                  >
-                    {category.name}
-                  </ButtonStyles>
-                </li>
+                <Grid item={true} sm={2} key={category.code}>
+                  <li>
+                    <ButtonStyles
+                      variant="text"
+                      onClick={() => onClick(category.code)}
+                    >
+                      {category.name}
+                    </ButtonStyles>
+                  </li>
+                </Grid>
               ))}
           </ElList>
         </Desktop>
@@ -77,15 +84,17 @@ function Header({
   return (
     <Wrap>
       <Desktop>
-        <img src="/img/logo.png" alt="logo" />
-        {categories && list(categories)}
-        <Icon icon="search" size="1.1rem" color={palette.black[0]} />
+        <Grid item={true} sm={2}>
+          <img src="/img/logo.png" alt="logo" />
+        </Grid>
+        <Grid item={true} sm={8}>
+          {categories && list(categories)}
+        </Grid>
       </Desktop>
 
       <Mobile>
         <img src="/img/logo.png" alt="logo" />
         <div>
-          <Icon icon="search" size="1.2rem" color={palette.black[0]} />
           <Button variant="text" onClick={() => toggleDrawer(true)}>
             <Icon icon="menu" size="1.1rem" color={palette.black[0]} />
           </Button>
@@ -99,16 +108,23 @@ function Header({
           {categories && list(categories)}
         </Drawer>
       </Mobile>
+      {user.role && (
+        <WriteButtonStyles>
+          <Button iconOnly variant="outlined" onClick={onWrite}>
+            <Icon icon="imgAdd" color={palette.main[4]} />
+          </Button>
+        </WriteButtonStyles>
+      )}
     </Wrap>
   );
 }
 
 const Wrap = styled.div`
   display: flex;
+  position: relative;
   align-items: center;
-  justify-content: space-between;
   height: 40px;
-  padding: 0.625rem 1.125rem;
+  padding: 0.625rem 0;
   background: ${palette.white};
 
   div {
@@ -152,7 +168,7 @@ const ButtonStyles = (props: ButtonProps) => (
   <Button
     css={css`
       color: ${palette.black[0]} !important;
-      font-size: 15px !important;
+      font-size: 1rem !important;
       cursor: pointer;
       .MuiButton-label {
         &:hover {
@@ -166,8 +182,8 @@ const ButtonStyles = (props: ButtonProps) => (
 
 const ElList = styled.ul`
   display: flex;
-  justify-content: space-between;
-  min-width: 1000px;
+  width: 100%;
+  margin-left: 0.625rem;
 
   li {
     display: flex;
@@ -182,6 +198,20 @@ const ElList = styled.ul`
 const DrawerHeaderStyles = styled.div`
   border-bottom: 1px solid ${palette.grey[2]};
   text-align: right;
+`;
+
+const WriteButtonStyles = styled.div`
+  display: flex;
+  position: absolute;
+  overflow: auto;
+  top: 0.625rem;
+  right: 0.9375rem;
+
+  ${mediaQuery('xs')} {
+    top: 3.1875rem;
+    right: 0.4375rem;
+    padding: 0.3125rem;
+  }
 `;
 
 export default Header;

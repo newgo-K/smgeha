@@ -37,21 +37,25 @@ export type resProductPacket = {
   msg: string;
 };
 
-export type writeCategoryData = {
+export type reqCategoryPacket = {
+  id: number;
+};
+
+export type writeCategoryState = {
   productCategoryId: number;
   name: string;
   code: number;
 };
 
 export type resWriteCategoryPacket = {
-  prodcutCategoryList: Array<writeCategoryData>;
-  manufactureCategoryList: Array<writeCategoryData>;
-  sizeCategoryList: Array<writeCategoryData>;
-  typeCategoryList: Array<writeCategoryData>;
+  prodcutCategoryList: Array<writeCategoryState>;
+  manufactureCategoryList: Array<writeCategoryState>;
+  sizeCategoryList: Array<writeCategoryState>;
+  typeCategoryList: Array<writeCategoryState>;
 };
 
-export async function reqCategory(productCategoryId: number) {
-  const res = await client.post('/writeCategory', { productCategoryId });
+export async function reqCategory(id: reqCategoryPacket) {
+  const res = await client.post('/writeCategory', { id });
 
   return res.data;
 }

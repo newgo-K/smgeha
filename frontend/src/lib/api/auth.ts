@@ -17,3 +17,8 @@ export async function reqLogin({ userId, password }: reqLoginPacket) {
   const res = await client.post('/login', { userId, password });
   return res.data;
 }
+
+export async function reqLoginCheck() {
+  const res = await client.get('/loginCheck');
+  return res.data;
+}

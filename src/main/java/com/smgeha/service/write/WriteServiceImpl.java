@@ -31,10 +31,12 @@ public class WriteServiceImpl implements WriteService {
         writeMapper.saveProductSearchInfo(id, code, subCode);
 
         subCode = write.getSizeCode();
-        writeMapper.saveProductSearchInfo(id, code, subCode);
+        if(subCode != 0) {
+            writeMapper.saveProductSearchInfo(id, code, subCode);
 
-        subCode = write.getTypeCode();
-        writeMapper.saveProductSearchInfo(id, code, subCode);
+            subCode = write.getTypeCode();
+            writeMapper.saveProductSearchInfo(id, code, subCode);
+        }
     }
 
     @Override
@@ -52,8 +54,10 @@ public class WriteServiceImpl implements WriteService {
         write.setProductCode(writeMapper.selectProductSearchInfoId(id));
         List<Short> codes = writeMapper.selectProductSearchInfo(id);
 
-        if(codes.size() > 0) {
-            write.setManufactureCode(codes.get(0));
+        write.setManufactureCode(codes.get(0));
+
+        if(codes.size() > 1) {
+
             write.setSizeCode(codes.get(1));
             write.setTypeCode(codes.get(2));
         }

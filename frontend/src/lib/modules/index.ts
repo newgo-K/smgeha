@@ -10,6 +10,7 @@ import product from './product/reducer';
 import { productSaga } from './product/sagas';
 import write from './write/reducer';
 import { writeSaga } from './write/sagas';
+import naverMap from './map/naverMap';
 
 const rootReducer = combineReducers({
   auth,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   products,
   product,
   write,
+  naverMap,
 });
 
 export default rootReducer;

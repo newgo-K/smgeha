@@ -1,5 +1,5 @@
 import { AxiosError } from 'axios';
-import { reqLoginPacket } from 'lib/api/auth';
+import { reqLoginPacket, resLoginPacket } from 'lib/api/auth';
 import { AsyncState } from 'lib/common/reducerUtils';
 import { ActionType } from 'typesafe-actions';
 import { actions } from './actions';
@@ -11,5 +11,7 @@ export type UserState = {
     userId: string;
     password: string;
   };
+  user: resLoginPacket & {};
   login: AsyncState<reqLoginPacket, AxiosError>;
+  loginCheck: AsyncState<any, AxiosError>;
 };

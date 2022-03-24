@@ -8,7 +8,7 @@ import {
   Theme,
 } from '@material-ui/core';
 import React from 'react';
-import { writeCategoryData } from 'lib/api/write';
+import { writeCategoryState } from 'lib/api/write';
 
 export type SelectProps = {
   name: string;
@@ -52,7 +52,7 @@ function Select({
           onChange={onChange}
         >
           {categories &&
-            categories.map((category: writeCategoryData) => (
+            categories.map((category: writeCategoryState) => (
               <MenuItem
                 key={category.code}
                 value={

@@ -42,7 +42,6 @@ public class UserService implements UserDetailsService {
             PrincipalDetails user = (PrincipalDetails) authentication.getPrincipal();
             role = user.getAuth().getRole();
         }
-        ProductDTO product = new ProductDTO();
 
         return role;
     }

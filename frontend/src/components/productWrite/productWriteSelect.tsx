@@ -44,39 +44,35 @@ function ProductWriteSelect({
                 onClick={onClick}
               />
             </Grid>
-            {manufactureCode !== 0 && (
-              <Grid item sm={3} xs={12}>
-                <Select
-                  name="manufactureCode"
-                  code={manufactureCode}
-                  onChange={onChange}
-                  label="제조사"
-                  categories={categories.manufactureCategoryList}
-                />
-              </Grid>
-            )}
-            {sizeCode !== 0 && (
-              <Grid item sm={3} xs={12}>
-                <Select
-                  name="sizeCode"
-                  code={sizeCode}
-                  onChange={onChange}
-                  label="크기"
-                  categories={categories.sizeCategoryList}
-                />
-              </Grid>
-            )}
-            {typeCode !== 0 && (
-              <Grid item sm={3} xs={12}>
-                <Select
-                  name="typeCode"
-                  code={typeCode}
-                  onChange={onChange}
-                  label="유형"
-                  categories={categories.typeCategoryList}
-                />
-              </Grid>
-            )}
+            <Grid item sm={3} xs={12}>
+              <Select
+                name="manufactureCode"
+                code={manufactureCode}
+                onChange={onChange}
+                label="제조사"
+                categories={categories.manufactureCategoryList}
+              />
+            </Grid>
+
+            <Grid item sm={3} xs={12}>
+              <Select
+                name="sizeCode"
+                code={sizeCode}
+                onChange={onChange}
+                label="크기"
+                categories={categories.sizeCategoryList}
+              />
+            </Grid>
+
+            <Grid item sm={3} xs={12}>
+              <Select
+                name="typeCode"
+                code={typeCode}
+                onChange={onChange}
+                label="유형"
+                categories={categories.typeCategoryList}
+              />
+            </Grid>
           </>
         )}
       </Grid>

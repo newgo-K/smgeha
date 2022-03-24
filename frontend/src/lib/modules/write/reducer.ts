@@ -7,6 +7,7 @@ import {
   productWriteSelectAsync,
   productWriteUploadAsync,
   PRODUCT_WRITE_INIT_FORM,
+  PRODUCT_WRITE_INIT_SELECT,
   PRODUCT_WRITE_SET_FORM,
 } from './actions';
 import { ProductWriteAction, ProductWriteState } from './types';
@@ -34,7 +35,11 @@ const initState: ProductWriteState = {
 };
 
 const write = createReducer<ProductWriteState, ProductWriteAction>(initState, {
-  [PRODUCT_WRITE_INIT_FORM]: (state, { payload: { value } }) =>
+  [PRODUCT_WRITE_INIT_FORM]: (state) =>
+    produce(state, (draft) => {
+      draft['writeForm'] = initState['writeForm'];
+    }),
+  [PRODUCT_WRITE_INIT_SELECT]: (state, { payload: { value } }) =>
     produce(state, (draft) => {
       draft['writeForm'] = value;
     }),

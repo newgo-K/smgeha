@@ -1,8 +1,9 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from 'lib/modules';
 import {
   productWriteInitForm,
+  productWriteInitSelect,
   productWriteModifyAsync,
   productWriteSetForm,
   productWriteUploadAsync,
@@ -22,8 +23,14 @@ function ProductWriteFormContainer({ history }: RouteChildrenProps) {
   const { id } = useParams<{ id?: string }>();
 
   useEffect(() => {
+    return () => {
+      dispatch(productWriteInitForm(null));
+    };
+  }, [dispatch]);
+
+  useEffect(() => {
     if (select) {
-      dispatch(productWriteInitForm({ value: select }));
+      dispatch(productWriteInitSelect({ value: select }));
     }
   }, [dispatch, select]);
 
@@ -47,7 +54,6 @@ function ProductWriteFormContainer({ history }: RouteChildrenProps) {
       } else {
         dispatch(productWriteModifyAsync.request(form));
       }
-
       history.push('/');
     } catch (e: any) {
       console.log(e);

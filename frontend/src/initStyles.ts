@@ -14,7 +14,7 @@ const initStyles = css`
   body {
     font-family: 'Roboto', 'Noto Sans KR', 'sans-serif' !important;
     height: 100%;
-    /* background: ${palette.grey[0]}; */
+    background: ${palette.grey[0]};
     line-height: 1.5;
   }
 

@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RequiredArgsConstructor
 @Service
 public class AuthService {
@@ -40,8 +42,11 @@ public class AuthService {
         return data;
     }
 
+    public boolean loginCheck(HttpServletRequest request) throws Exception {
+        return jwtTokenProvider.validateToken(jwtTokenProvider.resolveToken(request));
+    }
+
     public void signup(AuthDTO request) {
         String password = passwordEncoder.encode(request.getPassword());
-        String a = "sdfa";
     }
 }

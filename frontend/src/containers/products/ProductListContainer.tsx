@@ -28,7 +28,9 @@ function ProductsViewContainer({ history }: RouteChildrenProps) {
   }, [dispatch, code]);
 
   return (
-    <>{products && <ProductList products={products} onClick={onClick} />}</>
+    <>
+      <ProductList products={products} onClick={onClick} />
+    </>
   );
 }
 

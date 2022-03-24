@@ -1,6 +1,7 @@
 import Login from 'components/auth/Login';
+import { nullCheck } from 'lib/common/commonLib';
 import { RootState } from 'lib/modules';
-import { changeField, loginAsync } from 'lib/modules/auth';
+import { changeField, loginAsync, setUser } from 'lib/modules/auth';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteChildrenProps, withRouter } from 'react-router-dom';
@@ -51,8 +52,8 @@ function LoginContainer({ history }: RouteChildrenProps) {
   };
 
   useEffect(() => {
-    if (data) {
-      history.push('/main');
+    if (nullCheck(data)) {
+      return;
     }
 
     try {
@@ -60,7 +61,9 @@ function LoginContainer({ history }: RouteChildrenProps) {
     } catch (e) {
       console.log('localStorage is not working');
     }
-  }, [history, data]);
+
+    history.push('/');
+  }, [dispatch, history, data]);
 
   useEffect(() => {}, [error]);
 

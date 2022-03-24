@@ -18,11 +18,14 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: '1.25rem 1.875rem',
       boxShadow: 'none',
       cursor: 'pointer',
+      border: `2px solid ${palette.grey[2]}`,
+      backgroundColor: `${palette.grey[0]}`,
 
       [theme.breakpoints.down('sm')]: {
         maxWidth: 170,
         margin: '0.3125rem',
         padding: '0.4375rem',
+        border: `1px solid ${palette.grey[2]}`,
       },
     },
     content: {
@@ -78,8 +81,7 @@ const ProductCard = ({
         <ContentSub>시리얼 : {serial}</ContentSub>
         <ContentSub>제조사 : {manufacture}</ContentSub>
         <ContentSub>크기 : {size}</ContentSub>
-        <ContentSub>유형 : {type}</ContentSub>
-
+        {type && <ContentSub>유형 : {type}</ContentSub>}
         {price && (
           <ContentPrice>
             {price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}원
@@ -91,8 +93,8 @@ const ProductCard = ({
 };
 
 type ProductsProps = {
-  products: Array<resProductPacket> | undefined;
-  onClick: any;
+  products: Array<resProductPacket> | null;
+  onClick: (e: number) => void;
 };
 
 export default function ProductList({ products, onClick }: ProductsProps) {
@@ -113,7 +115,6 @@ const Wrap = styled.div`
   flex-wrap: wrap;
   padding: 0.625rem;
   border-radius: 0.25rem;
-  background-color: ${palette.grey[0]};
 
   ${mediaQuery('xs')} {
     padding: 0.3125rem;

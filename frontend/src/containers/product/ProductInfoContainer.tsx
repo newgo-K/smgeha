@@ -13,17 +13,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
 import {} from 'lib/api/product';
 import { withRouter } from 'react-router-dom';
-import {
-  productWriteInitForm,
-  productWriteSelectAsync,
-} from 'lib/modules/write/actions';
+import { productWriteInitSelect } from 'lib/modules/write/actions';
 import { reqWriteSelect } from 'lib/api/write';
+
+declare global {
+  let naver: any;
+}
 
 function ProductInfoContainer() {
   const dispatch = useDispatch();
-  const { product, select } = useSelector(({ product, write }: RootState) => ({
+  const { product } = useSelector(({ product, naverMap }: RootState) => ({
     product: product.info.success,
-    select: write.select.success,
   }));
 
   const history = useHistory();
@@ -35,7 +35,7 @@ function ProductInfoContainer() {
 
   const onEdit = async () => {
     const res = await reqWriteSelect(id);
-    dispatch(productWriteInitForm({ value: res }));
+    dispatch(productWriteInitSelect({ value: res }));
     history.push(`/write/${id}`);
   };
 

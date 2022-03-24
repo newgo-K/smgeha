@@ -8,6 +8,7 @@ import palette from 'lib/styles/palette';
 import React from 'react';
 import HeaderContainer from 'containers/common/HeaderContainer';
 
+/** `ProductWritePage` 페이지는 제품 작성 페이지입니다. */
 function ProductWritePage() {
   return (
     <Wrap>
@@ -31,7 +32,9 @@ function ProductWritePage() {
 
 const Wrap = styled.div`
   width: 1350px;
+  height: 100vh;
   margin: 0 auto;
+  padding: 0 0.9375rem;
   background-color: ${palette.white[0]};
 
   ${mediaQuery('xs')} {

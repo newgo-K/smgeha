@@ -3,19 +3,29 @@ import Button, { ButtonProps } from 'components/common/Button';
 import Icon from 'lib/icon/Icon';
 import palette from 'lib/styles/palette';
 import React from 'react';
-import ReactImageUploading from 'react-images-uploading';
+import ReactImageUploading, { ImageListType } from 'react-images-uploading';
 import styled from '@emotion/styled';
 
-function ImgUpload({ ...props }: any) {
-  const {
-    images,
-    onChange,
-    maxNumber,
-    handleMouseEnter,
-    handleMouseLeave,
-    imghover,
-  } = props;
+type ImgUploadProps = {
+  images: Array<any>;
+  maxNumber: number;
+  imghover: Array<boolean>;
+  handleMouseEnter: (index: number) => void;
+  handleMouseLeave: (index: number) => void;
+  onChange: (
+    imageList: ImageListType,
+    addUpdateIndex: number[] | undefined,
+  ) => void;
+};
 
+function ImgUpload({
+  images,
+  maxNumber,
+  imghover,
+  handleMouseEnter,
+  handleMouseLeave,
+  onChange,
+}: ImgUploadProps) {
   return (
     <div className="App">
       <ReactImageUploading
@@ -35,12 +45,7 @@ function ImgUpload({ ...props }: any) {
         }) => (
           // write your building UI
           <div className="upload__image-wrapper">
-            <div
-              css={css`
-                display: flex;
-                justify-content: flex-end;
-              `}
-            >
+            <ImgButtonStyles>
               <ButtonStyles variant="text" onClick={onImageUpload}>
                 <Icon icon="imgAdd" color={palette.grey[4]} />
                 <TextStyles>이미지 올리기</TextStyles>
@@ -50,7 +55,7 @@ function ImgUpload({ ...props }: any) {
                 <Icon icon="delete" color={palette.grey[4]} />
                 <TextStyles>전체 삭제</TextStyles>
               </ButtonStyles>
-            </div>
+            </ImgButtonStyles>
             <div
               css={css`
                 display: flex;
@@ -58,38 +63,18 @@ function ImgUpload({ ...props }: any) {
               `}
             >
               {imageList.map((image, index) => (
-                <div
+                <ImgStyles
                   key={index}
                   className="image-item"
-                  css={css`
-                    position: relative;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border: 1px solid ${palette.grey[3]};
-                    border-radius: 5px;
-                    width: 170px;
-                    height: 170px;
-                    top: 0;
-                    left: 0;
-                    bottom: 0;
-                    right: 0;
-                    margin: 6px;
-                    :hover {
-                      img {
-                        opacity: 0.4;
-                      }
-                    }
-                  `}
                   onMouseEnter={() => handleMouseEnter(index)}
                   onMouseLeave={() => handleMouseLeave(index)}
                 >
                   <img
                     css={css`
+                      object-fit: contain;
                       max-width: 170px;
                       max-height: 170px;
                       margin: 0 auto;
-                      object-fit: contain;
 
                       :hover {
                         opacity: 1;
@@ -130,7 +115,7 @@ function ImgUpload({ ...props }: any) {
                       </li>
                     </HoverWrap>
                   )}
-                </div>
+                </ImgStyles>
               ))}
             </div>
           </div>
@@ -140,10 +125,36 @@ function ImgUpload({ ...props }: any) {
   );
 }
 
+const ImgStyles = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 170px;
+  height: 170px;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0.375rem;
+  border: 1px solid ${palette.grey[3]};
+  border-radius: 0.3125rem;
+  :hover {
+    img {
+      opacity: 0.4;
+    }
+  }
+`;
+
+const ImgButtonStyles = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
 const ButtonStyles = (props: ButtonProps) => (
   <Button
     css={css`
-      font-size: 15px !important;
+      font-size: 0.9375rem !important;
       color: ${palette.grey[4]} !important;
       cursor: pointer;
     `}
@@ -152,7 +163,7 @@ const ButtonStyles = (props: ButtonProps) => (
 );
 
 const TextStyles = styled.span`
-  margin-left: 5px;
+  margin-left: 0.3125rem;
 `;
 
 const HoverWrap = styled.ul`

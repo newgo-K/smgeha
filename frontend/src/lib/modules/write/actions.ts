@@ -9,6 +9,7 @@ import { createAction } from 'typesafe-actions';
 // createActionType
 /////////////////////////////////////
 export const PRODUCT_WRITE_INIT_FORM = 'write/PRODUCT_WRITE_INIT_FORM';
+export const PRODUCT_WRITE_INIT_SELECT = 'write/PRODUCT_WRITE_INIT_SELECT';
 export const PRODUCT_WRITE_SET_FORM = 'write/PRODUCT_WRITE_SET_FORM';
 
 export const REQ_PRODUCT_WRITE_CATEGORY = createAsyncActionType(
@@ -29,6 +30,10 @@ export const REQ_PRODUCT_WRITE_MODIFY = createAsyncActionType(
 /////////////////////////////////////
 export const productWriteInitForm = createAction(
   PRODUCT_WRITE_INIT_FORM,
+)<any>();
+
+export const productWriteInitSelect = createAction(
+  PRODUCT_WRITE_INIT_SELECT,
   ({ value }) => ({ value }),
 )<any>();
 
@@ -60,6 +65,7 @@ export const productWriteModifyAsync = createActionEntity<any, any, AxiosError>(
 /////////////////////////////////////
 export const actions = {
   productWriteInitForm,
+  productWriteInitSelect,
   productWriteSetForm,
   productWriteCategoryAsync,
   productWriteSelectAsync,

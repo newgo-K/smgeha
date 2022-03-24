@@ -1,7 +1,13 @@
 import produce from 'immer';
 import { asyncState, createAsyncReducer } from 'lib/common/reducerUtils';
 import { createReducer } from 'typesafe-actions';
-import { CHANGE_FIELD, INITIALIZE_FORM, loginAsync } from './actions';
+import {
+  CHANGE_FIELD,
+  INITIALIZE_FORM,
+  loginAsync,
+  loginCheckAsync,
+  SET_USER,
+} from './actions';
 import { AuthAction, UserState } from './types';
 
 const initState: UserState = {
@@ -9,8 +15,12 @@ const initState: UserState = {
     userId: '',
     password: '',
   },
-
+  user: {
+    role: '',
+    token: '',
+  },
   login: asyncState.init(),
+  loginCheck: asyncState.init(),
 };
 
 const user = createReducer<UserState, AuthAction>(initState, {
@@ -22,7 +32,12 @@ const user = createReducer<UserState, AuthAction>(initState, {
     ...state,
     [form]: initState[form as 'loginForm'],
   }),
+  [SET_USER]: (state, { payload: user }) => ({
+    ...state,
+    user: JSON.parse(String(user)),
+  }),
   ...createAsyncReducer(loginAsync, 'login'),
+  ...createAsyncReducer(loginCheckAsync, 'loginCheck'),
 });
 
 export default user;

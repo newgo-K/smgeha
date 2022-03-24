@@ -8,6 +8,7 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import rootReducer, { rootSaga } from './lib/modules';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+import { loginCheckAsync, setUser } from 'lib/modules/auth';
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -22,6 +23,9 @@ function loadUser() {
   try {
     const user = localStorage.getItem('user');
     if (!user) return;
+
+    store.dispatch(setUser(user));
+    store.dispatch(loginCheckAsync.request(null));
   } catch (e) {
     console.log('localStorage is not working');
   }

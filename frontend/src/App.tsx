@@ -11,6 +11,7 @@ import ProductPage from 'pages/ProductPage';
 import ProductWritePage from 'pages/ProductWritePage';
 import LoginPage from 'pages/LoginPage';
 import PublicRoute from 'lib/router/PublicRoute';
+import PrivateRoute from 'lib/router/PrivateRoute';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
         <Route component={ProductsPage} path="/" exact />
         <PublicRoute restricted component={LoginPage} path="/login" />
         <Route component={ProductPage} path="/product/:id" />
-        <Route component={ProductWritePage} path="/write" />
+        <PrivateRoute component={ProductWritePage} path="/write" />
       </ThemeProvider>
     </>
   );

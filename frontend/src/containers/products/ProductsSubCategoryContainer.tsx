@@ -39,7 +39,7 @@ function ProductSubCategoryContainer() {
 
   // 메인 카테고리 선택시 그에 맞는 서브 카테고리 로드
   useEffect(() => {
-    if (mainCode) {
+    if (mainCode > 0) {
       dispatch(productSubCategorySelectAsync.request({ code: mainCode }));
     }
   }, [mainCode, dispatch]);

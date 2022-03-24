@@ -14,9 +14,9 @@ const enum CATEGORY {
 
 function HeaderContainer({ history }: RouteChildrenProps) {
   const dispatch = useDispatch();
-  const { categories, code } = useSelector(({ category }: RootState) => ({
+  const { categories, user } = useSelector(({ category, auth }: RootState) => ({
     categories: category.productCategory.success,
-    code: category.productCategoryCode,
+    user: auth.user,
   }));
 
   const [drawerFlag, setDrawerFlag] = useState(false);
@@ -45,13 +45,19 @@ function HeaderContainer({ history }: RouteChildrenProps) {
     [dispatch, history],
   );
 
+  const onWrite = () => {
+    history.push('/write');
+  };
+
   return (
     <>
       <Header
         categories={categories}
         drawerFlag={drawerFlag}
+        user={user}
         onClick={onClick}
         toggleDrawer={toggleDrawer}
+        onWrite={onWrite}
       />
     </>
   );
