@@ -8,26 +8,26 @@ import {
   productWriteSetForm,
   productWriteUploadAsync,
 } from 'lib/modules/write/actions';
-import { ReqWriteForm, resWriteCategoryPacket } from 'lib/api/write';
+import { reqWriteFormPacket, resWriteCategoryPacket } from 'lib/api/write';
 import ProductWriteForm from 'components/productWrite/productWriteForm';
-import { RouteChildrenProps, useParams, withRouter } from 'react-router-dom';
+import { RouteChildrenProps, withRouter } from 'react-router-dom';
 
 function ProductWriteFormContainer({ history }: RouteChildrenProps) {
   const dispatch = useDispatch();
   const { form, select } = useSelector(({ write }: RootState) => ({
-    form: write.writeForm as ReqWriteForm,
+    form: write.writeForm as reqWriteFormPacket,
     categories: write.category.success as resWriteCategoryPacket,
     select: write.select.success,
   }));
 
-  const { id } = useParams<{ id?: string }>();
-
   useEffect(() => {
+    // 페이지 나갈 때 폼 초기화
     return () => {
       dispatch(productWriteInitForm(null));
     };
   }, [dispatch]);
 
+  // 제품 수정
   useEffect(() => {
     if (select) {
       dispatch(productWriteInitSelect({ value: select }));
@@ -49,16 +49,17 @@ function ProductWriteFormContainer({ history }: RouteChildrenProps) {
 
   const onClick = useCallback(() => {
     try {
-      if (id === '0') {
-        dispatch(productWriteUploadAsync.request(form));
-      } else {
+      // 제품 등록인가 수정인가 id 값으로 판별
+      if (form.id > 0) {
         dispatch(productWriteModifyAsync.request(form));
+      } else {
+        dispatch(productWriteUploadAsync.request(form));
       }
       history.push('/');
     } catch (e: any) {
       console.log(e);
     }
-  }, [dispatch, form, id, history]);
+  }, [dispatch, form, history]);
 
   return (
     <>

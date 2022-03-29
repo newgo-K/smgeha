@@ -1,9 +1,8 @@
 import client from './client';
-
 /////////////////////////////////////
 // 제품 업로드
 /////////////////////////////////////
-export type ReqWriteForm = {
+export type reqWriteFormPacket = {
   id: number;
   productCode: number;
   manufactureCode: number;
@@ -19,26 +18,41 @@ export type ReqWriteForm = {
   images: Array<string>;
 };
 
-export type ResWriteForm = ReqWriteForm & {};
+export type resWriteFormPacket = reqWriteFormPacket & {};
 
-export type ImgsProps = {
-  img: [];
-};
+function initForm(form: any) {
+  const formData = new FormData();
 
-export type ProductImgUploadPorps = {
-  imgs: Array<string>;
-};
+  formData.append('productCode', form.productCode);
+  formData.append('manufactureCode', form.manufactureCode);
+  formData.append('sizeCode', form.sizeCode);
+  formData.append('typeCode', form.typeCode);
 
-export type ProductEditorProps = {
-  imgs: Array<string>;
-};
+  formData.append('title', form.title);
+  formData.append('url', form.url);
+  formData.append('serial', form.serial);
+  formData.append('manufacture', form.manufacture);
+  formData.append('size', form.size);
+  formData.append('price', form.price);
 
-export type resProductPacket = {
-  msg: string;
-};
+  form.images.map((img: any) => formData.append('images', img));
 
-export type reqCategoryPacket = {
-  id: number;
+  return formData;
+}
+
+export async function reqWrite(form: reqWriteFormPacket) {
+  const data = initForm(form);
+
+  const res = await client.post('/write', data);
+
+  return res.data;
+}
+
+/////////////////////////////////////
+// 제품 분류 카테고리
+/////////////////////////////////////
+export type reqWriteCategoryPacket = {
+  code: number;
 };
 
 export type writeCategoryState = {
@@ -54,59 +68,36 @@ export type resWriteCategoryPacket = {
   typeCategoryList: Array<writeCategoryState>;
 };
 
-export async function reqCategory(id: reqCategoryPacket) {
-  const res = await client.post('/writeCategory', { id });
+export async function reqCategory({ code }: reqWriteCategoryPacket) {
+  const res = await client.post('/writeCategory', { code });
 
   return res.data;
 }
 
-export async function reqWrite(files: any) {
-  const formData = new FormData();
+/////////////////////////////////////
+// 등록된 제품 수정 정보 불러오기
+/////////////////////////////////////
+export type reqWriteSelectPacket = {
+  id: number;
+};
 
-  formData.append('productCode', files.productCode);
-  formData.append('manufactureCode', files.manufactureCode);
-  formData.append('sizeCode', files.sizeCode);
-  formData.append('typeCode', files.typeCode);
+export type resWriteSelectPacket = reqWriteFormPacket & {};
 
-  formData.append('title', files.title);
-  formData.append('url', files.url);
-  formData.append('serial', files.serial);
-  formData.append('manufacture', files.manufacture);
-  formData.append('size', files.size);
-  formData.append('price', files.price);
-
-  files.images.map((file: any) => formData.append('images', file));
-
-  const res = await client.post('/write', formData);
-
-  return res;
-}
-
-export async function reqWriteSelect(id: any) {
+export async function reqWriteSelect({ id }: reqWriteSelectPacket) {
   const res = await client.get(`/write/${id}`);
 
   return res.data;
 }
 
-export async function reqModify(files: any) {
-  const formData = new FormData();
+/////////////////////////////////////
+// 등록된 제품 수정 정보 불러오기
+/////////////////////////////////////
+export type reqWriteModifyPacket = reqWriteFormPacket & {};
 
-  // formData.append('id', files.id);
-  formData.append('productCode', files.productCode);
-  formData.append('manufactureCode', files.manufactureCode);
-  formData.append('sizeCode', files.sizeCode);
-  formData.append('typeCode', files.typeCode);
+export async function reqModify(form: reqWriteModifyPacket) {
+  const data = initForm(form);
 
-  formData.append('title', files.title);
-  formData.append('url', files.url);
-  formData.append('serial', files.serial);
-  formData.append('manufacture', files.manufacture);
-  formData.append('size', files.size);
-  formData.append('price', files.price);
+  const res = await client.patch(`/write/${form.id}`, data);
 
-  files.images.map((file: any) => formData.append('images', file));
-
-  const res = await client.patch(`/write/${files.id}`, formData);
-
-  return res;
+  return res.data;
 }

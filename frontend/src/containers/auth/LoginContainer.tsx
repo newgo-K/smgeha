@@ -1,7 +1,7 @@
 import Login from 'components/auth/Login';
 import { nullCheck } from 'lib/common/commonLib';
 import { RootState } from 'lib/modules';
-import { changeField, loginAsync, setUser } from 'lib/modules/auth';
+import { changeField, loginAsync } from 'lib/modules/auth';
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteChildrenProps, withRouter } from 'react-router-dom';

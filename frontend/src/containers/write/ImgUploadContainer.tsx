@@ -29,27 +29,30 @@ function ImgUploadContainer() {
     setImgHover([...arr]);
   };
 
+  // 등록된 이미지 불러오기
   useEffect(() => {
     if (write.images.length > 0 && 'string' === typeof write.images[0]) {
-      const imgs = [...images];
-      const files1 = [...files];
+      const tempImgs = [...images];
+      const tempFiles = [...files];
 
-      write.images.forEach(async (name: string) => {
+      write.images.forEach((name: string) => {
+        // 이미지 제목으로 blob 읽어오기
         const url = `/images/${name}`;
         const request = new XMLHttpRequest();
 
         request.open('GET', url, true);
         request.responseType = 'blob';
 
-        await request.send();
+        request.send();
 
         request.onload = async (e: any) => {
           const blob = e.target.response;
           const reader = new FileReader();
 
-          await reader.readAsDataURL(blob);
+          reader.readAsDataURL(blob);
 
           reader.onload = (e: any) => {
+            // slick 사용을 위해 file api 등록
             const file = new File([blob], url, {
               type: blob.type,
               lastModified: Date.now(),
@@ -60,11 +63,11 @@ function ImgUploadContainer() {
               file,
             };
 
-            files1.push(file as never);
-            imgs.push(img as never);
+            tempImgs.push(img as never);
+            tempFiles.push(file as never);
 
-            setImages([...imgs]);
-            setFiles([...files]);
+            setImages([...tempImgs]);
+            setFiles([...tempFiles]);
           };
         };
       });
@@ -101,8 +104,10 @@ function ImgUploadContainer() {
       });
       if (check) return;
 
+      // slick 이미지 리스트 등록
       setImages(imageList as never[]);
 
+      // 폼에 이미지 등록
       dispatch(
         productWriteSetForm({
           key: 'images',

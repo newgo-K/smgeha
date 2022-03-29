@@ -1,3 +1,4 @@
+import { CATEGORY } from 'lib/common/commonLib';
 import { asyncState, createAsyncReducer } from 'lib/common/reducerUtils';
 import { createReducer } from 'typesafe-actions';
 import {
@@ -8,7 +9,7 @@ import {
 import { CategoryAction, CategoryState } from './types';
 
 const initState: CategoryState = {
-  productCategoryCode: 2,
+  productCategoryCode: CATEGORY.INTRODUCE + 1,
   productCategory: asyncState.init(),
   productSubCategory: asyncState.init(),
 };

@@ -53,6 +53,13 @@ public class ProductServiceImpl implements ProductService {
             product = productMapper.selectProductInfo(id);
         }
 
+        if(product == null) {
+            product = new ProductDTO();
+
+            product.setId(new Long(-1));
+            return product;
+        }
+
         product.setSubImages(productMapper.selectProductSubImage(id));
 
         return product;

@@ -168,7 +168,7 @@ const ButtonStyles = (props: ButtonProps) => (
   <Button
     css={css`
       color: ${palette.black[0]} !important;
-      font-size: 1rem !important;
+      font-size: 1.125rem !important;
       cursor: pointer;
       .MuiButton-label {
         &:hover {

@@ -49,7 +49,7 @@ function ProductImgCarousel({ imgs }: CarouselProps) {
   }
 
   return (
-    <Container>
+    <Wrap>
       <SliderStyles {...settings}>
         {imgs &&
           imgs.map((img: string) => (
@@ -58,9 +58,17 @@ function ProductImgCarousel({ imgs }: CarouselProps) {
             </li>
           ))}
       </SliderStyles>
-    </Container>
+    </Wrap>
   );
 }
+
+const Wrap = styled.div`
+  width: 210px;
+
+  ${mediaQuery('xs')} {
+    width: 170px;
+  }
+`;
 
 const SliderStyles = (props: Settings) => (
   <Slider
@@ -89,14 +97,6 @@ const SliderStyles = (props: Settings) => (
     {...props}
   />
 );
-
-const Container = styled.div`
-  width: 210px;
-
-  ${mediaQuery('xs')} {
-    width: 170px;
-  }
-`;
 
 const CardImg = styled.img`
   width: 150px;

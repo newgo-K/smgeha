@@ -8,33 +8,55 @@ import {
   productDelectAsync,
   productSelectAsync,
 } from 'lib/modules/product/actions';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router';
-import {} from 'lib/api/product';
 import { withRouter } from 'react-router-dom';
 import { productWriteInitSelect } from 'lib/modules/write/actions';
 import { reqWriteSelect } from 'lib/api/write';
+import useScript from 'lib/hook/useScript';
 
 declare global {
   let naver: any;
 }
 
 function ProductInfoContainer() {
+  const [mapLoaded, setMapLoaded] = useState<boolean>(false);
+
   const dispatch = useDispatch();
-  const { product } = useSelector(({ product, naverMap }: RootState) => ({
+  const { product, user } = useSelector(({ product, auth }: RootState) => ({
     product: product.info.success,
+    user: auth.user,
   }));
 
   const history = useHistory();
   const { id } = useParams<{ id?: string }>();
 
+  const mapLoad = useScript(
+    `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.REACT_APP_NAVER_MAP_KEY}&submodules=geocoder`,
+  );
+
+  useEffect(() => {
+    if (mapLoad) {
+      setMapLoaded(mapLoad);
+    }
+  }, [mapLoad]);
+
   useEffect(() => {
     dispatch(productSelectAsync.request({ id } as any));
   }, [dispatch, id]);
 
+  // 없는 정보라면 메인으로
+  useEffect(() => {
+    if (product) {
+      if (product.id < 0) {
+        history.push('/');
+      }
+    }
+  }, [product, history]);
+
   const onEdit = async () => {
-    const res = await reqWriteSelect(id);
+    const res = await reqWriteSelect({ id } as any);
     dispatch(productWriteInitSelect({ value: res }));
     history.push(`/write/${id}`);
   };
@@ -59,6 +81,8 @@ function ProductInfoContainer() {
       <PageTitle leftContent={leftContent} title="상세내용" />
       {product && (
         <ProductInfo
+          mapLoaded={mapLoaded}
+          user={user}
           name={product.name}
           serial={product.serial}
           size={product.size}

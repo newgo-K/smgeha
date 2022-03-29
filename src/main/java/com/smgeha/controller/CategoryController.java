@@ -32,5 +32,5 @@ public class CategoryController {
 
     @PostMapping(value = "/writeCategory")
     public WriteCategoryListDTO getWrtieCategoryList(@RequestBody WriteCategoryDTO categoryDTO) {
-        return categoryService.getWriteCategoryList(categoryDTO.getProductCategoryId());}
+        return categoryService.getWriteCategoryList(categoryDTO.getCode());}
 }

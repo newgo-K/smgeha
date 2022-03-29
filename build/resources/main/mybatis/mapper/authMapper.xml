@@ -5,6 +5,6 @@
 
 <mapper namespace="com.smgeha.mapper.auth.AuthMapper">
     <select id="getAuthInfo" resultType="com.smgeha.domain.auth.AuthDTO">
-        select userId, type from auth where userId = #{userId};
+        select id, userId, password, role from auth where userId = #{userId};
     </select>
 </mapper>

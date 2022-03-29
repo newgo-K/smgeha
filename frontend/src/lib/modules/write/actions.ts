@@ -1,5 +1,12 @@
 import { AxiosError } from 'axios';
 import {
+  reqWriteCategoryPacket,
+  reqWriteFormPacket,
+  reqWriteModifyPacket,
+  reqWriteSelectPacket,
+  resWriteCategoryPacket,
+} from 'lib/api/write';
+import {
   createActionEntity,
   createAsyncActionType,
 } from 'lib/common/reducerUtils';
@@ -42,23 +49,29 @@ export const productWriteSetForm = createAction(
   ({ key, value }) => ({ key, value }),
 )<any>();
 
+export const productWriteUploadAsync = createActionEntity<
+  reqWriteFormPacket,
+  null,
+  AxiosError
+>(REQ_PRODUCT_WRITE_UPLOAD);
+
 export const productWriteCategoryAsync = createActionEntity<
-  any,
-  any,
+  reqWriteCategoryPacket,
+  resWriteCategoryPacket,
   AxiosError
 >(REQ_PRODUCT_WRITE_CATEGORY);
 
-export const productWriteSelectAsync = createActionEntity<any, any, AxiosError>(
-  REQ_PRODUCT_WRITE_SELECT,
-);
+export const productWriteSelectAsync = createActionEntity<
+  reqWriteSelectPacket,
+  resWriteCategoryPacket,
+  AxiosError
+>(REQ_PRODUCT_WRITE_SELECT);
 
-export const productWriteUploadAsync = createActionEntity<any, any, AxiosError>(
-  REQ_PRODUCT_WRITE_UPLOAD,
-);
-
-export const productWriteModifyAsync = createActionEntity<any, any, AxiosError>(
-  REQ_PRODUCT_WRITE_MODIFY,
-);
+export const productWriteModifyAsync = createActionEntity<
+  reqWriteModifyPacket,
+  null,
+  AxiosError
+>(REQ_PRODUCT_WRITE_MODIFY);
 
 /////////////////////////////////////
 // actionsSetting
@@ -67,8 +80,8 @@ export const actions = {
   productWriteInitForm,
   productWriteInitSelect,
   productWriteSetForm,
+  productWriteUploadAsync,
   productWriteCategoryAsync,
   productWriteSelectAsync,
-  productWriteUploadAsync,
   productWriteModifyAsync,
 };

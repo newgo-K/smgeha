@@ -1,14 +1,17 @@
 import { css } from '@emotion/react';
 import palette from 'lib/styles/palette';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import styled from '@emotion/styled';
 import ProductImgCarousel from './ProductImgCarousel';
 import { formWidth, mediaQuery } from 'lib/styles/common';
 import Button, { ButtonProps } from 'components/common/Button';
+import { resLoginPacket } from 'lib/api/auth';
 
 export type ProductInfoProps = {
+  mapLoaded: boolean;
+  user: resLoginPacket;
   name: string;
   serial: string;
   size: string;
@@ -22,6 +25,8 @@ export type ProductInfoProps = {
 };
 
 function ProductInfo({
+  mapLoaded,
+  user,
   name,
   serial,
   size,
@@ -41,24 +46,61 @@ function ProductInfo({
     }
   }, [subTypes]);
 
+  useEffect(() => {
+    if (mapLoaded) {
+      const lat = 35.973427;
+      const lng = 126.7061717;
+
+      const mapCenter = new naver.maps.LatLng(lat, lng);
+
+      const map = new naver.maps.Map('map', {
+        center: mapCenter,
+        zoom: 18,
+      });
+
+      const marker = new naver.maps.Marker({
+        position: mapCenter,
+        map: map,
+      });
+
+      var contentString = [
+        '<div style="padding: 10px; text-align: center">',
+        '   <p>전북 군산시 팔마로 46 <br />전북 군산시 문화동 908-21<br />',
+        '       전화번호 : 063-453-4137<br />',
+        '   </p>',
+        '</div>',
+      ].join('');
+
+      var infowindow = new naver.maps.InfoWindow({
+        content: contentString,
+      });
+
+      infowindow.open(map, marker);
+    }
+  }, [mapLoaded]);
+
   return (
     <Wrap>
-      <ModifyBtnStyles
-        variant="outlined"
-        size="large"
-        maxWidth
-        onClick={onEdit}
-      >
-        수정
-      </ModifyBtnStyles>
-      <DeleteBtnStyles
-        variant="outlined"
-        size="large"
-        maxWidth
-        onClick={onDelete}
-      >
-        삭제
-      </DeleteBtnStyles>
+      {user.role && (
+        <>
+          <ModifyBtnStyles
+            variant="outlined"
+            size="large"
+            maxWidth
+            onClick={onEdit}
+          >
+            수정
+          </ModifyBtnStyles>
+          <DeleteBtnStyles
+            variant="outlined"
+            size="large"
+            maxWidth
+            onClick={onDelete}
+          >
+            삭제
+          </DeleteBtnStyles>
+        </>
+      )}
       <Title>
         <Typography variant="h1">{name}</Typography>
       </Title>
@@ -106,21 +148,10 @@ function ProductInfo({
               안녕하세요!!! 궁금사항은 해당 제품 시리얼로 문의 부탁드립니다.
               최고의 품질로 최고의 만족을 드리겠습니다. 감사합니다.
             </ShopInfo>
-            <ShopPhone>전화번호 : 063-453-4137</ShopPhone>
-            <ShopMapInfo>오시는 길</ShopMapInfo>
-            <ShopAddr>도로명 : 전북 군산시 팔마로 46 BAR</ShopAddr>
-            <ShopAddr>지번 : 전북 군산시 문화동 908-21 BAR</ShopAddr>
 
-            <img
-              css={css`
-                width: 100%;
-                margin: auto;
-                padding: 10px 0;
-                background-size: contain;
-              `}
-              src="/img/map.png"
-              alt="지도"
-            />
+            <ShopMapInfo>오시는 길</ShopMapInfo>
+
+            {mapLoaded && <MapWrap id="map" />}
           </ShopWrap>
         </>
       )}
@@ -202,6 +233,7 @@ const GuideDetail = styled.div`
 `;
 
 const ShopWrap = styled.div`
+  position: relative;
   overflow: auto;
   height: 500px;
 `;
@@ -220,19 +252,20 @@ const ShopInfo = styled.div`
   font-size: 1.0625rem;
 `;
 
-const ShopPhone = styled.div`
-  padding: 0.625rem 0;
-  border-bottom: 1px solid ${palette.grey[3]};
-  color: ${palette.grey[5]};
-`;
-
 const ShopMapInfo = styled.div`
   padding: 5px 0;
   color: ${palette.grey[7]};
 `;
 
-const ShopAddr = styled.div`
-  color: ${palette.grey[5]};
+const MapWrap = styled.div`
+  position: absolute;
+  width: inherit;
+  height: 300px;
+
+  ${mediaQuery('xs')} {
+    width: inherit;
+    height: inherit;
+  }
 `;
 
 export default ProductInfo;

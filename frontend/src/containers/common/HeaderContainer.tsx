@@ -1,4 +1,5 @@
 import Header from 'components/common/Header';
+import { CATEGORY } from 'lib/common/commonLib';
 import { RootState } from 'lib/modules';
 import {
   productCategoryCode,
@@ -7,10 +8,6 @@ import {
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteChildrenProps, withRouter } from 'react-router-dom';
-
-const enum CATEGORY {
-  INTRODUCE = 1,
-}
 
 function HeaderContainer({ history }: RouteChildrenProps) {
   const dispatch = useDispatch();

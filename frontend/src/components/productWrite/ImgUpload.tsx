@@ -27,7 +27,7 @@ function ImgUpload({
   onChange,
 }: ImgUploadProps) {
   return (
-    <div className="App">
+    <div>
       <ReactImageUploading
         multiple
         value={images}
@@ -43,8 +43,7 @@ function ImgUpload({
           isDragging,
           dragProps,
         }) => (
-          // write your building UI
-          <div className="upload__image-wrapper">
+          <div>
             <ImgButtonStyles>
               <ButtonStyles variant="text" onClick={onImageUpload}>
                 <Icon icon="imgAdd" color={palette.grey[4]} />
@@ -56,34 +55,15 @@ function ImgUpload({
                 <TextStyles>전체 삭제</TextStyles>
               </ButtonStyles>
             </ImgButtonStyles>
-            <div
-              css={css`
-                display: flex;
-                align-items: center;
-              `}
-            >
+
+            <ImgWrap>
               {imageList.map((image, index) => (
                 <ImgStyles
                   key={index}
-                  className="image-item"
                   onMouseEnter={() => handleMouseEnter(index)}
                   onMouseLeave={() => handleMouseLeave(index)}
                 >
-                  <img
-                    css={css`
-                      object-fit: contain;
-                      max-width: 170px;
-                      max-height: 170px;
-                      margin: 0 auto;
-
-                      :hover {
-                        opacity: 1;
-                        filter: alpha(opacity=100);
-                      }
-                    `}
-                    src={image.dataURL}
-                    alt=""
-                  />
+                  <img src={image.dataURL} alt="" />
                   {imghover[index] && (
                     <HoverWrap>
                       <li>
@@ -117,7 +97,7 @@ function ImgUpload({
                   )}
                 </ImgStyles>
               ))}
-            </div>
+            </ImgWrap>
           </div>
         )}
       </ReactImageUploading>
@@ -144,6 +124,18 @@ const ImgStyles = styled.div`
       opacity: 0.4;
     }
   }
+
+  img {
+    object-fit: contain;
+    max-width: 170px;
+    max-height: 170px;
+    margin: 0 auto;
+
+    :hover {
+      opacity: 1;
+      filter: alpha(opacity=100);
+    }
+  }
 `;
 
 const ImgButtonStyles = styled.div`
@@ -164,6 +156,11 @@ const ButtonStyles = (props: ButtonProps) => (
 
 const TextStyles = styled.span`
   margin-left: 0.3125rem;
+`;
+
+const ImgWrap = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 const HoverWrap = styled.ul`

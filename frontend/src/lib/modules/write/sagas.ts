@@ -13,14 +13,14 @@ import {
   reqWriteSelect,
 } from 'lib/api/write';
 
+const uploadSaga = createAsyncSaga(productWriteUploadAsync, reqWrite);
 const categorySaga = createAsyncSaga(productWriteCategoryAsync, reqCategory);
 const selectSaga = createAsyncSaga(productWriteSelectAsync, reqWriteSelect);
-const uploadSaga = createAsyncSaga(productWriteUploadAsync, reqWrite);
 const modifySaga = createAsyncSaga(productWriteModifyAsync, reqModify);
 
 export function* writeSaga() {
+  yield takeLatest(productWriteUploadAsync.request, uploadSaga);
   yield takeLatest(productWriteCategoryAsync.request, categorySaga);
   yield takeLatest(productWriteSelectAsync.request, selectSaga);
-  yield takeLatest(productWriteUploadAsync.request, uploadSaga);
   yield takeLatest(productWriteModifyAsync.request, modifySaga);
 }

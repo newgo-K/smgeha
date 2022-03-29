@@ -5,27 +5,38 @@ import {
   productWriteCategoryAsync,
   productWriteSetForm,
 } from 'lib/modules/write/actions';
-import { resWriteCategoryPacket, ResWriteForm } from 'lib/api/write';
+import {
+  resWriteCategoryPacket,
+  resWriteFormPacket,
+  reqWriteCategoryPacket,
+} from 'lib/api/write';
 import ProductWriteSelect from 'components/productWrite/productWriteSelect';
+import { CATEGORY } from 'lib/common/commonLib';
 
 function ProductWriteSelectContainer() {
   const dispatch = useDispatch();
   const { form, categories } = useSelector(({ write }: RootState) => ({
-    form: write.writeForm as ResWriteForm,
+    form: write.writeForm as resWriteFormPacket,
     categories: write.category.success as resWriteCategoryPacket,
   }));
 
   useEffect(() => {
-    if (form.productCode > 2) {
-      dispatch(productWriteCategoryAsync.request(form.productCode));
-    } else {
-      dispatch(productWriteCategoryAsync.request(2));
+    let code = CATEGORY.INTRODUCE + 1;
+
+    if (form.productCode > code) {
+      code = form.productCode;
     }
+
+    dispatch(
+      productWriteCategoryAsync.request({ code } as reqWriteCategoryPacket),
+    );
   }, [dispatch, form.productCode]);
 
   const onClick = useCallback(
-    (id: number) => {
-      dispatch(productWriteCategoryAsync.request(id));
+    (code: number) => {
+      dispatch(
+        productWriteCategoryAsync.request({ code } as reqWriteCategoryPacket),
+      );
     },
     [dispatch],
   );

@@ -1,11 +1,10 @@
 import produce from 'immer';
+import { CATEGORY } from 'lib/common/commonLib';
 import { asyncState, createAsyncReducer } from 'lib/common/reducerUtils';
 import { createReducer } from 'typesafe-actions';
 import {
   productWriteCategoryAsync,
-  productWriteModifyAsync,
   productWriteSelectAsync,
-  productWriteUploadAsync,
   PRODUCT_WRITE_INIT_FORM,
   PRODUCT_WRITE_INIT_SELECT,
   PRODUCT_WRITE_SET_FORM,
@@ -15,7 +14,7 @@ import { ProductWriteAction, ProductWriteState } from './types';
 const initState: ProductWriteState = {
   writeForm: {
     id: 0,
-    productCode: 2,
+    productCode: CATEGORY.INTRODUCE + 1,
     manufactureCode: 0,
     sizeCode: 0,
     typeCode: 0,
@@ -30,8 +29,6 @@ const initState: ProductWriteState = {
   },
   category: asyncState.init(),
   select: asyncState.init(),
-  upload: asyncState.init(),
-  modify: asyncState.init(),
 };
 
 const write = createReducer<ProductWriteState, ProductWriteAction>(initState, {
@@ -49,8 +46,6 @@ const write = createReducer<ProductWriteState, ProductWriteAction>(initState, {
     }),
   ...createAsyncReducer(productWriteCategoryAsync, 'category'),
   ...createAsyncReducer(productWriteSelectAsync, 'select'),
-  ...createAsyncReducer(productWriteUploadAsync, 'upload'),
-  ...createAsyncReducer(productWriteModifyAsync, 'modify'),
 });
 
 export default write;

@@ -4,8 +4,17 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.smgeha.mapper.product.ProductMapper">
+    <select id="selectProductPriceList" parameterType="int" resultType="com.smgeha.domain.product.ProductDTO">
+        select p.id, p.name, p.serial, p.image, p.`size`, p.manufacture, p.url, group_concat(psc.name order by psc.code) as sub_types
+        from product p
+        inner join product_search_info psi
+        inner join product_sub_category psc
+        where p.id = psi.product_id and psc.code = psi.product_sub_category_code and psi.product_category_code = #{code}
+        group by psi.product_id;
+    </select>
+
     <select id="selectProductList" parameterType="int" resultType="com.smgeha.domain.product.ProductDTO">
-        select p.id, p.name, p.serial, p.image, p.`size`, p.manufacture, p.price, p.url, group_concat(psc.name order by psc.code) as sub_types
+        select p.id, p.name, p.serial, p.image, p.`size`, p.manufacture, p.url, group_concat(psc.name order by psc.code) as sub_types
         from product p
         inner join product_search_info psi
         inner join product_sub_category psc
@@ -16,7 +25,7 @@
     <select id="findSubCategoryProductList" parameterType="com.smgeha.domain.product.ProductSubCategorySerachDTO" resultType="com.smgeha.domain.product.ProductDTO">
         select * from
         (
-        select p.id, p.name, p.serial, p.image, p.`size`, p.manufacture, p.price, p.url,
+        select p.id, p.name, p.serial, p.image, p.`size`, p.manufacture, p.url,
         group_concat(psc.name order by psc.code) as sub_types,
         group_concat(psi.product_sub_category_code) as sub_codes
         from product p
@@ -33,8 +42,17 @@
         </if>
     </select>
 
+    <select id="selectProductPriceInfo" parameterType="int" resultType="com.smgeha.domain.product.ProductDTO">
+        select p.id, p.name, p.serial, p.image, p.`size`, p.manufacture, p.url, group_concat(psc.name order by psc.code) as sub_types
+        from product p
+        inner join product_search_info psi
+        inner join product_sub_category psc
+        where p.id = #{id} and p.id = psi.product_id and psc.code = psi.product_sub_category_code
+        group by psi.product_id;
+    </select>
+
     <select id="selectProductInfo" parameterType="int" resultType="com.smgeha.domain.product.ProductDTO">
-        select p.id, p.name, p.serial, p.image, p.`size`, p.manufacture, p.price, p.url, group_concat(psc.name order by psc.code) as sub_types
+        select p.id, p.name, p.serial, p.image, p.`size`, p.manufacture, p.url, group_concat(psc.name order by psc.code) as sub_types
         from product p
         inner join product_search_info psi
         inner join product_sub_category psc
@@ -45,4 +63,17 @@
     <select id="selectProductSubImage" parameterType="int" resultType="string">
         select image from product_sub_image where product_id = #{id};
     </select>
+
+    <delete id="deleteProductSubImg" parameterType="int">
+        delete from product_sub_image where product_id = #{id}
+
+    </delete>
+
+    <delete id="deleteProductSearchInfo" parameterType="int">
+        delete from product_search_info where product_id = #{id}
+    </delete>
+
+    <delete id="deleteProductInfo" parameterType="int">
+        delete from product where id = #{id}
+    </delete>
 </mapper>

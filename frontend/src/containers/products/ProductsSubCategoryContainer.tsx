@@ -8,10 +8,7 @@ import ProductSubCategory, {
   subCategoryState,
 } from 'components/products/ProductsSubCategory';
 import { productsSubCategorySearchAsync } from 'lib/modules/products/actions';
-
-const enum CATEGORY {
-  INTRODUCE = 1,
-}
+import { CATEGORY } from 'lib/common/commonLib';
 
 function ProductSubCategoryContainer() {
   const dispatch = useDispatch();
