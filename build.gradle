@@ -73,5 +73,5 @@ task copyWebApp(type: Copy) {
 }
 
 //yarnBuild.dependsOn appNpmInstall
-copyWebApp.dependsOn yarnBuild
-compileJava.dependsOn copyWebApp
+//copyWebApp.dependsOn yarnBuild
+//compileJava.dependsOn copyWebApp

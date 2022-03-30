@@ -29,14 +29,11 @@ function Footer() {
 }
 
 const Wrap = styled.div`
-  position: fixed;
-  left: 50%;
-  bottom: 0%;
-  transform: translate(-50%, 0);
+  position: relative;
   min-width: 1380px;
   max-width: 1380px;
   margin: 0 auto;
-  padding: 0.9375rem 0;
+  padding: 0.9375rem;
   background: ${palette.white};
   border-top: 0.9375rem solid ${palette.grey[0]};
   color: ${palette.grey[4]};
@@ -46,7 +43,6 @@ const Wrap = styled.div`
   }
 
   ${mediaQuery('xs')} {
-    position: relative;
     padding: 0.625rem;
     min-width: ${formWidth()};
     max-width: ${formWidth()};

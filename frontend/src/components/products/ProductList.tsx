@@ -113,6 +113,7 @@ export default function ProductList({ products, onClick }: ProductsProps) {
 const Wrap = styled.div`
   display: flex;
   flex-wrap: wrap;
+  overflow: visible;
   padding: 0.625rem;
   border-radius: 0.25rem;
 

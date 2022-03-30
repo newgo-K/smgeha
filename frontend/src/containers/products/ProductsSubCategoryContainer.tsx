@@ -30,14 +30,11 @@ function ProductSubCategoryContainer() {
 
   // 최초 서브 카테고리는 업체 소개 다음 카테고리로 초기화
   useEffect(() => {
-    const code = CATEGORY.INTRODUCE + 1;
-    dispatch(productSubCategorySelectAsync.request({ code }));
-  }, [dispatch]);
-
-  // 메인 카테고리 선택시 그에 맞는 서브 카테고리 로드
-  useEffect(() => {
     if (mainCode > 0) {
       dispatch(productSubCategorySelectAsync.request({ code: mainCode }));
+    } else {
+      const code = CATEGORY.INTRODUCE + 1;
+      dispatch(productSubCategorySelectAsync.request({ code }));
     }
   }, [mainCode, dispatch]);
 

@@ -24,12 +24,12 @@ com/smgeha/web/dto/auth/AuthRequestDto.java
  com.smgeha.web.dto.auth.AuthRequestDto
 com/smgeha/domain/write/WriteFormDTO.java
  com.smgeha.domain.write.WriteFormDTO
-com/smgeha/service/product/ProductServiceImpl.java
- com.smgeha.service.product.ProductServiceImpl
-com/smgeha/controller/CategoryController.java
- com.smgeha.controller.CategoryController
-com/smgeha/web/SecurityConfig.java
- com.smgeha.web.SecurityConfig
+com/smgeha/domain/products/Products.java
+ com.smgeha.domain.products.Products
+com/smgeha/web/HelloController.java
+ com.smgeha.web.HelloController
+com/smgeha/domain/category/ProductSubCategoryDTO.java
+ com.smgeha.domain.category.ProductSubCategoryDTO
 com/smgeha/domain/common/FileRepository.java
  com.smgeha.domain.common.FileRepository
 com/smgeha/service/auth/AuthService.java
@@ -40,8 +40,8 @@ com/smgeha/web/dto/auth/Role.java
  com.smgeha.web.dto.auth.Role
 com/smgeha/controller/AuthController.java
  com.smgeha.controller.AuthController
-com/smgeha/web/WebMvcConfig.java
- com.smgeha.web.WebMvcConfig
+com/smgeha/domain/auth/StatusCode.java
+ com.smgeha.domain.auth.StatusCode
 com/smgeha/domain/product/Product.java
  com.smgeha.domain.product.Product
 com/smgeha/service/products/ProductsService.java
@@ -115,11 +115,13 @@ com/smgeha/web/dto/product/productResponseDto.java
  com.smgeha.web.dto.product.productResponseDto
 com/smgeha/domain/category/ProductCategoryDTO.java
  com.smgeha.domain.category.ProductCategoryDTO
-com/smgeha/domain/products/Products.java
- com.smgeha.domain.products.Products
-com/smgeha/domain/auth/StatusCode.java
- com.smgeha.domain.auth.StatusCode
-com/smgeha/domain/category/ProductSubCategoryDTO.java
- com.smgeha.domain.category.ProductSubCategoryDTO
-com/smgeha/web/HelloController.java
- com.smgeha.web.HelloController
+com/smgeha/controller/CategoryController.java
+ com.smgeha.controller.CategoryController
+com/smgeha/web/SecurityConfig.java
+ com.smgeha.web.SecurityConfig
+com/smgeha/web/CookieAttributeFilter.java
+ com.smgeha.web.CookieAttributeFilter
+com/smgeha/web/WebMvcConfig.java
+ com.smgeha.web.WebMvcConfig
+com/smgeha/service/product/ProductServiceImpl.java
+ com.smgeha.service.product.ProductServiceImpl

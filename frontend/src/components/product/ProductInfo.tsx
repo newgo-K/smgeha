@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import palette from 'lib/styles/palette';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import styled from '@emotion/styled';
@@ -8,6 +8,7 @@ import ProductImgCarousel from './ProductImgCarousel';
 import { formWidth, mediaQuery } from 'lib/styles/common';
 import Button, { ButtonProps } from 'components/common/Button';
 import { resLoginPacket } from 'lib/api/auth';
+import { nullCheck } from 'lib/common/commonLib';
 
 export type ProductInfoProps = {
   mapLoaded: boolean;
@@ -47,7 +48,7 @@ function ProductInfo({
   }, [subTypes]);
 
   useEffect(() => {
-    if (mapLoaded) {
+    if (mapLoaded && nullCheck(url)) {
       const lat = 35.973427;
       const lng = 126.7061717;
 
@@ -77,7 +78,7 @@ function ProductInfo({
 
       infowindow.open(map, marker);
     }
-  }, [mapLoaded]);
+  }, [mapLoaded, url]);
 
   return (
     <Wrap>
@@ -143,7 +144,7 @@ function ProductInfo({
       ) : (
         <>
           <ShopWrap>
-            <ShopTitle css={css``}>군산새만금중고가전</ShopTitle>
+            <ShopTitle>군산새만금중고가전</ShopTitle>
             <ShopInfo>
               안녕하세요!!! 궁금사항은 해당 제품 시리얼로 문의 부탁드립니다.
               최고의 품질로 최고의 만족을 드리겠습니다. 감사합니다.
