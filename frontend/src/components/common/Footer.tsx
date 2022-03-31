@@ -11,10 +11,7 @@ function Footer() {
         <Grid item={true} sm={3} xs={6}>
           상호 : 새만금 중고가전
         </Grid>
-        <Grid item={true} sm={3} xs={6}>
-          전화번호 : 063-453-4137
-        </Grid>
-        <Grid item={true} sm={6} xs={12}>
+        <Grid item={true} sm={8} xs={12}>
           오시는 길 : 전라북도 군산시 문화동 908-21
         </Grid>
         <Grid item={true} sm={3} xs={12}>
@@ -33,7 +30,7 @@ const Wrap = styled.div`
   min-width: 1380px;
   max-width: 1380px;
   margin: 0 auto;
-  padding: 0.9375rem;
+  padding: 0.9375rem 0;
   background: ${palette.white};
   border-top: 0.9375rem solid ${palette.grey[0]};
   color: ${palette.grey[4]};
