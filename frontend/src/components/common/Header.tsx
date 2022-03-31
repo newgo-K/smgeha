@@ -108,7 +108,7 @@ function Header({
           {categories && list(categories)}
         </Drawer>
       </Mobile>
-      {user.role && (
+      {user.role === 'ROLE_ADMIN' && (
         <WriteButtonStyles>
           <Button iconOnly variant="outlined" onClick={onWrite}>
             <Icon icon="imgAdd" color={palette.main[4]} />

@@ -82,7 +82,7 @@ function ProductInfo({
 
   return (
     <Wrap>
-      {user.role && (
+      {user.role === 'ROLE_ADMIN' && (
         <>
           <ModifyBtnStyles
             variant="outlined"
